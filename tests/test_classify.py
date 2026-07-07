@@ -45,3 +45,16 @@ def test_deterministic_category_assignment_prefers_strongest_match() -> None:
     assert result.category == "authorization"
     assert result.bucket in {"read_now", "monitor"}
     assert result.relevance_score >= 7
+
+
+def test_ai_network_penalty_avoids_partial_phrase_matches() -> None:
+    record = DraftRecord(
+        versioned_name="draft-example-ai-00",
+        base_name="draft-example-ai",
+        version=0,
+        datatracker_url="https://example.test",
+        title="AI dashboard overview",
+        abstract="Focuses on telemetrical dashboards for operators.",
+    )
+    result = classify_record(record, TEST_CONFIG)
+    assert result.relevance_score == 2

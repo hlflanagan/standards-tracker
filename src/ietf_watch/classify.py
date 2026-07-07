@@ -39,7 +39,7 @@ def classify_record(record: DraftRecord, config: WatchConfig) -> ClassificationR
                 category_hits[category] += 1
 
     if contains_keyword(text, "ai") and not any(contains_keyword(text, hint) for hint in CORE_AI_TRUST_HINTS):
-        if any(hint in text for hint in NETWORK_AI_HINTS):
+        if any(contains_keyword(text, hint) for hint in NETWORK_AI_HINTS):
             score = max(0, score - 3)
 
     if category_hits:
