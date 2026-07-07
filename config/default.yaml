@@ -1,0 +1,146 @@
+report_title: IETF Identity + AI Standards Watch
+minimum_reporting_threshold: 4
+keywords:
+  - identity
+  - identifier
+  - credential
+  - wallet
+  - verifiable
+  - attestation
+  - attested
+  - endorsement
+  - authentication
+  - authorization
+  - authorize
+  - oauth
+  - openid
+  - oidc
+  - jwt
+  - cwt
+  - jose
+  - cose
+  - selective disclosure
+  - sd-cwt
+  - sd-jwt
+  - privacy pass
+  - anonymous
+  - pseudonymous
+  - unlinkable
+  - delegation
+  - agent
+  - agentic
+  - ai
+  - artificial intelligence
+  - model
+  - provenance
+  - transparency
+  - trust
+  - reputation
+  - workload identity
+  - non-human identity
+  - nhi
+  - rats
+  - eat
+  - scitt
+  - wimse
+  - spice
+  - lamps
+  - gnap
+  - passkey
+  - fido
+  - did
+  - vc
+  - mcp
+wg_boosts:
+  - spice
+  - oauth
+  - gnap
+  - cose
+  - jose
+  - rats
+  - scitt
+  - wimse
+  - privacypass
+  - emu
+  - kitten
+  - lamps
+  - acme
+  - tls
+  - uta
+  - masque
+  - httpapi
+  - httpbis
+  - webtrans
+  - dispatch
+  - gendispatch
+  - secdispatch
+  - artarea
+  - saag
+  - cfrg
+  - ppm
+categories:
+  core_identity:
+    - identity
+    - identifier
+    - authentication
+    - federation
+    - account binding
+    - account lifecycle
+    - identity proofing
+  authorization:
+    - authorization
+    - authorize
+    - oauth
+    - gnap
+    - delegated authorization
+    - scopes
+    - claims-based authorization
+    - agent authority
+  verifiable_claims:
+    - cwt
+    - jwt
+    - cose
+    - jose
+    - sd-cwt
+    - sd-jwt
+    - verifiable credential
+    - verifiable credentials
+    - wallet
+    - presentation
+    - presentations
+  trust_infrastructure:
+    - rats
+    - eat
+    - scitt
+    - provenance
+    - transparency
+    - attestation
+    - attested
+    - supply-chain trust
+  agent_identity:
+    - ai agent
+    - ai agents
+    - agentic
+    - non-human identity
+    - workload identity
+    - delegated agent action
+    - agent authority
+  ai_infrastructure:
+    - ai governance
+    - ai provenance
+    - model metadata
+    - ai safety metadata
+    - ai protocol infrastructure
+    - artificial intelligence
+  privacy_security:
+    - unlinkability
+    - pseudonymity
+    - selective disclosure
+    - anonymous credentials
+    - privacy-preserving verification
+    - privacy pass
+  adjacent_watchlist:
+    - trust
+    - reputation
+    - transparency
+    - model
