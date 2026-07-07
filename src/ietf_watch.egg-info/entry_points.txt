@@ -1,0 +1,2 @@
+[console_scripts]
+ietf-watch = ietf_watch.cli:main
