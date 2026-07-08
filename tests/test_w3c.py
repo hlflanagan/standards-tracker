@@ -51,13 +51,15 @@ def test_extract_w3c_specifications_parses_nested_payload() -> None:
 
 
 def test_extract_w3c_specifications_honors_cutoff() -> None:
-    payload = [
-        {
-            "shortname": "did-core",
-            "uri": "https://www.w3.org/TR/did-core/",
-            "updated": "2024-01-01",
-        }
-    ]
+    payload = {
+        "items": [
+            {
+                "shortname": "did-core",
+                "uri": "https://www.w3.org/TR/did-core/",
+                "updated": "2024-01-01",
+            }
+        ]
+    }
 
     records = extract_w3c_specifications(payload, cutoff=date(2026, 1, 1))
 
@@ -65,13 +67,15 @@ def test_extract_w3c_specifications_honors_cutoff() -> None:
 
 
 def test_extract_w3c_specifications_includes_record_on_cutoff_boundary() -> None:
-    payload = [
-        {
-            "shortname": "did-core",
-            "uri": "https://www.w3.org/TR/did-core/",
-            "updated": "2026-01-01",
-        }
-    ]
+    payload = {
+        "items": [
+            {
+                "shortname": "did-core",
+                "uri": "https://www.w3.org/TR/did-core/",
+                "updated": "2026-01-01",
+            }
+        ]
+    }
 
     records = extract_w3c_specifications(payload, cutoff=date(2026, 1, 1))
 
