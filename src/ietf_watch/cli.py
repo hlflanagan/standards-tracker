@@ -12,6 +12,7 @@ from .config import DEFAULT_CONFIG_PATH, load_config
 from .datatracker import fetch_recent_drafts
 from .reporting import write_reports
 from .storage import WatchStore
+from .w3c import fetch_recent_w3c_specs
 
 LOGGER = logging.getLogger(__name__)
 DEFAULT_DB_PATH = Path(".data/ietf_watch.db")
@@ -19,9 +20,11 @@ DEFAULT_REPORTS_PATH = Path("reports")
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Monitor recent IETF drafts relevant to identity and AI trust.")
+    parser = argparse.ArgumentParser(
+        description="Monitor recent IETF drafts and W3C specifications relevant to identity and AI trust."
+    )
     parser.add_argument("--use-llm", action="store_true", help="Use OPENAI_API_KEY-backed classification refinement.")
-    parser.add_argument("--since-days", type=int, default=7, help="Recent window to inspect from Datatracker.")
+    parser.add_argument("--since-days", type=int, default=7, help="Recent window to inspect from upstream sources.")
     parser.add_argument("--min-relevance", type=int, default=None, help="Override minimum reporting threshold.")
     parser.add_argument("--dry-run", action="store_true", help="Generate reports without persisting reviewed drafts.")
     parser.add_argument("--config", default=str(DEFAULT_CONFIG_PATH), help="Path to YAML configuration.")
@@ -41,7 +44,10 @@ def main() -> int:
     store = WatchStore(DEFAULT_DB_PATH)
     today = date.today()
     try:
-        records, errors = fetch_recent_drafts(session, since_days=args.since_days)
+        ietf_records, ietf_errors = fetch_recent_drafts(session, since_days=args.since_days)
+        w3c_records, w3c_errors = fetch_recent_w3c_specs(session, since_days=args.since_days)
+        records = ietf_records + w3c_records
+        errors = ietf_errors + w3c_errors
         report_records = []
         for record in records:
             if store.has_seen_version(record.versioned_name):
