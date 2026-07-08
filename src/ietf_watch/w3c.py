@@ -83,13 +83,15 @@ def extract_w3c_specifications(payload: Any, *, cutoff: date | None = None) -> l
 
 
 def _collect_spec_items(payload: Any) -> list[dict[str, Any]]:
-    if isinstance(payload, list):
-        return [item for item in payload if isinstance(item, dict)]
     if not isinstance(payload, dict):
-        return []
+        if isinstance(payload, list):
+            queue: list[Any] = [payload]
+        else:
+            return []
+    else:
+        queue = [payload]
 
     candidates: list[dict[str, Any]] = []
-    queue: list[Any] = [payload]
     while queue:
         current = queue.pop(0)
         if isinstance(current, list):
