@@ -9,6 +9,7 @@ src/ietf_watch/datatracker.py
 src/ietf_watch/models.py
 src/ietf_watch/reporting.py
 src/ietf_watch/storage.py
+src/ietf_watch/w3c.py
 src/ietf_watch.egg-info/PKG-INFO
 src/ietf_watch.egg-info/SOURCES.txt
 src/ietf_watch.egg-info/dependency_links.txt
@@ -19,3 +20,4 @@ tests/test_classify.py
 tests/test_datatracker.py
 tests/test_reporting.py
 tests/test_storage.py
+tests/test_w3c.py

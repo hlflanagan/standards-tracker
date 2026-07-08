@@ -46,6 +46,7 @@ def test_extract_w3c_specifications_parses_nested_payload() -> None:
     assert record.versioned_name == "w3c-vc-data-model-20260707"
     assert record.version == 20260707
     assert record.datatracker_url == "https://www.w3.org/TR/vc-data-model/"
+    assert record.abstract == "Credential data model"
     assert record.group_name == "vcwg"
 
 
@@ -61,6 +62,20 @@ def test_extract_w3c_specifications_honors_cutoff() -> None:
     records = extract_w3c_specifications(payload, cutoff=date(2026, 1, 1))
 
     assert records == []
+
+
+def test_extract_w3c_specifications_includes_record_on_cutoff_boundary() -> None:
+    payload = [
+        {
+            "shortname": "did-core",
+            "uri": "https://www.w3.org/TR/did-core/",
+            "updated": "2026-01-01",
+        }
+    ]
+
+    records = extract_w3c_specifications(payload, cutoff=date(2026, 1, 1))
+
+    assert len(records) == 1
 
 
 def test_fetch_recent_w3c_specs_returns_records_without_errors() -> None:
@@ -79,3 +94,16 @@ def test_fetch_recent_w3c_specs_returns_records_without_errors() -> None:
 
     assert len(records) == 1
     assert errors == []
+
+
+class _FailingSession:
+    def get(self, *_: object, **__: object) -> _FakeResponse:
+        raise RuntimeError("network down")
+
+
+def test_fetch_recent_w3c_specs_returns_error_on_fetch_failure() -> None:
+    records, errors = fetch_recent_w3c_specs(_FailingSession(), since_days=30)
+
+    assert records == []
+    assert len(errors) == 1
+    assert errors[0].startswith("w3c specifications fetch failed:")
