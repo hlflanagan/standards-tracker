@@ -25,7 +25,7 @@ def fetch_recent_w3c_specs(session: requests.Session, *, since_days: int) -> tup
 
 def extract_w3c_specifications(payload: Any, *, cutoff: date | None = None) -> list[DraftRecord]:
     records: dict[str, DraftRecord] = {}
-    for item in _iter_spec_items(payload):
+    for item in _collect_spec_items(payload):
         shortname = _pick_first_string(item, ["shortname", "shortName", "name", "slug", "id"])
         if not shortname:
             continue
@@ -82,7 +82,7 @@ def extract_w3c_specifications(payload: Any, *, cutoff: date | None = None) -> l
     return sorted(records.values(), key=lambda record: record.versioned_name)
 
 
-def _iter_spec_items(payload: Any) -> list[dict[str, Any]]:
+def _collect_spec_items(payload: Any) -> list[dict[str, Any]]:
     if isinstance(payload, list):
         return [item for item in payload if isinstance(item, dict)]
     if not isinstance(payload, dict):
