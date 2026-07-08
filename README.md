@@ -1,6 +1,6 @@
 # standards-tracker
 
-A small Python tool that watches recent IETF Internet-Drafts for digital identity, authorization, credentials, privacy-preserving identity, trust infrastructure, and AI governance relevance.
+A small Python tool that watches recent IETF Internet-Drafts and W3C specifications for digital identity, authorization, credentials, privacy-preserving identity, trust infrastructure, and AI governance relevance.
 
 ## Project layout
 
@@ -55,7 +55,7 @@ The workflow in `.github/workflows/daily-ietf-watch.yml`:
 - runs every day at `14:00 UTC`
 - installs dependencies
 - runs tests
-- runs the monitor
+- runs the monitor against IETF and W3C sources
 - commits updated reports back to the repository when the `reports/` directory changes
 
 You can also run it manually with **Actions -> Daily IETF Watch -> Run workflow**.
@@ -86,6 +86,7 @@ The classifier intentionally avoids treating every AI-related draft as high rele
 ## Known limitations
 
 - The Datatracker HTML is parsed heuristically, so layout changes may require parser updates.
+- The W3C specifications API payload may evolve, and field extraction is best effort.
 - Metadata JSON fields vary across drafts, so group and update-date extraction is best effort.
 - Optional LLM classification uses the OpenAI Chat Completions API and falls back to deterministic scoring on any failure.
 - Previously seen versions are skipped once stored in SQLite; deleting `.data/ietf_watch.db` resets local review state.
