@@ -84,14 +84,16 @@ def test_extract_w3c_specifications_includes_record_on_cutoff_boundary() -> None
 
 def test_fetch_recent_w3c_specs_returns_records_without_errors() -> None:
     session = _FakeSession(
-        [
-            {
-                "shortname": "vc-jose-cose",
-                "title": "VC JOSE COSE",
-                "uri": "https://www.w3.org/TR/vc-jose-cose/",
-                "updated": "2026-07-08",
-            }
-        ]
+        {
+            "items": [
+                {
+                    "shortname": "vc-jose-cose",
+                    "title": "VC JOSE COSE",
+                    "uri": "https://www.w3.org/TR/vc-jose-cose/",
+                    "updated": "2026-07-08",
+                }
+            ]
+        }
     )
 
     records, errors = fetch_recent_w3c_specs(session, since_days=30)
