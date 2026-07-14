@@ -1,0 +1,131 @@
+versioned_name,base_name,version,status,bucket,category,relevance_score,group_name,title,abstract,datatracker_url,date_seen,error
+draft-agent-gw-02,draft-agent-gw,2,new-draft,adjacent_watchlist,ignored_after_review,2,none,Agent Communication Gateway for Semantic Routing and Working Memory,"This document presents an architectural framework for an Agent
+   Communication Gateway (Agent-GW), designed to support large-scale,
+   heterogeneous, and dynamic multi-agent collaboration across
+   administrative and protocol boundaries.
+
+   As agents evolve from isolated entities to a collaborative digital
+   workforce, the infrastructure must transition from rigid, endpoint-
+   based connectivity to intent-based interaction.  This draft proposes
+   Agent-GW as an infrastructure hub that provides native primitives for
+   Semantic Routing (dispatching tasks by intent and capability),
+   Working Memory (shared structured context across multi-step
+   workflows), automated protocol adaptation (normalizing heterogeneous
+   interfaces into a unified agent-facing protocol), oracle-free agent
+   evaluation, and collaborative inference acceleration via a Knowledge
+   Delivery Network (KDN).
+
+   Beyond a single-gateway deployment, this document defines a
+   hierarchical architecture for wide-area, multi-domain agent networks:
+   three gateway tiers (access, domain, and inter-domain).  It describes
+   which traffic classes traverse which tiers on both the data plane and
+   the control plane, and specifies cross-domain semantic routing, name
+   resolution, resilience, and operational considerations.",https://datatracker.ietf.org/doc/draft-agent-gw/,2026-07-14,
+draft-hardt-email-verification-01,draft-hardt-email-verification,1,new-draft,read_now,core_identity,9,none,Email Verification Protocol,"This document defines the Email Verification Protocol (EVP), the
+   HTTP-level protocol by which a browser obtains a signed email
+   verification token from an issuer and presents it to a relying party
+   (RP).  The protocol enables web applications to verify that a user
+   controls an email address without sending a verification email.  It
+   uses a three-party model in which the browser intermediates between
+   the RP and the issuer, hiding the RP's identity from the issuer and
+   supporting private, per-RP email addresses to prevent cross-site
+   correlation.
+
+   This document covers issuer discovery, the token issuance request,
+   the Email Verification Token (EVT) and Key Binding JWT (KB-JWT)
+   formats, and token verification.  The browser API — how the user
+   selects an email address and how the token is delivered to the RP —
+   is defined in the companion W3C Email Verification API
+   ([EVP-Browser]).",https://datatracker.ietf.org/doc/draft-hardt-email-verification/,2026-07-14,
+draft-ietf-bmwg-sr-bench-meth-07,draft-ietf-bmwg-sr-bench-meth,7,new-draft,ignored_after_review,ignored_after_review,0,bmwg,Benchmarking Methodology for Segment Routing (SR),"This document defines a methodology for benchmarking Segment Routing
+   (SR) performance for Segment Routing over IPv6 (SRv6) and MPLS (SR-
+   MPLS).",https://datatracker.ietf.org/doc/draft-ietf-bmwg-sr-bench-meth/,2026-07-14,
+draft-ietf-cats-oam-fw-00,draft-ietf-cats-oam-fw,0,new-draft,adjacent_watchlist,adjacent_watchlist,3,cats,"Computing-Aware Traffic Steering (CATS) Operations, Administration, and Maintenance (OAM) Framework","This document describes the Operations, Administration, and
+   Maintenance (OAM) framework and requirements for Computing-Aware
+   Traffic Steering (CATS).  The framework defines the CATS OAM layering
+   model and functional components.  It also specifies the requirements
+   to enable fault management and performance monitoring for CATS end-
+   to-end connections encompassing clients, network paths, and service
+   instances.",https://datatracker.ietf.org/doc/draft-ietf-cats-oam-fw/,2026-07-14,
+draft-ietf-dnsop-structured-dns-error-25,draft-ietf-dnsop-structured-dns-error,25,new-draft,ignored_after_review,ignored_after_review,0,dnsop,Structured Error Data for Filtered DNS,"DNS filtering is widely deployed for various reasons, including
+   network security and policy enforcement.  However, filtered DNS
+   responses lack structured information for end users to understand the
+   reason for the filtering.  Existing mechanisms to provide explanatory
+   details to end users cause harm especially if the blocked DNS
+   response is for HTTPS resources.
+
+   This document updates RFC 8914 by signaling client support for
+   structuring the EXTRA-TEXT field of the Extended DNS Error to provide
+   details on the DNS filtering.  Such details can be parsed by the
+   client and displayed, logged, or used for other purposes.",https://datatracker.ietf.org/doc/draft-ietf-dnsop-structured-dns-error/,2026-07-14,
+draft-ietf-idr-bgp-ls-sr-policy-nrp-03,draft-ietf-idr-bgp-ls-sr-policy-nrp,3,new-draft,ignored_after_review,ignored_after_review,0,idr,SR Policies Extensions for Network Resource Partition in BGP-LS,"A Network Resource Partition (NRP) is a subset of the network
+   resources and associated policies on each of a connected set of links
+   in the underlay network.  An NRP ID is an important network resource
+   attribute associated with the Segment Routing (SR) policy and needs
+   to be reported to the external components.  This document defines a
+   new TLV which enables the headend to report the NRP which the SR
+   Policy Candidate Path (CP) is associated with using Border Gateway
+   Protocol Link-State (BGP-LS).",https://datatracker.ietf.org/doc/draft-ietf-idr-bgp-ls-sr-policy-nrp/,2026-07-14,
+draft-ietf-idr-rfc4360-bis-09,draft-ietf-idr-rfc4360-bis,9,new-draft,ignored_after_review,ignored_after_review,0,idr,BGP Extended Communities Attribute,"This document describes the ""Extended Communities"" BGP-4 attribute.
+   This attribute provides a mechanism for labeling information carried
+   in BGP-4.  These labels can be used to control the distribution of
+   this information, or for other applications.
+
+   This document obsoletes RFC 4360.
+
+   This document also updates RFC 5701 by adding an ""Operational
+   Considerations"" section.",https://datatracker.ietf.org/doc/draft-ietf-idr-rfc4360-bis/,2026-07-14,
+draft-ietf-ipsecme-ikev2-pqc-auth-09,draft-ietf-ipsecme-ikev2-pqc-auth,9,new-draft,adjacent_watchlist,core_identity,3,ipsecme,Signature Authentication in the Internet Key Exchange Version 2 (IKEv2) using PQC,"Signature-based authentication methods are utilized in the Internet
+   Key Exchange Version 2 (IKEv2).  The current version of the IKEv2
+   protocol, specified in RFC 7296, supports traditional digital
+   signatures.
+
+   This document specifies a generic mechanism for integrating post-
+   quantum cryptographic (PQC) digital signature algorithms into the
+   IKEv2 protocol.  The approach allows for seamless inclusion of any
+   PQC signature scheme within the existing authentication framework of
+   IKEv2.  Additionally, it outlines how Module-Lattice-Based Digital
+   Signatures (ML-DSA) and Stateless Hash-Based Digital Signatures (SLH-
+   DSA), can be employed as authentication methods within the IKEv2
+   protocol, as they have been standardized by US NIST.",https://datatracker.ietf.org/doc/draft-ietf-ipsecme-ikev2-pqc-auth/,2026-07-14,
+draft-ietf-lsr-ospf-flex-algo-yang-15,draft-ietf-lsr-ospf-flex-algo-yang,15,new-draft,adjacent_watchlist,adjacent_watchlist,3,lsr,A YANG Data Model for OSPF Application-Specific Link Attributes and Flexible Algorithm,"This document defines a YANG data model to support OSPF Application-
+   Specific Link Attributes and Flexible Algorithm.  It also creates the
+   initial version of IANA-maintained YANG modules for IGP Algorithm
+   Types, IGP Metric-Types, and IGP Link Attribute Applications.
+
+   This document updates RFCs 8665, 9350, and 9843.",https://datatracker.ietf.org/doc/draft-ietf-lsr-ospf-flex-algo-yang/,2026-07-14,
+draft-ietf-sidrops-8210bis-26,draft-ietf-sidrops-8210bis,26,new-draft,ignored_after_review,ignored_after_review,0,sidrops,"The Resource Public Key Infrastructure (RPKI) to Router Protocol, Version 2","In order to validate the origin Autonomous Systems (ASes) and
+   Autonomous System relationships behind BGP announcements, routers
+   need a simple but reliable mechanism to receive Resource Public Key
+   Infrastructure (RFC6480) prefix origin data, Router Keys, and ASPA
+   data from a trusted cache.  This document describes a protocol to
+   deliver them.
+
+   This document describes version 2 of the RPKI-Router protocol.
+   [RFC6810] describes version 0, and [RFC8210] describes version 1.
+   This document is compatible with both.",https://datatracker.ietf.org/doc/draft-ietf-sidrops-8210bis/,2026-07-14,
+draft-sullivan-cfrg-raae-02,draft-sullivan-cfrg-raae,2,new-draft,adjacent_watchlist,core_identity,3,none,Random-Access Authenticated Encryption,"This document defines random-access authenticated encryption (raAE),
+   a primitive that partitions a message into an indexed sequence of
+   segments that can be encrypted and decrypted independently and in any
+   order.  It also specifies SEAL (Segmented Encryption and
+   Authentication Layer), a parameterized construction that defines a
+   family of concrete raAE instantiations, one for each valid choice of
+   an Authenticated Encryption with Associated Data (AEAD) algorithm, a
+   key derivation function (KDF), and associated parameters.
+
+   SEAL provides two profiles, immutable (write-once) and mutable (in-
+   place ciphertext rewrite), each with per-segment authentication.  A
+   separately configured snapshot authenticator can additionally
+   authenticate the complete, indexed segment set.
+
+   The document also defines the security notions of raAE, specifies the
+   requirements for conforming constructions, analyzes SEAL against
+   those requirements, and provides example cipher suites and test
+   vectors.",https://datatracker.ietf.org/doc/draft-sullivan-cfrg-raae/,2026-07-14,
+draft-yang-dhc-dhcp-extension-00,draft-yang-dhc-dhcp-extension,0,new-draft,adjacent_watchlist,adjacent_watchlist,3,none,DHCP New Option Extension based on LLM Capability,"This document specifies a DHCP option extension designed for campus
+   networks to help client devices distinguish and connect to a master
+   device with the LLM (Large Language Model).  The mechanism extends a
+   new DHCP option containing two specific parameters within the DHCP
+   payload: the master device's LLM address and the master device's LLM
+   configuration.  This allows client devices to identify and register
+   to LLM-enabled master device during the bootstrap phase.",https://datatracker.ietf.org/doc/draft-yang-dhc-dhcp-extension/,2026-07-14,
