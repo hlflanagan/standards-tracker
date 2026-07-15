@@ -1,0 +1,37 @@
+versioned_name,base_name,version,status,bucket,category,relevance_score,group_name,title,abstract,datatracker_url,date_seen,error
+draft-ietf-bmwg-sr-bench-meth-07,draft-ietf-bmwg-sr-bench-meth,7,new-draft,ignored_after_review,ignored_after_review,0,bmwg,Benchmarking Methodology for Segment Routing (SR),"This document defines a methodology for benchmarking Segment Routing
+   (SR) performance for Segment Routing over IPv6 (SRv6) and MPLS (SR-
+   MPLS).",https://datatracker.ietf.org/doc/draft-ietf-bmwg-sr-bench-meth/,2026-07-15,
+draft-ietf-idr-rfc4360-bis-09,draft-ietf-idr-rfc4360-bis,9,new-draft,ignored_after_review,ignored_after_review,0,idr,BGP Extended Communities Attribute,"This document describes the ""Extended Communities"" BGP-4 attribute.
+   This attribute provides a mechanism for labeling information carried
+   in BGP-4.  These labels can be used to control the distribution of
+   this information, or for other applications.
+
+   This document obsoletes RFC 4360.
+
+   This document also updates RFC 5701 by adding an ""Operational
+   Considerations"" section.",https://datatracker.ietf.org/doc/draft-ietf-idr-rfc4360-bis/,2026-07-15,
+draft-ietf-lsr-ospf-flex-algo-yang-15,draft-ietf-lsr-ospf-flex-algo-yang,15,new-version,adjacent_watchlist,adjacent_watchlist,3,lsr,A YANG Data Model for OSPF Application-Specific Link Attributes and Flexible Algorithm,"This document defines a YANG data model to support OSPF Application-
+   Specific Link Attributes and Flexible Algorithm.  It also creates the
+   initial version of IANA-maintained YANG modules for IGP Algorithm
+   Types, IGP Metric-Types, and IGP Link Attribute Applications.
+
+   This document updates RFCs 8665, 9350, and 9843.",https://datatracker.ietf.org/doc/draft-ietf-lsr-ospf-flex-algo-yang/,2026-07-15,
+draft-sullivan-cfrg-raae-02,draft-sullivan-cfrg-raae,2,new-version,adjacent_watchlist,core_identity,3,none,Random-Access Authenticated Encryption,"This document defines random-access authenticated encryption (raAE),
+   a primitive that partitions a message into an indexed sequence of
+   segments that can be encrypted and decrypted independently and in any
+   order.  It also specifies SEAL (Segmented Encryption and
+   Authentication Layer), a parameterized construction that defines a
+   family of concrete raAE instantiations, one for each valid choice of
+   an Authenticated Encryption with Associated Data (AEAD) algorithm, a
+   key derivation function (KDF), and associated parameters.
+
+   SEAL provides two profiles, immutable (write-once) and mutable (in-
+   place ciphertext rewrite), each with per-segment authentication.  A
+   separately configured snapshot authenticator can additionally
+   authenticate the complete, indexed segment set.
+
+   The document also defines the security notions of raAE, specifies the
+   requirements for conforming constructions, analyzes SEAL against
+   those requirements, and provides example cipher suites and test
+   vectors.",https://datatracker.ietf.org/doc/draft-sullivan-cfrg-raae/,2026-07-15,
