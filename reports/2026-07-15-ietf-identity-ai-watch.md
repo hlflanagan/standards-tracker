@@ -12,13 +12,33 @@ _None._
 
 ## Adjacent / watchlist
 
-- **draft-ietf-lsr-ospf-flex-algo-yang-15** (new-version, score 3, adjacent_watchlist) [lsr]: [A YANG Data Model for OSPF Application-Specific Link Attributes and Flexible Algorithm](https://datatracker.ietf.org/doc/draft-ietf-lsr-ospf-flex-algo-yang/) — This document defines a YANG data model to support OSPF Application-
+- **draft-ietf-cats-oam-fw-00** (new-draft, score 3, adjacent_watchlist) [cats]: [Computing-Aware Traffic Steering (CATS) Operations, Administration, and Maintenance (OAM) Framework](https://datatracker.ietf.org/doc/draft-ietf-cats-oam-fw/) — This document describes the Operations, Administration, and
+   Maintenance (OAM) framework and requirements for Computing-Aware
+   Traffic Steering (CATS).  The framework defines the CATS OAM layering
+   model and functional components.  It also specifies the requirements
+   to enable fault management and performance monitoring for CATS end-
+   to-end connections encompassing clients, network paths, and service
+   instances.
+- **draft-ietf-ipsecme-ikev2-pqc-auth-09** (new-draft, score 3, core_identity) [ipsecme]: [Signature Authentication in the Internet Key Exchange Version 2 (IKEv2) using PQC](https://datatracker.ietf.org/doc/draft-ietf-ipsecme-ikev2-pqc-auth/) — Signature-based authentication methods are utilized in the Internet
+   Key Exchange Version 2 (IKEv2).  The current version of the IKEv2
+   protocol, specified in RFC 7296, supports traditional digital
+   signatures.
+
+   This document specifies a generic mechanism for integrating post-
+   quantum cryptographic (PQC) digital signature algorithms into the
+   IKEv2 protocol.  The approach allows for seamless inclusion of any
+   PQC signature scheme within the existing authentication framework of
+   IKEv2.  Additionally, it outlines how Module-Lattice-Based Digital
+   Signatures (ML-DSA) and Stateless Hash-Based Digital Signatures (SLH-
+   DSA), can be employed as authentication methods within the IKEv2
+   protocol, as they have been standardized by US NIST.
+- **draft-ietf-lsr-ospf-flex-algo-yang-15** (new-draft, score 3, adjacent_watchlist) [lsr]: [A YANG Data Model for OSPF Application-Specific Link Attributes and Flexible Algorithm](https://datatracker.ietf.org/doc/draft-ietf-lsr-ospf-flex-algo-yang/) — This document defines a YANG data model to support OSPF Application-
    Specific Link Attributes and Flexible Algorithm.  It also creates the
    initial version of IANA-maintained YANG modules for IGP Algorithm
    Types, IGP Metric-Types, and IGP Link Attribute Applications.
 
    This document updates RFCs 8665, 9350, and 9843.
-- **draft-sullivan-cfrg-raae-02** (new-version, score 3, core_identity) [none]: [Random-Access Authenticated Encryption](https://datatracker.ietf.org/doc/draft-sullivan-cfrg-raae/) — This document defines random-access authenticated encryption (raAE),
+- **draft-sullivan-cfrg-raae-02** (new-draft, score 3, core_identity) [none]: [Random-Access Authenticated Encryption](https://datatracker.ietf.org/doc/draft-sullivan-cfrg-raae/) — This document defines random-access authenticated encryption (raAE),
    a primitive that partitions a message into an indexed sequence of
    segments that can be encrypted and decrypted independently and in any
    order.  It also specifies SEAL (Segmented Encryption and
@@ -36,12 +56,45 @@ _None._
    requirements for conforming constructions, analyzes SEAL against
    those requirements, and provides example cipher suites and test
    vectors.
+- **draft-agent-gw-02** (new-draft, score 2, ignored_after_review) [none]: [Agent Communication Gateway for Semantic Routing and Working Memory](https://datatracker.ietf.org/doc/draft-agent-gw/) — This document presents an architectural framework for an Agent
+   Communication Gateway (Agent-GW), designed to support large-scale,
+   heterogeneous, and dynamic multi-agent collaboration across
+   administrative and protocol boundaries.
+
+   As agents evolve from isolated entities to a collaborative digital
+   workforce, the infrastructure must transition from rigid, endpoint-
+   based connectivity to intent-based interaction.  This draft proposes
+   Agent-GW as an infrastructure hub that provides native primitives for
+   Semantic Routing (dispatching tasks by intent and capability),
+   Working Memory (shared structured context across multi-step
+   workflows), automated protocol adaptation (normalizing heterogeneous
+   interfaces into a unified agent-facing protocol), oracle-free agent
+   evaluation, and collaborative inference acceleration via a Knowledge
+   Delivery Network (KDN).
+
+   Beyond a single-gateway deployment, this document defines a
+   hierarchical architecture for wide-area, multi-domain agent networks:
+   three gateway tiers (access, domain, and inter-domain).  It describes
+   which traffic classes traverse which tiers on both the data plane and
+   the control plane, and specifies cross-domain semantic routing, name
+   resolution, resilience, and operational considerations.
 
 ## Ignored after review
 
 - **draft-ietf-bmwg-sr-bench-meth-07** (new-draft, score 0, ignored_after_review) [bmwg]: [Benchmarking Methodology for Segment Routing (SR)](https://datatracker.ietf.org/doc/draft-ietf-bmwg-sr-bench-meth/) — This document defines a methodology for benchmarking Segment Routing
    (SR) performance for Segment Routing over IPv6 (SRv6) and MPLS (SR-
    MPLS).
+- **draft-ietf-dnsop-structured-dns-error-25** (new-draft, score 0, ignored_after_review) [dnsop]: [Structured Error Data for Filtered DNS](https://datatracker.ietf.org/doc/draft-ietf-dnsop-structured-dns-error/) — DNS filtering is widely deployed for various reasons, including
+   network security and policy enforcement.  However, filtered DNS
+   responses lack structured information for end users to understand the
+   reason for the filtering.  Existing mechanisms to provide explanatory
+   details to end users cause harm especially if the blocked DNS
+   response is for HTTPS resources.
+
+   This document updates RFC 8914 by signaling client support for
+   structuring the EXTRA-TEXT field of the Extended DNS Error to provide
+   details on the DNS filtering.  Such details can be parsed by the
+   client and displayed, logged, or used for other purposes.
 - **draft-ietf-idr-rfc4360-bis-09** (new-draft, score 0, ignored_after_review) [idr]: [BGP Extended Communities Attribute](https://datatracker.ietf.org/doc/draft-ietf-idr-rfc4360-bis/) — This document describes the "Extended Communities" BGP-4 attribute.
    This attribute provides a mechanism for labeling information carried
    in BGP-4.  These labels can be used to control the distribution of
@@ -51,6 +104,16 @@ _None._
 
    This document also updates RFC 5701 by adding an "Operational
    Considerations" section.
+- **draft-ietf-sidrops-8210bis-26** (new-draft, score 0, ignored_after_review) [sidrops]: [The Resource Public Key Infrastructure (RPKI) to Router Protocol, Version 2](https://datatracker.ietf.org/doc/draft-ietf-sidrops-8210bis/) — In order to validate the origin Autonomous Systems (ASes) and
+   Autonomous System relationships behind BGP announcements, routers
+   need a simple but reliable mechanism to receive Resource Public Key
+   Infrastructure (RFC6480) prefix origin data, Router Keys, and ASPA
+   data from a trusted cache.  This document describes a protocol to
+   deliver them.
+
+   This document describes version 2 of the RPKI-Router protocol.
+   [RFC6810] describes version 0, and [RFC8210] describes version 1.
+   This document is compatible with both.
 
 ## Errors / fetch failures
 
