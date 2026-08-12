@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date
+from datetime import date, timedelta
 
 from ietf_watch.w3c import extract_w3c_specifications, fetch_recent_w3c_specs
 
@@ -83,6 +83,7 @@ def test_extract_w3c_specifications_includes_record_on_cutoff_boundary() -> None
 
 
 def test_fetch_recent_w3c_specs_returns_records_without_errors() -> None:
+    recent_date = (date.today() - timedelta(days=7)).isoformat()
     session = _FakeSession(
         {
             "items": [
@@ -90,7 +91,7 @@ def test_fetch_recent_w3c_specs_returns_records_without_errors() -> None:
                     "shortname": "vc-jose-cose",
                     "title": "VC JOSE COSE",
                     "uri": "https://www.w3.org/TR/vc-jose-cose/",
-                    "updated": "2026-07-08",
+                    "updated": recent_date,
                 }
             ]
         }
