@@ -1,0 +1,2369 @@
+# IETF Identity + AI Standards Watch
+
+Date: 2026-10-09
+
+## Read now
+
+- **draft-fane-opena2a-aip-04** (new-draft, score 26, adjacent_watchlist) [none]: [OpenA2A Agent Identity Protocol (AIP)](https://datatracker.ietf.org/doc/draft-fane-opena2a-aip/) — This document defines the OpenA2A Agent Identity Protocol (OpenA2A
+   AIP), an open standard for creating, managing, and verifying
+   cryptographic identities for AI agents.  As AI agents proliferate
+   across browsers, cloud platforms, and enterprise environments,
+   systems need a standardized answer to the question of which agent is
+   present, what it is permitted to do, and whether it should be
+   trusted.
+
+   OpenA2A AIP is distinguished by five elements that it places at the
+   center of the design: a multi-factor behavioral trust score that is
+   computed from independently verifiable signals; a portable signed
+   credential, the Agent Trust eXtension, carrying a hybrid Ed25519 and
+   ML-DSA-65 signature for post-quantum readiness; an append-only, RFC
+   9162-style Merkle transparency log for identity and credential
+   issuance; agent identifiers expressed as W3C Decentralized
+   Identifiers, provider-scoped as a did:web profile at the identity-
+   provider layer and ecosystem-scoped under the registered did:opena2a
+   method at the trust-fabric layer; and a structured capability
+   vocabulary with reserved namespaces.  On top of these, the protocol
+   specifies challenge-response verification, behavioral governance
+   policies, a lifecycle model, and an append-only audit log.
+
+   The qualifier "OpenA2A AIP" is used throughout this document because
+   the abbreviation "AIP" is shared by other Internet-Drafts.  OpenA2A
+   AIP is framed as complementary to agent communication protocols such
+   as A2A and the Model Context Protocol, and to identity and credential
+   standards such as OpenID Connect, WebAuthn, and the W3C Verifiable
+   Credentials Data Model.
+- **draft-helixar-hdp-agentic-delegation-03** (new-draft, score 23, agent_identity) [none]: [Human Delegation Provenance Protocol (HDP): Cryptographic Chain-of-Custody for Agentic AI Systems](https://datatracker.ietf.org/doc/draft-helixar-hdp-agentic-delegation/) — Agentic AI systems operate on behalf of human principals, often
+   delegating tasks through multi-step chains of AI agents.  There is
+   currently no standard mechanism to record who authorized an agent to
+   act, under what scope, and through what chain of delegation, in a way
+   that can be verified offline, without a central registry, and without
+   third-party trust anchors.
+
+   This document specifies the Human Delegation Provenance Protocol
+   (HDP) version 0.1, a lightweight token-based protocol that captures,
+   structures, cryptographically signs, and verifies human delegation
+   context in agentic AI systems.  An HDP token binds a human
+   authorization event to a session, records each agent's delegation
+   action as a signed hop in an append-only chain, and lets an auditor
+   verify the integrity of the full record using only the issuer's
+   Ed25519 public key.  Verification is fully offline.  No registry
+   lookup, no network call, and no third-party trust anchor is required.
+
+   HDP's distinguishing contribution is a signed, tamper-evident record
+   of what the human asked for and of how each agent read and acted on
+   that request.  On deployments that use capability-based delegation
+   formats such as UCAN and ZCAP-LD, the same content can travel in the
+   capability certificates' own metadata instead of a separate token.
+   The underlying append-only, offline-verifiable chain-of-custody
+   mechanism is payload-agnostic; human-authorized agentic delegation is
+   the reference profile specified in this document.
+
+   HDP is not an authorization protocol.  An HDP token confers no
+   authority and is not an input to any access decision.  It is a record
+   of who authorized a task and of what each agent declared it did with
+   that authorization, carried with the task and read at audit.
+- **draft-levi-agent-certification-00** (new-draft, score 20, core_identity) [none]: [Autonomous Agent Certification Protocol (AACP)](https://datatracker.ietf.org/doc/draft-levi-agent-certification/) — This document defines the Autonomous Agent Certification Protocol
+   (AACP), a framework for binding successful evaluation of an AI agent
+   to cryptographically verifiable evidence of demonstrated capability.
+
+   AACP introduces Evaluation Profiles that define the conditions under
+   which an agent may be certified for a specific capability.  An Agent
+   Configuration that satisfies an Evaluation Profile may receive a
+   short-lived Agent Certification Credential (ACC) bound to the
+   configuration that was evaluated.
+
+   An ACC does not grant access to a resource.  It provides verifiable
+   evidence that an agent has demonstrated a capability under defined
+   evaluation conditions.  Existing authorization systems may require
+   such evidence as a condition for granting corresponding production
+   permissions.
+
+   AACP therefore separates capability certification from identity,
+   authentication, delegation, and authorization.
+- **draft-rasmussen-acme-wif-00** (new-draft, score 18, core_identity) [none]: [A Federated Workload Identity Challenge for the Automated Certificate Management Environment (ACME)](https://datatracker.ietf.org/doc/draft-rasmussen-acme-wif/) — The Automated Certificate Management Environment (ACME, RFC 8555)
+   establishes that a requester has authority over an identifier by
+   means of a challenge that demonstrates control of that identifier,
+   such as publishing a DNS record or serving an HTTP resource.  It
+   authenticates the requester by means of an account key whose
+   provenance is outside the protocol's scope.
+
+   Neither mechanism is a good fit for automated workloads running in
+   continuous-integration systems, container orchestrators, and cloud
+   compute platforms.  Such workloads typically possess no long-lived
+   secret and no ability to publish DNS records, but they do possess a
+   short-lived, cryptographically verifiable identity assertion issued
+   by their execution platform.
+
+   This document defines a new ACME challenge type, "wif-01", by which
+   an ACME server authorizes issuance for an identifier on the basis of
+   a platform-issued identity token.  The token is bound to the ACME
+   account key, and to the specific authorization it satisfies, using
+   the token's audience claim.  The mechanism therefore requires no new
+   claims, no new endpoints, and no changes of any kind to existing
+   identity providers.
+
+   Because the workload's identity is established for each
+   authorization, the mechanism also removes any need for External
+   Account Binding: an ordinary ACME account, created by the workload
+   with no pre-shared secret, suffices.  The mechanism uses only
+   extension points that ACME already defines.
+- **draft-yossif-psea-03** (new-draft, score 18, trust_infrastructure) [none]: [PSEA Token Profile: An EAT Profile for Action-Bound, User-Verification-Gated Transaction-Confirmation Evidence](https://datatracker.ietf.org/doc/draft-yossif-psea/) — This document defines the PSEA Token Profile, an Entity Attestation
+   Token (EAT) profile for action-bound, user-verification-gated
+   transaction-confirmation Evidence.  The profile specifies the
+   canonical encoding, the signed proof-token claim set, the action-
+   payload and cross-replay bindings, an optional hash-chain integrity
+   layer, and the security properties that together constitute a What-
+   You-Sign-Is-What-You-Execute proof that a human, present and verified
+   at an authenticator, approved a specific named action at the moment
+   of execution.  The profile binds what is signed to what the Verifier
+   executes; it does not, by itself, bind what a human saw on a
+   potentially compromised display to what was signed (the What-You-See-
+   Is-What-You-Sign problem), which remains out of scope.  The strength
+   of the human-presence assurance depends on the authenticator's user-
+   verification enforcement: where the platform attestation conveys that
+   enforcement it is hardware-attested, and otherwise it rests on the
+   authenticator's signed assertion that user verification occurred.
+   The profile does not, by itself, prove a specific human identity.  It
+   fills the transaction-confirmation gap left unaddressed by deployed
+   authentication standards and complements OAuth 2.0 Step-Up
+   Authentication by supplying the per-action, cryptographically action-
+   bound Evidence that step-up flows can require.
+- **draft-jovancevic-saip-12** (new-draft, score 17, core_identity) [none]: [SAIP: Signed Agent Identity Protocol](https://datatracker.ietf.org/doc/draft-jovancevic-saip/) — The modern internet lacks a reliable mechanism for verifying the
+   identity of automated software agents. Existing methods such as
+   User-Agent strings and IP-based attribution are insufficient due to
+   spoofing, shared infrastructure (NAT), and the rapid growth of
+   automated agents including AI crawlers, IoT devices, and enterprise
+   automation systems.
+
+   This document specifies SAIP (Signed Agent Identity Protocol), a
+   lightweight, opt-in mechanism for verifiable client identity at the
+   application layer. SAIP implements the principles defined in the
+   Verifiable Identity Claims and Delegation Model [VICDM] and enables
+   servers to distinguish legitimate automated traffic from malicious
+   actors through cryptographic identity at three levels of granularity:
+   vendor, agent type, and individual instance.
+
+   SAIP is protocol-agnostic and applicable to HTTP, SMTP, and other
+   header-based protocols. It introduces DNS-based Attestation
+   Discovery as
+   a lightweight alternative to registry-based key lookup, making
+   deployment accessible to organizations of any size.
+- **draft-schrock-ep-authorization-evidence-chain-08** (new-draft, score 17, authorization) [none]: [Authorization Evidence Chains: Composing Heterogeneous Agent-Action Evidence (EP-AEC)](https://datatracker.ietf.org/doc/draft-schrock-ep-authorization-evidence-chain/) — Consequential agent actions can produce heterogeneous identity,
+   delegation, policy, permit, approval, transparency, capability, and
+   execution artifacts.  Each artifact can verify under its own
+   specification while still referring to a different action, filling a
+   different evidentiary role, or failing a relying party's freshness,
+   status, or inter-artifact binding requirement.  This document defines
+   the Authorization Evidence Chain (EP-AEC): a transport-agnostic
+   composition object and a fail-closed evaluation algorithm that keeps
+   native cryptographic verification separate from relying-party
+   acceptance, establishes exact material-action matching, and evaluates
+   a relying-party-pinned evidence requirement.
+
+   AEC produces SATISFIED or UNSATISFIED and a replayable evaluation
+   record.  SATISFIED means only that the presented evidence filled the
+   relying party's named evidence requirement at the stated verification
+   time.  It is not a universal authorization decision, a policy
+   language for the protected application, or proof of execution or
+   outcome.  The executor makes the separate local AUTHORIZED decision
+   and controls consumption, invocation, and effect handling.
+   Qualification evidence can fill a named evidence role but cannot
+   authorize an action by itself.  AEC introduces no new component
+   receipt type and does not replace any native verifier.
+- **draft-correctover-ccs-10** (new-draft, score 16, core_identity) [none]: [Correctover Conformance Shape (CCS): Runtime Verification for AI Agent Tool Calls](https://datatracker.ietf.org/doc/draft-correctover-ccs/) — This document defines the Correctover Conformance Shape (CCS), a
+   runtime verification framework for AI agent tool calls.  CCS
+   specifies seven verification dimensions (Structure, Schema, Latency,
+   Cost, Identity, Integrity, Security) that tool calls and results must
+   conform to at runtime.  The framework defines a receipt format with
+   Ed25519 signatures, three verdict values (allow, deny, escalate) and
+   four executor lifecycle states (confirmed, dispatched, indeterminate,
+   unknown), and normative requirements for implementations.
+
+   This revision makes the document self-contained for publication: the
+   related AEB and CAID specifications are reclassified as Informative
+   References, and the native artifact requirements they motivate are
+   restated normatively in this document so that no conformance
+   requirement depends on an unreferenced work in progress.  It also
+   corrects the implementation-experience description (one reference
+   implementation in two deployment forms, plus one independently
+   developed third-party interoperability profile), clarifies the
+   relationship to SCITT-based agent evidence work, and updates the
+   author contact address.  The detached Ed25519 signature construction
+   over RFC 8785 canonical JSON and the receipt lifecycle and signing-
+   algorithm conformance are unchanged from draft-08.
+
+   This revision restructures key management around two orthogonal trust
+   levels: VERIFIED, the self-contained integrity and key/signature
+   consistency verifiable fully offline from the receipt alone, and
+   ACCEPTED, which adds out-of-band issuer pinning and is the only level
+   that authenticates the signer.  The embedded public_key,
+   public_key_fingerprint, and signing_algorithm fields are now required
+   to be covered by the signature to prevent key substitution and
+   algorithm downgrade.
+- **draft-helmprotocol-tttps-13** (new-draft, score 16, trust_infrastructure) [none]: [The TLS TimeToken Secure Protocol (TTTPS)](https://datatracker.ietf.org/doc/draft-helmprotocol-tttps/) — This document specifies a temporal-evidence admission protocol with a
+   fixed 180-octet Proof-of-Time Record v2.  It defines issuer
+   authentication, holder presentation, context binding, asymmetric
+   freshness checks, and replay-safe application commitment.
+   Implementations can place verification at a declared application
+   boundary and can accelerate suitable operations in a kernel, NIC, or
+   FPGA without changing those requirements.
+
+   An authenticated context identifies the event, policy, source
+   evidence, and selected binding revision.  A Roughtime adapter
+   combines response-chain validation with authority-backed provenance
+   and effective-source aggregation.  Other clock adapters retain their
+   own evidence contracts.  Confidence and propagation-aware profiles
+   are optional and cannot repair a failed core check.
+
+   The core mandatory integrity algorithm is SHA-256.  Optional recovery
+   algorithms require separate complete specifications.  The protocol
+   does not establish physical truth, agent intent, legal admissibility,
+   or regulatory compliance, and does not replace clock synchronization,
+   authorization, auditing, or transparency services.
+- **draft-klassen-eu2122-content-profile-03** (new-draft, score 16, trust_infrastructure) [none]: [EU2122 V1.0 Standard: Content Profile for AI Output Verification Receipts](https://datatracker.ietf.org/doc/draft-klassen-eu2122-content-profile/) — This document defines a content profile for AI output verification
+   receipts.  It specifies the minimum fields, the classification
+   taxonomy and the evidentiary properties that a receipt MUST contain
+   in order to constitute verifiable evidence that an AI-generated
+   output was checked before a human or a downstream agent acted on it.
+   The profile is designed to be carried over any conformant wire
+   format, including ACTA signed receipts, SCITT transparency logs, and
+   standalone JSON or CBOR payloads.
+
+   Existing Internet-Drafts in this space define wire formats for
+   signing, transmitting and storing AI agent receipts, or records of
+   what an agent did.  None defines what a verification receipt must
+   contain at the content layer: which claims in an output were checked
+   and how each was classified.  This document fills that gap.  It
+   introduces a mandatory fourteen-category failure taxonomy (the
+   Information Bottleneck Species), a verdict schema, and evidentiary
+   field requirements informed by the EU AI Act (Regulation (EU)
+   2024/1689), the Product Liability Directive (Directive (EU)
+   2024/2853) and the IDW PS 861 audit standard.
+
+   We invite implementers to adopt, populate and grow the AI output
+   verification market segment.  The category exists.  The specification
+   is here.  Build to it.
+- **draft-zambo-aer1-15** (new-draft, score 16, trust_infrastructure) [none]: [AER-1: A Portable Execution Receipt for AI Agent Tool Calls](https://datatracker.ietf.org/doc/draft-zambo-aer1/) — This document specifies AER-1, a small vocabulary for recording one
+   AI agent tool call as a portable, independently checkable execution
+   receipt.  A receipt identifies the execution, records when it
+   happened, preserves the canonical bytes used for the output
+   commitment, names the tool and caller scope, carries a provenance
+   class, and resolves at a stable public URL.  The format separates
+   what the system observed from claims about the outside world, and it
+   separates provenance (who ran or reported the action) from the record
+   itself.  A reference implementation is deployed, and its receipts are
+   publicly verifiable without an account or token.  The specification
+   covers workflow receipts, which bind an ordered sequence of step
+   receipts to a single goal with a Merkle root over the step sequence,
+   and hash-chained job timelines for tamper-evident sequencing of
+   executions.  This revision closes honesty and precision gaps: it
+   adds the workflow-receipt truncation limit (new Section 8.4),
+   normatively specifies the external anchor format and its
+   verification procedure (rewritten Section 10, new Section 10.1),
+   fixes a RECOMMENDED/MUST contradiction in Section 8.1, makes the
+   Section 6 verification step testable, and documents replay,
+   low-entropy, empty-record, and size-limit considerations.  It
+   changes no receipt field, digest construction, or existing
+   verification rule.  The -13 revision fixes a malformed sentence in
+   the Abstract, three incorrect section cross-references, stale Table
+   of Contents page numbers, a skipped footer page number, misaligned
+   table rows, and chain version-string updates, and records two reported
+   interoperability examples in Implementation Status; it
+   changes no receipt field, digest construction, or verification
+   rule.  The -14 revision adds tamper-evident metadata binding (new
+   Section 3.1; conditional metadata_hash for schema 0.4 and later),
+   disambiguates the anchor receipt_id (Table 4), corrects the
+   self-anchoring witnessing claim (Section 10), makes the Section 8.3
+   display rule a SHOULD with a byte-testable MUST, narrows the
+   provenance attestation wording (Section 5), states the binding
+   non-transfer rule normatively (new Section 10.2), pins
+   anchored_digest to bare hex (Table 4), corrects the vector corpus
+   counts, and adds normative disclosure of missing issuer
+   authentication.  It changes no existing receipt field, digest
+   construction, or verification rule for schema 0.3 and earlier.
+   The -15 revision narrows the Implementation Status wording for the
+   reported interoperability examples at the implementer's request; it
+   changes no receipt field, digest construction, or verification rule.
+- **draft-c4tz-marc-03** (new-draft, score 15, core_identity) [none]: [MARC: A Control and Uncertainty Disclosure Profile for Generative Models and Agents](https://datatracker.ietf.org/doc/draft-c4tz-marc/) — This document specifies MARC, an experimental, vendor-neutral profile
+   for control and uncertainty-disclosure metadata in generative models
+   and agentic systems.  MARC separates pre-decision capability
+   assessment from post-decision answer confidence, identifies
+   uncertainty sources and confidence targets, and defines a bounded set
+   of primary actions and a minimal disclosure object.
+
+   The experiment evaluates whether independently developed components
+   can exchange and interpret these metadata consistently across
+   implementation and protocol boundaries.  It also supports evaluation
+   of action selection, uncertainty attribution, confidence calibration,
+   and downstream presentation.
+
+   MARC specifies externally observable semantics.  It does not define
+   model internals, transport, authentication, authorization, agent
+   discovery, tool schemas, or task execution, and it does not require
+   disclosure of internal reasoning.  The intended users are
+   implementers of agent runtimes, orchestration layers, model gateways,
+   evaluation systems, and user interfaces.  This document does not
+   define an Internet Standard.
+- **draft-newton-agreement-evidence-00** (new-draft, score 15, core_identity) [none]: [Agreement Evidence for Multi-Party Agent Negotiation](https://datatracker.ietf.org/doc/draft-newton-agreement-evidence/) — Autonomous agents can exchange offers and signatures without
+   producing an artifact that records which parties reached which
+   outcome, over which transcript digest and message count, and for how
+   long that record may be relied upon.  This document defines JSON
+   agreement-evidence objects for structured, multi-attribute
+   negotiation.  The core object is an agreement attestation.  A
+   verified attestation establishes one thing: that a named set of
+   parties jointly countersigned a stated outcome over a stated
+   transcript digest and message count, together with behavioral
+   counters each of them accepted.  It does not establish that the
+   outcome matches what the transcript says, that any statement a party
+   made is true, or that the parties are anonymous.  The format provides
+   no member for a negotiated price, quantity, date, or principal
+   identity.  A producer is obligated not to place those values in the
+   free-text members the format does provide, and a verifier cannot
+   detect a violation of that obligation, so the absence of term values
+   from a received object is a producer's obligation rather than a
+   verified property.  Sections 4 through 8 and 10 define every member
+   of the object, its JSON type, its encoding, its value constraints,
+   and the verification procedure.  This document also defines relying-
+   side freshness obligations and describes related approval,
+   fulfillment, and revocation artifacts, whose formats it leaves to
+   other documents.
+
+   This document does not define identity, authority delegation,
+   payment, settlement, transport, boundary-decision receipts, or a
+   general evidence composition and sufficiency model.
+- **draft-schrock-canonical-action-identifier-05** (new-draft, score 14, core_identity) [none]: [The Canonical Action Identifier (CAID)](https://datatracker.ietf.org/doc/draft-schrock-canonical-action-identifier/) — Authorization, delegation, execution, and audit artifacts often
+   identify an action using format-local content and digests.  Those
+   digests are not directly comparable when the formats select or encode
+   material action fields differently.  This document defines the
+   Canonical Action Identifier (CAID): a typed action object, a
+   canonicalization and digest suite, a compact identifier string, and
+   versioned action-type definitions with required material fields.
+   External value sets are bound to integrity-checked snapshots.  The
+   document specifies a strict JSON input profile, a fixed and ordered
+   set of refusal reasons, and a digest that identifies the validation
+   semantics of a type definition.  It requests seven registries:
+   suites, action types, field types, code formats, reason codes,
+   mapping transforms, and mapping loss policies.  It also defines an
+   Action-Mapping Profile for projecting natively verified artifacts
+   into a common action type, with the closed results
+   EQUIVALENT_UNDER_PROFILE, NOT_EQUIVALENT, and INDETERMINATE.  CAID
+   carries no trust semantics.  It does not establish identity,
+   authority, authorization, execution, safety, or legal reliance.
+- **draft-winmagic-condition-bound-keys-00** (new-draft, score 14, core_identity) [none]: [User Authentication in the TLS Handshake with Condition-Bound Keys](https://datatracker.ietf.org/doc/draft-winmagic-condition-bound-keys/) — A user's access to an online service is secured today in two parts.
+   A login establishes who is there and ends in a verdict, which a
+   cookie or token carries to later requests.  The session is then
+   protected by other means, such as binding that token to a key.  The
+   login does not establish the key that protects the session, and that
+   leaves a gap between the two.
+
+   This document describes authenticating the user the way workloads are
+   commonly authenticated: in the TLS handshake.  The user signs in to
+   their own device.  The device holds a condition-bound key that can
+   sign only while that user is using the device, the device is the
+   enrolled one, and its state meets local policy.  Used as the TLS
+   client key, it makes the handshake the login and the TLS session the
+   session.  The key represents the identity (the user, the device and
+   its state) at the moment of use, so identity assurance is carried in
+   each transaction and nothing else has to stand for it: no separate
+   login to the service and no session credential.  When a condition
+   fails, the key can no longer sign, and access ends at the next full
+   handshake without a revocation message being sent.
+
+   This is not an extension of OAuth.  OAuth starts after the login;
+   this removes the login to the service and the token that carries its
+   result.  Authorization is unchanged and can still come from OAuth.
+
+   The document describes the properties of such a key, its use in
+   mutual TLS, what a relying party can conclude from it, what parties
+   would need to agree on for it to interoperate, and how it relates to
+   existing mechanisms.
+- **draft-gilda-wimse-agent-audit-record-02** (new-draft, score 13, core_identity) [none]: [An Audit Record Format for AI Agent Authorization Decisions](https://datatracker.ietf.org/doc/draft-gilda-wimse-agent-audit-record/) — This document defines a record format for AI agent authorization
+   decisions.  The format is one in-toto predicate type, signed inside a
+   DSSE envelope.  It carries the seven minimum audit fields that the
+   WIMSE AI Identity Management System framework requires, and two
+   properties that make those fields checkable: a canonicalization
+   contract, and both the authorization decision and the observed effect
+   with a derived three-valued agreement between them.  That framework
+   places the record format out of scope and takes no IANA action.  This
+   document supplies the format.  It defines no policy.
+- **draft-lee-wimse-local-tool-call-proof-00** (new-draft, score 13, authorization) [none]: [Per-Call Proof for Local Tool Invocation by AI Agents](https://datatracker.ietf.org/doc/draft-lee-wimse-local-tool-call-proof/) — AI agents increasingly act through local tool servers that run on the
+   same host and are reached over inter-process channels such as the
+   stdio transport of the Model Context Protocol (MCP).  These channels
+   are outside the scope of HTTP-based authorization: the tool server
+   cannot tell whether a given invocation passed any policy decision,
+   and reusable credentials typically sit in the agent's process memory.
+
+   This document defines a per-call proof for local tool invocation.  A
+   Call Authority that runs outside the agent process evaluates policy,
+   issues a short-lived, single-use proof bound to the exact tool name
+   and arguments through a canonical action digest, and verifies that
+   proof on behalf of the tool server.  The tool server rejects
+   invocations whose proof is missing or does not verify.  The proof
+   format is opaque to the agent and the tool server; concrete formats
+   are defined as evidence type profiles.  An MCP stdio binding is
+   provided.
+- **draft-mih-agent-evidence-layer-00** (new-draft, score 13, trust_infrastructure) [none]: [Evidence Layer](https://datatracker.ietf.org/doc/draft-mih-agent-evidence-layer/) — This document defines the evidence layer: the conformance
+   requirements for a local evidence store that records evidence and the
+   relationships between records, keeps digests committed while payloads
+   are separately referenced, and preserves how each record came to be
+   known well enough that a later reader can tell an observation from a
+   claim.  This document defines the record model, typed links between
+   records, disclosure and retention semantics, the three classes of
+   index a store may maintain, and the minimum interface any commitment
+   substrate must supply for a store to conform to this layer.  It
+   exists so that a request for evidence can be answered honestly from
+   what a store actually holds, and so that an evidence bundle assembled
+   in response is assembled from committed material rather than
+   assembled and then made to look committed.  Conformance to this layer
+   MUST NOT require any particular implementation or commitment
+   substrate: a Checkpointed Local Log is one conforming profile;
+   registration with a SCITT Transparency Service is another; any other
+   append-only transparency log, or an implementer's own authenticated
+   log, also qualifies.  This document defines neither evidence
+   sufficiency policy, request routing, settlement, nor any specific
+   host-identity, signing, payload-storage, or replication mechanism.
+- **draft-morrison-mcp-dns-discovery-08** (new-draft, score 13, core_identity) [none]: [Discovery of Model Context Protocol Servers via DNS TXT Records](https://datatracker.ietf.org/doc/draft-morrison-mcp-dns-discovery/) — This document defines a DNS-based mechanism for discovering Model
+   Context Protocol (MCP) servers, the identity of the organisations
+   that operate them, and a cryptographic identity envelope bound to an
+   individual Sovereign-tier ~handle published under the same zone.
+
+   Three TXT records are defined.  _mcp.<domain> advertises an MCP
+   server's endpoint URL, agent protocol family, transport binding,
+   cryptographic identity, and capability profile. _org-alter.<domain>
+   advertises the operator's canonical organisational identity,
+   including its legal entity, registry identifier, regions of
+   operation, and any regulatory framework under which it must refuse
+   external automated access.  _alter.<domain> publishes an
+   Ed25519-signed envelope binding a ~handle to a public key, an
+   IdentityLog root reference, and a revocation commitment.  DNSSEC
+   validation is REQUIRED for the envelope record, and a DANE TLSA pin
+   on the MCP endpoint is REQUIRED where resolving an envelope and
+   opening an MCP session are one recognition transaction.
+
+   The mechanism complements HTTPS-based discovery, and follows the
+   precedent set by DKIM, SPF, DMARC, and MTA-STS.  A companion alter:
+   URI scheme is provisionally registered with IANA.
+- **draft-neve-ucap-access-00** (new-draft, score 13, core_identity) [none]: [Automated Content Access Negotiation and Delegated Rights Authorization for UCAP](https://datatracker.ietf.org/doc/draft-neve-ucap-access/) — This document specifies an interoperable HTTP protocol for automated
+   clients, including conventional web crawlers and AI-assisted agents,
+   to request access to a resource, receive a transaction-specific
+   offer, accept the offer, and obtain a cryptographically verifiable
+   authorization for a particular request.  Resource owners can perform
+   authorization directly or delegate it to independent rights managers
+   of any size.  A rights manager determines the price and other
+   conditions at the time of each request; this protocol does not expose
+   or constrain pricing algorithms, payment rails, credit limits,
+   invoicing schedules, or business relationships.  The protocol binds
+   an authorization to a request UUID, resource, authenticated crawler
+   operator, intended use, and validity interval.  It is designed as an
+   optional extension to the proposed Universal Crawler Accountability
+   Protocol (UCAP) and to existing HTTP authentication and bot identity
+   mechanisms.  The specification does not replace access controls,
+   copyright law, or private commercial agreements.
+- **draft-forten-oauth-sd-jwt-access-token-00** (new-draft, score 12, verifiable_claims) [none]: [Selective Disclosure for JWT Access Tokens Without Changing the Token](https://datatracker.ietf.org/doc/draft-forten-oauth-sd-jwt-access-token/) — This document adds selective disclosure to JWT access tokens without
+   changing the form of the Authorization header or how the token is
+   validated.  The RFC 9068 token is sent as today, with some of its
+   claims selectively disclosable as defined by SD-JWT (RFC 9901); the
+   Disclosures and the optional Key Binding JWT travel in two new HTTP
+   fields.  A recipient that does not implement this profile ignores the
+   fields and processes the token as an ordinary JWT access token.  The
+   token itself then carries no selectively disclosable value, and the
+   holder chooses per request which values to reveal.
+- **draft-jovancevic-vdac-05** (new-draft, score 12, core_identity) [none]: [Verifiable Data Access Contract (VDAC)](https://datatracker.ietf.org/doc/draft-jovancevic-vdac/) — This document specifies the Verifiable Data Access Contract (VDAC),
+   a protocol for cryptographically verifiable bilateral agreement
+   between a content publisher and an automated agent regarding the
+   terms of programmatic data access. VDAC defines the mechanism by
+   which a site issues an access offer, an agent accepts that
+   offer, both parties sign the resulting contract, and per-request
+   references bind individual interactions to agreed terms.
+
+   VDAC is the protocol-layer realization of the bilateral commitment
+   principle introduced in Section 6.6 of the Verifiable Identity
+   Claims and Delegation Model [VICDM] and operates as a companion
+   specification to the Signed Agent Identity Protocol [SAIP].
+
+   This document defines mechanism, not content: VDAC verifies the
+   existence and integrity of an agreement; the substance of what is
+   agreed remains entirely between the contracting parties.
+
+   VDAC also defines an append-only contract history. Changes to the
+   recorded state of a Contract are recorded as signed change records
+   and associated immutable snapshots; the original Contract Document
+   is never modified.
+- **draft-alla-agent-identity-document-00** (new-draft, score 11, core_identity) [none]: [The Agent Identity Document: A Hosted, Accountable Public Record for AI Agents](https://datatracker.ietf.org/doc/draft-alla-agent-identity-document/) — Autonomous software agents increasingly act on the public internet
+   with no name that a counterparty can check, no published party that
+   answers for them, and no way to learn that an operator has withdrawn
+   an agent.  This document specifies the Agent Identity Document, a
+   small JSON document served at a well-known URI on a hostname assigned
+   to one agent, and the practices an identity provider follows when it
+   hosts such names for operators who do not run their own domain.
+
+   The document records what the provider knows to be true (the
+   hostname, its service endpoints and the identity's lifecycle status)
+   separately from what the operator asserts (a description, a contact,
+   a homepage, a public key), and publishes the provider's dated,
+   expiring checks on the operator rather than a single trust level.
+   Lifecycle status is distinct from availability.  A suspended identity
+   publishes a deliberately minimal document.  Every identity is held by
+   an accountable person or organisation; an agent is never itself an
+   account holder, and agents are never given authority over DNS.
+
+   This document describes a practice in production at one provider.  It
+   is published so that the format can be reviewed, implemented by
+   others and mapped onto related work, and it requests registration of
+   a well-known URI suffix.
+- **draft-mcguinness-oauth-actor-profile-01** (new-draft, score 11, authorization) [none]: [OAuth Actor Profile for Delegation](https://datatracker.ietf.org/doc/draft-mcguinness-oauth-actor-profile/) — This document defines a common representation of delegated actors in
+   OAuth JSON Web Token (JWT) assertion grants, JWT access tokens, and
+   Transaction Tokens.  It profiles the act claim defined by OAuth 2.0
+   Token Exchange, requires issuer-scoped actor identifiers, and uses
+   the sub_profile claim to classify actor entity types.  It specifies
+   token processing, delegation-chain propagation, sender-constraint
+   handling, and discovery metadata, so that issuers and resource
+   servers in different trust domains interpret delegated actors
+   consistently.
+- **draft-mcguinness-oauth-actor-receipts-01** (new-draft, score 11, authorization) [none]: [OAuth Actor Receipts for Delegation Provenance](https://datatracker.ietf.org/doc/draft-mcguinness-oauth-actor-receipts/) — This document defines OAuth Actor Receipts, an optional companion to
+   the OAuth Actor Profile for Delegation.  Each receipt is a signed
+   JSON Web Token (JWT) attesting which issuer added an actor hop and,
+   optionally, the hop's historical presenter binding.  The
+   actor_receipts claim carries a hash-linked chain of receipts that
+   recipients verify against each hop's issuer.  This document specifies
+   receipt processing rules and the associated metadata parameters and
+   introspection response members.
+- **draft-jangra-scitt-digest-evidence-00** (new-draft, score 10, trust_infrastructure) [none]: [Digest-Only Evidence Logs: Completeness, Disclosure and Sampling over RFC 9162 Transparency Logs](https://datatracker.ietf.org/doc/draft-jangra-scitt-digest-evidence/) — This document describes an evidence log that records only salted
+   digests of records held by their makers, as leaves of an RFC 9162
+   Merkle tree, and three constructions over it that answer questions a
+   single inclusion proof cannot: whether a set of records shown is
+   complete (completeness chains), what one field of a sealed record
+   said without revealing the others (selective disclosure), and whether
+   records were kept, checked on a sample nobody could choose (spot
+   checks).  It profiles SCITT registration so that the log keeps a
+   digest of each Signed Statement and never the statement.  It is
+   published as running code with test vectors.
+- **draft-morrison-identity-attributed-commits-03** (new-draft, score 10, core_identity) [none]: [Identity-Attributed Git Commits via Tier-Structured Trailers](https://datatracker.ietf.org/doc/draft-morrison-identity-attributed-commits/) — This document defines a git commit trailer grammar for identity-
+   attributed contributions using the ~handle identity primitive defined
+   in the MCP DNS discovery draft.  The grammar binds sovereign actors,
+   automated bots, and AI instruments to specific commits via three
+   tier-structured trailers (Acted-By, Executed-By, Drafted-With) and
+   three optional cryptographic trailers (Identity-Signature, Identity-
+   Key-Id, Identity-Anchor).  The signature is computed with Ed25519
+   over the commit's patch identifier, the value git patch-id derives
+   from the change the commit makes, under a fixed domain-separation
+   prefix.  It therefore attests the change and not the resulting tree
+   or the commit hash.  A commit that carries the same change keeps a
+   verifying signature across rebase onto an unrelated base, cherry-
+   pick, and message amendment.  A merge commit carries no signature,
+   and a squash is a new change signed by whoever squashed it.
+   Conformant parsers reject cross-tier category errors (e.g., an
+   Instrument-tier handle in an Acted-By slot) as malformed.  The
+   mechanism is provider-neutral, depends only on DNS and the ~handle
+   resolution algorithm of that draft, and requires no central authority
+   or platform-specific verification service.
+- **draft-dogru-cedulon-core-04** (new-draft, score 9, verifiable_claims) [none]: [Spend Receipts and Payment Rail Reconciliation for AI Agents](https://datatracker.ietf.org/doc/draft-dogru-cedulon-core/) — This document addresses auditable payments for AI agents and builds
+   upon state-of-the-art HTTP 402, AP2 and credit card systems.  We
+   specify a cryptographically secured payment reconciliation protocol
+   using a Trade Manifest (a signed offer before payment), a Policy
+   Decision Point with default deny, a Spend Receipt (a COSE/CWT claim
+   set issued after a gated payment), and rail-extract reconciliation.
+- **draft-ietf-jose-pq-composite-sigs-05** (new-draft, score 9, verifiable_claims) [jose]: [PQ/T Hybrid Composite Signatures for JOSE and COSE](https://datatracker.ietf.org/doc/draft-ietf-jose-pq-composite-sigs/) — This document describes JSON Object Signing and Encryption (JOSE) and
+   CBOR Object Signing and Encryption (COSE) serializations for Post-
+   Quantum Traditional (PQ/T) hybrid composite signatures.  The
+   composite algorithms described combine the Module-Lattice-Based
+   Digital Signature Algorithm (ML-DSA) as the post-quantum component
+   and either the Elliptic Curve Digital Signature Algorithm (ECDSA) or
+   the Edwards-Curve Digital Signature Algorithm (EdDSA) as the
+   traditional component.
+- **draft-ietf-rats-network-device-subscription-14** (new-draft, score 9, trust_infrastructure) [rats]: [Attestation Event Stream Subscription](https://datatracker.ietf.org/doc/draft-ietf-rats-network-device-subscription/) — This document defines how to subscribe to YANG Event Streams for
+   Remote Attestation Procedures (RATS).  Specifically, this document
+   defines a YANG module that augments the YANG module for Trusted
+   Platform Module (TPM)-based Challenge-Response Remote Attestation
+   (CHARRA), enabling subscription to RATS Conceptual Messages of the
+   Evidence type and auxiliary Event Logs as part of that Evidence.  The
+   module defined requires at least one Trusted Platform Module (TPM)
+   1.2 or TPM 2.0 (or equivalent hardware implementation providing the
+   same protected capabilities as a TPM) must be available on the
+   Attester on which the YANG server is running.
+- **draft-izmaylov-agent-permission-receipts-00** (new-draft, score 9, ai_infrastructure) [none]: [Signed Permissions and Action Receipts for Automated Agents](https://datatracker.ietf.org/doc/draft-izmaylov-agent-permission-receipts/) — Automated agents, such as artificial intelligence (AI) agents, act
+   for people.  This document specifies records that let anyone check,
+   later and offline, what an agent was allowed to do and what it
+   recorded doing: a permission a person signs with a passkey, with
+   limits a machine can check; a receipt the agent signs for each
+   action, with Ed25519 and the post-quantum Module-Lattice-Based
+   Digital Signature Algorithm (ML-DSA-87); and a log whose tree head is
+   signed and time-stamped.  A verifier says whether each action stayed
+   within its permission, apart from whether the records are sound.
+- **draft-janbjer-div-00** (new-draft, score 9, authorization) [none]: [Deterministic Intent Verification (DIV) Protocol Specification](https://datatracker.ietf.org/doc/draft-janbjer-div/) — This document specifies Deterministic Intent Verification (DIV), a
+   transport-independent format for signed action approvals and their
+   offline verification.  A relying party reconstructs the signed
+   payload from its expected execution parameters, verifies witnesses
+   against locally selected trust anchors, and checks the signed
+   approval requirement against any locally configured approval policy.
+   The specification covers ordinary approvals, offline approvals,
+   delegation, agent authority, and platform hash-only intents.
+   Cryptographic verification is stateless; enforcing single-use
+   execution requires stateful nonce redemption.  A valid signature
+   establishes approval of the signed bytes under the selected trust
+   policy, not execution of the action or the approver's understanding
+   of it.
+- **draft-watts-claim-promotion-receipts-00** (new-draft, score 9, authorization) [none]: [Claim Promotion Receipts for Governed Research and Agentic Systems](https://datatracker.ietf.org/doc/draft-watts-claim-promotion-receipts/) — This document defines a protocol-neutral receipt for explicit
+   promotion across evidence and claim-authority boundaries.  It is
+   designed to prevent raw observations, model outputs, or unreviewed
+   evidence from being silently retyped as authorization-bearing state.
+
+Archive Status
+
+   This RFCXML source is an archive working draft and is not represented
+   as submitted, adopted, or endorsed by the IETF.
+- **draft-watts-proof-of-record-system-00** (new-draft, score 9, authorization) [none]: [Proof-of-Record Packages for Source-Grounded Agentic and Scientific Archives](https://datatracker.ietf.org/doc/draft-watts-proof-of-record-system/) — This document specifies a proof-of-record package for source-grounded
+   agentic outputs and scientific archives.  The package proves
+   structural validation, conformance evaluation, byte integrity,
+   sequence integrity, governance authorization, and provenance
+   recoverability.  It does not prove scientific truth.
+- **draft-zhang-dawn-agent-discovery-framework-03** (new-draft, score 9, core_identity) [none]: [A Framework for Agent Discovery in DAWN](https://datatracker.ietf.org/doc/draft-zhang-dawn-agent-discovery-framework/) — The IETF DAWN (Discovery of Agents With Names) working group is
+   developing a suite of documents addressing agent discovery across
+   organizational boundaries, initially focused on discovery of AI
+   agents and their capabilities.  Existing DAWN contributions include
+   terminology, requirements, use cases, gap analysis, a discovery
+   mechanism survey, and an information model for Minimum Discoverable
+   Information (MDI).
+
+   This document describes a two-layer federated reference architecture
+   framework that operates within the DAWN.  The first layer, the Local
+   Discovery Plane, performs zero-configuration agent advertisement and
+   collection inside each local site, without mandating a specific link-
+   local protocol.  The second layer, the Federation Plane, builds a
+   federation among site gateways to exchange lightweight Federation
+   Metadata Records (FMRs) — a concrete binding of DAWN MDI — across
+   independent administrative domains, while full Capability Cards are
+   retrieved on demand via authenticated unicast.
+
+   The architecture emphasizes data sovereignty through an Export Policy
+   Engine, separates lightweight metadata indexes from full capability
+   documents, and supports multiple federation synchronization
+   strategies.  This document is informational.  It does not define
+   normative protocol formats, nor does it compete with existing DAWN
+   proposals such as ACAP, Agent Directory, or ARDP; rather, it provides
+   a deployment framework showing how these mechanisms may be composed
+   at administrative boundaries.
+
+   Consistent with the DAWN charter, the architecture is primarily
+   targeted at AI agent discovery while remaining general and reusable
+   for other entity types.
+- **draft-arsentev-llm-context-discovery-01** (new-draft, score 8, agent_identity) [none]: [Discovery and Retrieval of Publisher-Curated Context Files for Large Language Model Consumers](https://datatracker.ietf.org/doc/draft-arsentev-llm-context-discovery/) — Publishers have begun to serve a curated, plain-text summary of a web
+   origin intended for consumption by large language models and by the
+   crawlers that feed them, most visibly under the de facto file name
+   "llms.txt".  The practice is described by an informal proposal which,
+   in its current version, recommends existing link relations from
+   individual pages to the file.  It has no media type, no rules that
+   bound the cost of retrieval, and no way for a consumer that starts
+   from an origin's robots.txt or from a fixed well-known location to
+   learn that such a file exists.
+
+   This document specifies discovery and retrieval for publisher-curated
+   context files.  It defines the well-known URI "llm-context", the link
+   relation type "llm-context", and an extension record for the robots
+   exclusion protocol, so that a publisher may advertise a context file
+   by three independent paths and a consumer may find it without
+   guessing.  It specifies a two-tier arrangement of an index resource
+   and optional detail resources, states conditional-request and size
+   requirements that keep retrieval affordable for both parties, and
+   describes the relationship of this mechanism to the robots exclusion
+   protocol, to sitemaps, to the llms.txt proposal itself, and to work
+   in the IETF on AI usage preferences, agent communication and the
+   discovery of AI agents.
+
+   This document also reports measurements from an operational
+   deployment in which requests presenting twenty crawler tokens of
+   search and language-model providers numbered 46,155 over fifteen days
+   at one origin server, without once retrieving the context file the
+   origin was serving, while the same crawler tokens retrieved
+   robots.txt 698 times in the three days after the context file was
+   deployed.  The measurement figures in revision -00 were computed on
+   an incomplete log and are corrected here.  The absence of a discovery
+   mechanism, rather than the absence of interest, is the hypothesis
+   this document acts upon.
+- **draft-hardman-verifiable-voice-protocol-08** (new-draft, score 8, trust_infrastructure) [none]: [Verifiable Voice Protocol](https://datatracker.ietf.org/doc/draft-hardman-verifiable-voice-protocol/) — Verifiable Voice Protocol (VVP) authenticates and authorizes
+   organizations and individuals making and/or receiving telephone
+   calls.  This eliminates trust gaps that malicious parties exploit.
+   Like related technologies such as SHAKEN, RCD, and BCID, VVP uses
+   STIR to bind cryptographic evidence to a SIP INVITE, and verify this
+   evidence downstream.  VVP can also let evidence flow the other way,
+   proving things about the callee.  VVP builds from different technical
+   and governance assumptions than alternatives, and uses richer,
+   stronger evidence.  This allows VVP to cross jurisdictional
+   boundaries easily and robustly.  It also makes VVP simpler, more
+   decentralized, cheaper to deploy and maintain, more private, more
+   scalable, and higher assurance.  Because it is easier to adopt, VVP
+   can plug gaps or build bridges between other approaches, functioning
+   as glue in hybrid ecosystems.  For example, it may justify an A
+   attestation in SHAKEN, or an RCD passport for branded calling, when a
+   call originates outside SHAKEN or RCD ecosystems.  VVP also works
+   well as a standalone mechanism, independent of other solutions.  An
+   extra benefit is that VVP enables two-way evidence sharing with
+   verifiable text and chat (e.g., RCS and vCon), as well as with other
+   industry verticals that need verifiability in non-telco contexts.
+- **draft-lynch-ai-visibility-lifecycle-03** (new-draft, score 8, adjacent_watchlist) [none]: [The AI Visibility Lifecycle Framework](https://datatracker.ietf.org/doc/draft-lynch-ai-visibility-lifecycle/) — This document describes the 11-Stage AI Visibility Lifecycle, a
+   proposed analytical model of how AI systems discover, understand,
+   trust and show websites to people.  The eleven stages fall into three
+   related phases -- AI Comprehension (Stages 1-5), Trust Establishment
+   (Stages 6-8), and Human Visibility (Stages 9-11).  The lifecycle is
+   non-linear: Stages 1-2 come first for any page; Stages 3-11 are
+   weighed together, and a domain can be progressing in several at once.
+   Its figures are illustrative examples (analytical estimates), and its
+   descriptions of how AI systems work are inferred from observed
+   behaviour, not documented internals.  Its contribution is a common
+   vocabulary and a dependency map for telling crawlability from
+   visibility and for measuring each element, with the claims that rest
+   on outside research cited to it in the deposited specifications.  Its
+   figures and some of its mechanisms are provisional and remain to be
+   tested.
+- **draft-mcguinness-oauth-actor-proofs-01** (new-draft, score 8, authorization) [none]: [OAuth Actor-Signed Hop Proofs](https://datatracker.ietf.org/doc/draft-mcguinness-oauth-actor-proofs/) — This document defines OAuth Actor-Signed Hop Proofs, an optional
+   companion to the OAuth Actor Profile for Delegation.  Each proof is a
+   signed JSON Web Token (JWT) recording an actor's participation and
+   authorized target for one hop.  The actor_proofs claim carries a
+   hash-linked chain verified through trusted actor-key sources.  This
+   document specifies proof conveyance, validation, optional links to
+   Actor Receipts, metadata parameters, and introspection response
+   members.
+- **draft-mo-cats-agent-state-affinity-00** (new-draft, score 8, agent_identity) [none]: [State, Storage, and Compute Affinity for AI Agent Service Selection in Computing-Aware Traffic Steering](https://datatracker.ietf.org/doc/draft-mo-cats-agent-state-affinity/) — AI agent services are stateful and long-running: the speed with which
+   a step can be served depends on whether the session's context,
+   retrieved data, tool results, and model-side state such as a
+   key-value (KV) cache are already available at, or near, the selected
+   service contact instance, and on whether the computation that the
+   step needs is ready there. Computing-Aware Traffic Steering (CATS)
+   exposes computing and network metrics and defines service contact
+   instance affinity, but it does not expose the availability of
+   reusable state, does not distinguish a hard locality constraint on
+   state from a preference for reusing it, does not provide a way to
+   compare the cost of moving state with the cost of recomputing it, and
+   does not represent the readiness of a specific computation. This
+   document describes affinity in three coupled dimensions -- state,
+   storage, and compute -- for agent service selection. It states the
+   motivation and the goals of introducing affinity, the requirements
+   and constraints that affinity places on the mapping of an agent
+   workload onto storage and compute resources, the metrics and
+   measurement methods by which affinity is observed, the mechanisms and
+   the procedure by which affinity is assured, and two cases in detail:
+   a long-horizon session that passes through several stages, and a
+   group of similar agents or of tenants served by shared reusable
+   state. This document defines no wire protocol, no encoding, and no
+   data model, and it does not define the transfer mechanisms
+   themselves.
+- **draft-neve-ucap-00** (new-draft, score 8, core_identity) [none]: [Universal Crawler Accountability Protocol (UCAP)](https://datatracker.ietf.org/doc/draft-neve-ucap/) — Automated HTTP clients, including search crawlers, indexing bots,
+   archivers, and AI-assisted agents, routinely access Web origins.
+   Existing identification mechanisms do not consistently give an origin
+   operator a way to verify a particular request, report alleged abuse,
+   follow the report's disposition, or request that an operator stop
+   accessing an origin.  This document proposes the Universal Crawler
+   Accountability Protocol (UCAP), an opt-in interoperable HTTP
+   interface for these tasks.  UCAP associates a per-request opaque
+   identifier with a cryptographically authenticated automated client,
+   defines operator-hosted verification, abuse-reporting and case-status
+   resources, and defines a domain-scoped exclusion request with
+   acknowledgment and status.  UCAP builds on HTTP Message Signatures
+   and does not replace robots.txt or existing site access controls.
+   The verification service does not identify an end user to the origin.
+   This initial proposal requires further review of its privacy,
+   authorization, and operational trade-offs.
+- **draft-palanisamy-scitt-aac-runtime-00** (new-draft, score 8, trust_infrastructure) [none]: [The model_attestation Block for Agent Action Capsules: Model, Runtime, and Hardware Claims](https://datatracker.ietf.org/doc/draft-palanisamy-scitt-aac-runtime/) — This document defines the model_attestation block of the Agent Action
+   Capsule (AAC) profile — referenced twice by the base profile but
+   never defined there — and, within it, the compute_attestation
+   container that already carries runtime extensions in the field: the
+   model-serving runtime, the agent's own execution environment
+   (architectural pattern, orchestration framework, sandbox confinement,
+   invoked tool version), and host hardware, together with model and
+   weights claims.  Every claim carries an explicitly declared source; a
+   verifier grades claims by how they were observed and never infers a
+   stronger grade than the evidence supports.  Hardware or platform
+   attestation, when present, is cited by content-addressed reference to
+   a foreign attestation record and verified with that record's own
+   verifier.
+- **draft-sharif-typed-evidence-record-00** (new-draft, score 8, trust_infrastructure) [none]: [The Typed-Evidence Record: A Legally-Operative, Trust-Graded Record Format for Machine-Generated Evidence](https://datatracker.ietf.org/doc/draft-sharif-typed-evidence-record/) — A tamper-evident record establishes that data has not been altered.
+   It does not, by itself, establish what legally-operative fact the
+   data evidences, nor how far the data may be relied upon.  This
+   document defines the Typed-Evidence Record (TER): an interoperable
+   record format in which a machine-generated record, such as a record
+   of an action taken by an autonomous agent, is expressed as a set of
+   legally-operative facts, carries an evidence grade reflecting its
+   level of cryptographic attestation, carries a per-fact robustness
+   indication, and carries the result of an independent integrity
+   verification of its source.  A Typed-Evidence Record binds to, and
+   does not replace, the underlying signed record it describes.
+
+   This document specifies the record format and the requirements a
+   record and a relying party MUST meet to be interoperable.  It does
+   not specify how the legally-operative facts are produced from a
+   source record; that is an implementation concern outside the scope
+   of this document.
+- **draft-wang-jep-receipt-profile-01** (new-draft, score 8, core_identity) [none]: [JEP Receipt Profile: Verifiable Behavior and Evidence Receipts](https://datatracker.ietf.org/doc/draft-wang-jep-receipt-profile/) — This document defines JEP Receipt Profile 1 (JEP-RP-1), a minimal
+   receipt and evidence profile for the Judgment Event Protocol (JEP).
+
+   JEP-RP-1 binds a JEP event to one digest-addressed receipt record
+   through a critical JEP extension.  It defines a small behavior-record
+   format, portable receipt manifests and bundles, and independent
+   receipt-validation checks.  JEP remains authoritative for event
+   verbs, Event Identity, Event Hash, signature processing, references,
+   extension processing, validation modes, and acceptance semantics.
+
+   Receipt records are technical evidence about observable behavior and
+   related artifacts.  JEP-RP-1 does not assign legal liability, prove
+   subjective intent, establish authorization validity, determine
+   causality or factual truth, define governance outcomes, or establish
+   regulatory compliance.
+- **draft-watts-boundary-jurisdiction-architecture-00** (new-draft, score 8, authorization) [none]: [Boundary Jurisdiction Architecture for Agentic and Delegated Systems](https://datatracker.ietf.org/doc/draft-watts-boundary-jurisdiction-architecture/) — This document describes a protocol-neutral architecture for
+   separating possession of capability from jurisdiction over
+   consequential authority boundaries.  It models authority as
+   reachability in a time-indexed capability graph, defines commitment
+   boundaries and independently controlled revocation cuts, and
+   specifies fail-closed semantics for evidence, authorization,
+   delegation, and revocation closure.
+
+Archive Status
+
+   This RFCXML source is an archive working draft.  It is not
+   represented as submitted, adopted, or endorsed by the IETF.
+- **draft-ahuja-agent-routing-policy-02** (new-draft, score 7, authorization) [none]: [A Policy Grammar for Inter-Domain Agent Routing](https://datatracker.ietf.org/doc/draft-ahuja-agent-routing-policy/) — Agent tasks are delegated across organizational boundaries.  Existing
+   work specifies how agents are identified, discovered, and described,
+   states requirements for cross-domain isolation and authorization, and
+   identifies the absence of a mechanism for expressing capability
+   policy as a gap.  This document defines four policy attributes for
+   inter-domain agent delegation, the declarations each attribute
+   carries, and a validity condition on delegation chains that no party
+   establishes by observing the whole chain.  Whether independently
+   chosen policies converge is analysed in separate work.
+- **draft-morrison-reviewed-by-trailer-03** (new-draft, score 7, core_identity) [none]: [Reviewed-By Trailer: Sovereign-Portable Peer-Review Attribution for Content-Hash-Bound Artefacts](https://datatracker.ietf.org/doc/draft-morrison-reviewed-by-trailer/) — This document defines a trailer grammar for sovereign-portable peer
+   review as an extension of the identity-attributed commit grammar of
+   draft-morrison-identity-attributed-commits.  The grammar introduces
+   one required trailer (Reviewed-By:) and three optional companion
+   trailers (Review-Stance:, Review-Of:, Witnessed-By:) that bind a
+   Sovereign-tier ~handle to a specific act of review over a specific
+   content artefact, cryptographically signed using the Ed25519
+   mechanism of that grammar.  The signature covers the reviewer's role,
+   the stance, and the review target together, so that changing any of
+   them after signing fails verification.  The mechanism applies to git
+   commits, document manifests, pre-prints, patent disclosures, and any
+   other content-addressable artefact.  A reviewer's signed reviews are
+   bound to the reviewer's sovereign handle, not to a publisher's
+   platform, and can be verified without the publisher.  For anonymous
+   peer review, the reviewer signs under a Sovereign handle whose
+   underlying party is concealed through out-of-band key custody; the
+   review act stays verifiable and the reviewer's identity is not
+   disclosed.  The grammar complements CRediT, ORCID, and DOI
+   attribution; it does not replace them.
+
+## Monitor
+
+- **draft-cel-nfsv4-rpc-tls-dane-01** (new-draft, score 6, core_identity) [none]: [Using RPC-with-TLS with DNS-Based Authentication of Named Entities](https://datatracker.ietf.org/doc/draft-cel-nfsv4-rpc-tls-dane/) — RPC-with-TLS assumes that DNS-Based Authentication of Named Entities
+   (DANE) is available on platforms where it is deployed, and recommends
+   that a client operating under an opportunistic security policy check
+   for a TLSA record before initiating an association, but does not say
+   how.  This document specifies the missing details, so that a TLSA
+   record authenticates an RPC server with no certification authority
+   trust anchor provisioned on the client.  It updates RFC 9289.
+- **draft-ietf-lake-edhoc-psk-10** (new-draft, score 6, core_identity) [lake]: [LAKE Authenticated with Pre-Shared Keys (PSKs)](https://datatracker.ietf.org/doc/draft-ietf-lake-edhoc-psk/) — This document specifies a Pre-Shared Key (PSK) authentication method
+   for the Lightweight Authenticated Key Exchange (LAKE) protocol.  The
+   PSK method provides mutual authentication, ephemeral key exchange,
+   identity protection, and quantum resistance while incurring lower
+   computational costs than the public-key authentication methods
+   specified for LAKE.  It is suited for systems where nodes share a PSK
+   provided out-of-band (external PSK) and enables efficient session
+   resumption with less computational overhead when the PSK is provided
+   from a previous LAKE session (resumption PSK).  This document details
+   the PSK message flow, key derivation changes, message formatting,
+   processing, and security considerations.
+- **draft-ietf-lamps-rfc6211-update-04** (new-draft, score 6, core_identity) [lamps]: [Update to the Cryptographic Message Syntax (CMS) Algorithm Identifier Protection Attribute](https://datatracker.ietf.org/doc/draft-ietf-lamps-rfc6211-update/) — This document updates RFC 6211.  It corrects errors in the definition
+   of the id-aa-cmsAlgorithmProtect ASN.1 object identifier.  The IANA
+   registry entry has always been correct.
+- **draft-kott-numina-pair-binding-01** (new-draft, score 6, adjacent_watchlist) [none]: [An Evidence Preserving Companion Record for the fixed string numina.pair-binding.v1 / Ed25519: A design study of Ed25519; the universal pair binding model.](https://datatracker.ietf.org/doc/draft-kott-numina-pair-binding/) — Software attribution may need to be clarified after release artifacts
+   and their cryptographic commitments have been fixed.  Editing those
+   artifacts would disturb the evidence that an attribution statement is
+   intended to describe.  This paper proposes a separately versioned
+   companion record that associates two unchanged source commitments
+   with explicit named attribution and an opaque reference to a private
+   genesis record.  The construction uses JSON Canonicalization Scheme
+   (JCS) bytes, an application-specific message prefix, and pure Ed25519
+   signatures.  Its verification model separates payload integrity,
+   signing authority, source equality, revision freshness, and private
+   reference resolution.  A Numina example preserves two existing
+   SHA-256 commitments and records an owner-defined person-to-alias map
+   without treating labels as proof of authorship or mathematical
+   derivation.  Historical records report reproduction of both
+   commitments.  A later byte comparison establishes equality of the
+   selected v155 inputs and hash profile, without establishing whole-
+   source equality or a deployed signed binding.  The contribution is a
+   proposed evidence-preservation and reporting discipline, rather than
+   a new cryptographic primitive.  A public-safe record would require
+   its own approved payload and signature.  Trust provisioning,
+   implementation tests, and public reproducibility remain open.
+- **draft-linkgenetic-linkid-uri-01** (new-draft, score 6, core_identity) [none]: [The LinkID URI Scheme and Resolution Model](https://datatracker.ietf.org/doc/draft-linkgenetic-linkid-uri/) — This document specifies the "linkid" URI scheme and a resolution
+   model for persistent, location-independent identifiers.  A LinkID
+   consists of the scheme name followed by a UUID and identifies a
+   resource independently of its current network location.  Resolution
+   maps the LinkID to a current actionable URI using one or more
+   resolvers.  Resource names, locations, versions and operator
+   relationships are associated data, not part of the identifier.  The
+   document defines syntax, comparison, resolution semantics and an
+   HTTPS binding, and requests an update of the existing IANA URI scheme
+   registration.
+- **draft-lohmann-qikvrt-epistemic-status-00** (new-draft, score 6, authorization) [none]: [QIK-VRT Epistemic Status Profile for Evidence-Bound Machine Claims](https://datatracker.ietf.org/doc/draft-lohmann-qikvrt-epistemic-status/) — This document defines an Experimental application-layer profile for
+   representing the epistemic status of claims emitted or processed by
+   machine cognition systems.  The profile requires a claim not to be
+   represented with a stronger epistemic status than its validated,
+   provenance-bound evidence supports.
+
+   The profile distinguishes object truth from epistemic truthfulness.
+   It does not guarantee that external sources are true, that reasoning
+   is infallible, or that the external world is completely observable.
+   It specifies how an implementation reports what is proved, observed,
+   source-bound, interpretative, normative, predicted, or open.
+
+   The profile is designed to compose with QIK-VRT EFFECT_ACK without
+   modifying the five-state EFFECT_ACK version-1 wire contract.
+   EFFECT_ACK controls downstream effect authorization; this profile
+   controls the strength of epistemic claims.
+- **draft-morrison-alter-uri-scheme-04** (new-draft, score 6, core_identity) [none]: [The 'alter' URI Scheme for Dispatchable ~handle References](https://datatracker.ietf.org/doc/draft-morrison-alter-uri-scheme/) — This document defines the alter URI scheme as a dispatchable
+   reference syntax for ~handle identity references published in the DNS
+   records defined in the companion specification for discovering Model
+   Context Protocol servers through DNS TXT records.  An alter: URI
+   binds a textual ~handle reference to a resolution and verification
+   procedure that retrieves the handle's envelope from a publishing
+   zone, validates the envelope's signature chain, and dispatches the
+   result to an operating-system URI handler.  The reference may be
+   scoped to an organisation, narrowed to a named facet of the identity,
+   and addressed to a typed action surface.  The scheme is the
+   addressing form of the ~handle@org:facet/action reference; its
+   resolution semantics are those of that companion specification,
+   reused without modification.
+
+   The scheme is provider-neutral and introduces no new cryptographic
+   primitive.  A handler given an alter: URI verifies the handle's
+   envelope before acting on it, and where the URI addresses an action,
+   verification precedes any side effect.  IANA provisionally registered
+   the alter scheme under Section 4 of RFC 7595 on 5 October 2026.
+- **draft-mott-cose-sqisign-09** (new-draft, score 6, verifiable_claims) [none]: [CBOR Object Signing and Encryption (COSE) and JSON Object Signing and Encryption (JOSE) Registrations for SQIsign](https://datatracker.ietf.org/doc/draft-mott-cose-sqisign/) — *NOTE: This document describes a signature scheme based on the
+   SQIsign algorithm currently under evaluation in the 3rd round NIST
+   Post-Quantum Cryptography standardization process.  Be aware that the
+   underlying primitive may change as a result of that process.*
+
+   This document specifies the algorithm encodings and representations
+   for the SQIsign digital signature scheme within the CBOR Object
+   Signing and Encryption (COSE) and JSON Object Signing and Encryption
+   (JOSE) frameworks.
+
+   SQIsign is an isogeny-based post-quantum signature scheme that
+   provides an unusually compact signature and public key size among
+   candidates of the NIST Post-Quantum Cryptography (PQC)
+   standardization and on-ramp-to-standardization processes.
+
+   The standardization of SQIsign will be helpful to address current
+   infrastructure bottlenecks, specifically the FIDO2 CTAP2
+   specification used by many in-service devices.
+
+   This document clarifies that SQIsign does not expose the auxiliary
+   torsion-point information exploited in the SIDH/SIKE attacks.
+   Consequently, the specific attack techniques of Castryck–Decru do not
+   directly apply.  However, the scheme remains subject to ongoing
+   cryptanalysis of isogeny-based constructions.  By establishing stable
+   COSE and JOSE identifiers, this document ensures the interoperability
+   required for the seamless integration of post-quantum security into
+   high-density, bandwidth-constrained, and legacy-compatible hardware
+   environments.
+- **draft-munro-cips-00** (new-draft, score 6, core_identity) [none]: [Contextual IP Prefix Semantics (CIPS)](https://datatracker.ietf.org/doc/draft-munro-cips/) — This document defines Contextual IP Prefix Semantics (CIPS), a model
+   that distinguishes addresses, canonical prefixes, addresses with
+   prefix context, and prefix selectors, and describes how these forms
+   are qualified by operational context.  It provides a taxonomy of
+   operational contexts and vocabulary for stating implementation
+   support.  In that vocabulary, canonical-prefix support means the
+   canonical prefix form is preserved as its own identity; accepting
+   slash-qualified text is not that capability.  The model is intended
+   to help specification authors, API and schema designers, tool
+   authors, and operators preserve semantic distinctions when prefix-
+   bearing values cross interchange boundaries.
+- **draft-arsentev-agent-run-metrics-01** (new-draft, score 5, adjacent_watchlist) [none]: [Agent Run Metrics: A JSON Interchange Format for Resource Accounting of Language-Model Agent Runs](https://datatracker.ietf.org/doc/draft-arsentev-agent-run-metrics/) — Autonomous software agents driven by large language models execute
+   multi-step runs in which the same conversational context is
+   retransmitted to a model on every step.  The resulting resource
+   consumption is dominated by repeated input rather than by generated
+   output, and it is reported today in mutually incompatible, vendor-
+   specific shapes.  This document defines Agent Run Metrics, a JSON
+   interchange format that describes the resource consumption of a
+   single agent run and of its constituent steps, together with a small
+   set of derived quantities whose computation is specified exactly.  It
+   states normatively that one reported step corresponds to one
+   completed model invocation, so that the several records a runtime may
+   write while a single response is produced are not mistaken for
+   several invocations, and it defines how the consumption of delegated
+   sub-runs is attributed without being counted twice.  The format
+   carries counters, timing and cost attribution only; it deliberately
+   excludes prompt and completion content.  This document defines the
+   initial values of two extensible enumerations and the rule by which
+   they are extended; it requests no IANA action.
+- **draft-calabria-bmwg-ai-fabric-training-bench-05** (new-draft, score 5, ai_infrastructure) [none]: [Benchmarking Methodology for AI Training Network Fabrics](https://datatracker.ietf.org/doc/draft-calabria-bmwg-ai-fabric-training-bench/) — This document defines benchmarking terminology, methodologies, and
+   Key Performance Indicators (KPIs) for evaluating Ethernet-based AI
+   training network fabrics.
+
+   As large-scale distributed Artificial Intelligence / Machine Learning
+   (AI/ML) training clusters grow to tens of thousands of accelerators
+   (GPUs or generic accelerator processing units (XPUs)), the backend
+   network fabric determines Job Completion Time (JCT), training
+   throughput, and accelerator utilization.
+
+   This document establishes vendor-independent, reproducible test
+   procedures for benchmarking fabric-level performance under realistic
+   AI training workloads.  The tests cover Remote Direct Memory Access
+   (RDMA) over Converged Ethernet version 2 (RoCEv2) transport, the
+   Ultra Ethernet Transport (UET) protocol defined by the Ultra Ethernet
+   Consortium (UEC) Specification 1.0, congestion management (Priority
+   Flow Control (PFC), Explicit Congestion Notification (ECN), Data
+   Center Quantized Congestion Notification (DCQCN), Credit-Based Flow
+   Control (CBFC)), load balancing strategies (Equal-Cost Multi-Path
+   (ECMP), Dynamic Load Balancing (DLB), packet spraying), collective
+   communication patterns (AllReduce, AllToAll, AllGather), and scale/
+   soak testing.
+
+   The methodology enables direct, reproducible comparison across switch
+   ASICs, NIC transport stacks (RoCEv2 and UET), and fabric
+   architectures (2-tier Clos, 3-tier Clos, and rail-optimized).
+- **draft-dias-agent-payment-verdicts-00** (new-draft, score 5, authorization) [none]: [Signed Authorization Verdicts for Agent-Initiated Payments](https://datatracker.ietf.org/doc/draft-dias-agent-payment-verdicts/) — When a software agent initiates a payment on behalf of an
+   organization, the party that settles the payment usually cannot see
+   the policy under which it was permitted.  This document describes a
+   signed authorization verdict: a JSON Web Token, signed with ES256,
+   that records the outcome of evaluating one payment request, including
+   its amount, currency, and recipient, against a spending policy that
+   the organization configured.  A party holding the issuer's published
+   public key can verify a verdict without contacting the issuer.
+
+   The document describes the claim set, key publication and rotation,
+   and a verification procedure, and states what a verdict does not
+   assert.  It describes the format as one implementation issues it,
+   including the points where it departs from JSON Web Token Best
+   Current Practices (RFC 8725).  It is offered as input to IETF
+   discussion of authorization records for agent-initiated actions and
+   is not a proposal for standardization.
+- **draft-intra-handshake-fail-55** (new-draft, score 5, trust_infrastructure) [none]: [Early Attestation Considered Very Harmful (CVE-2026-100835 of CVSS 9.1, CVE-2026-92701 of CVSS 9.1, CVE-2026-92702 of CVSS 9.1, CVE-2026-100833 of CVSS 8.2, CVE-2026-33697 of CVSS 7.5, and 36 other CVEs of up to expected CVSS 10.0 upcoming)](https://datatracker.ietf.org/doc/draft-intra-handshake-fail/) — The draft aims to provide technical details of [CVE-2026-33697],
+   [EUVD-2026-16488], [CVE-2026-92701], [EUVD-2026-83194],
+   [CVE-2026-92702], [EUVD-2026-83192], [CVE-2026-100833],
+   [EUVD-2026-87851] and several GitHub Security Advisories (GHSAs)
+   which provide substantial technical evidence of how early attestation
+   fails in practice, even *without physical access* to the desired
+   machine.  Moreover, since continuous attestation is generally
+   required [CSA-eBPF] [MITRE-Continuous-Attestation], early attestation
+   adds *unnecessary complexity*. The results are backed by the research
+   [Intra-handshake.fail], [TLS-RA], [EarlyAttestationBleed] and the
+   artifacts [Intra-handshake.fail-repo] in state-of-the-art formal
+   analysis tool, ProVerif, under Apache-2.0 license for
+   reproducibility, extensibility, and review, and have been
+   acknowledged by the relevant stakeholders.  Currently, there are
+   *three CVEs of CVSS 9.1, one CVE of CVSS 8.2, one CVE of CVSS 7.5,
+   several GHSAs published against the broader early attestation
+   covering all layers of the ecosystem up to the application*. The
+   research papers on these are currently either under submission or
+   being prepared for submission.  The artifacts of these papers will be
+   shared with the community under Apache-2.0 license for
+   reproducibility, extensibility, and review.  Based on our work, all
+   except two implementations of early attestation have been archived,
+   withdrawn, or moved to post-handshake attestation.  In our analysis
+   [Intra-handshake.fail-repo] and [ID-Crisis-repo], the remaining two
+   implementations of early attestation -- Edgeless Systems Contrast and
+   Meta's AI -- remain vulnerable.  We recommend users of these two
+   implementations to carefully evaluate their systems and understand
+   the risks.
+- **draft-janz-nmrg-adhoc-semantic-reconciliation-01** (new-draft, score 5, adjacent_watchlist) [none]: [Portable Semantic Models and Ad Hoc Reconciliation by Cognitive Agents in Network Management](https://datatracker.ietf.org/doc/draft-janz-nmrg-adhoc-semantic-reconciliation/) — Interoperation between network-management systems has traditionally
+   required a data model agreed in advance.  Where that is insufficient,
+   a richer shared information model or ontology is agreed instead.
+   Both demand broad prior agreement, negotiated and maintained by
+   people.  This document examines what becomes possible once the
+   systems on each side can reason.  Each side can lift its own data
+   into a complete semantic model.  Two such models can then reconcile
+   ad hoc, for the occasion, with no model agreed beforehand.
+
+   The document develops the semantic model and the two operations upon
+   it: the lift that produces a model, and the reconciliation that
+   bridges two.  It gives careful treatment to pragmatics, the layer a
+   schema is least likely to hold and so the part most easily left out
+   of view, yet often one that carries key operative meaning.  It
+   considers the form and utility of thin references, separately
+   assessing the two distinct roles they may play.  It then reports an
+   empirical study across four network-management scenarios, run over
+   independently constructed cases and several cognitive-agent families.
+   The study measures the portability of a lifted model, the extent to
+   which cognition can reconcile divergent models without support of a
+   pre-agreed standard, where a reference is load-bearing and what it
+   usefully comprises.  It closes with conclusions for how information
+   should be prepared for cognitive systems, and for how the community's
+   standardization effort might evolve.
+
+   This is a research document intended to inform discussion in the IRTF
+   Network Management Research Group.  It reflects the authors' ideas,
+   thoughts and experimental findings and does not represent IETF or
+   IRTF consensus.
+- **draft-king-yew-choo-agentic-payments-01** (new-draft, score 5, adjacent_watchlist) [none]: [A Server-Side Model for Gating Agent-Initiated Human-Sourced Asynchronous HTTP Tasks on Payment or Entitlement](https://datatracker.ietf.org/doc/draft-king-yew-choo-agentic-payments/) — This document presents a server-side model for paid, human-sourced
+   asynchronous HTTP tasks initiated by software agents acting on behalf
+   of a principal.  Clients may retry after uncertain outcomes and act
+   under authority delegated in advance, while fulfilment incurs cost
+   and may not be freely reversible.
+
+   The model places a payment or entitlement gate before fulfilment,
+   maps that gate to adjacent protocols, and defines a task state
+   machine.  Under stated well-formedness constraints and operating
+   assumptions, it yields gate-before-fulfilment safety, at most one
+   task per retained idempotency key, at most one gate acceptance per
+   payment requirement, and an operator-checkable record linking a
+   delivered artefact to operator-controlled records.  It defines no
+   protocol, wire format, or conformance requirements.
+- **draft-konda-agentproto-evaluation-state-00** (new-draft, score 5, authorization) [none]: [Preserving Evaluation State in Agent Protocol Decisions](https://datatracker.ietf.org/doc/draft-konda-agentproto-evaluation-state/) — Agent protocols often require a participant to establish a decision-
+   time input before it acts: issuer standing, key availability,
+   delegated authority, policy profile availability, consumption state,
+   revocation status, or the outcome of a downstream operation.  A
+   participant that establishes an input and receives a negative answer
+   has learned a different fact from a participant that cannot establish
+   the input at all.  Collapsing those facts into one denial or failure
+   value changes retry behavior, alert routing, audit interpretation,
+   incident ownership, and post-incident reconstruction.
+
+   This document specifies requirements for preserving evaluation state
+   across agent protocol boundaries: the value of an input, whether that
+   value was established at decision time, the freshness of the source
+   used to establish it, and whether the resulting policy decision was
+   actually evaluated.  The requirements are stated independently of
+   encoding, so that policy, authorization, revocation, routing, and
+   audit documents can satisfy them in their own formats.  A subsequent
+   revision will specify concrete representations.
+- **draft-nault-email-ai-signal-00** (new-draft, score 5, adjacent_watchlist) [none]: [Email AI-Processing Preference Signal](https://datatracker.ietf.org/doc/draft-nault-email-ai-signal/) — This document proposes an experimental Internet email header field
+   for expressing sender preferences about AI assistance, persistent AI
+   memory, profiling, model training, and external processing.  It
+   defines syntax, category semantics, message scope, and preservation
+   during forwarding and replies.  A missing field expresses no
+   preference.  Receiver admission controls and a protective processing
+   default are specified separately.  The signal does not establish
+   legal consent or guarantee recipient compliance.
+- **draft-ietf-keytrans-architecture-10** (new-draft, score 4, trust_infrastructure) [keytrans]: [Key Transparency Architecture](https://datatracker.ietf.org/doc/draft-ietf-keytrans-architecture/) — This document defines the terminology and interaction patterns
+   involved in the deployment of Key Transparency in a general secure
+   group messaging infrastructure, and specifies the security properties
+   that the protocol provides.  It also gives more general, non-
+   prescriptive guidance on how to securely apply Key Transparency to a
+   number of common applications.
+- **draft-ietf-plants-merkle-tree-certs-07** (new-draft, score 4, trust_infrastructure) [plants]: [Merkle Tree Certificates](https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/) — This document describes Merkle Tree certificates, a new form of X.509
+   certificates which integrate public logging of the certificate, in
+   the style of Certificate Transparency.  The integrated design reduces
+   logging overhead in the face of both shorter-lived certificates and
+   large post-quantum signature algorithms, while still achieving
+   comparable security properties to existing X.509 constructions and
+   Certificate Transparency.  Merkle Tree certificates additionally
+   admit an optional size optimization that avoids signatures
+   altogether, at the cost of only applying to up-to-date relying
+   parties and older certificates.
+- **draft-palanisamy-scitt-aac-otel-00** (new-draft, score 4, adjacent_watchlist) [none]: [OpenTelemetry Correlation Extension for Agent Action Capsules](https://datatracker.ietf.org/doc/draft-palanisamy-scitt-aac-otel/) — This document defines org.agentactioncapsule.otel, a namespaced
+   payload extension for the Agent Action Capsule profile.  The
+   extension carries OpenTelemetry trace and span context alongside a
+   sealed agent-action record so that the Capsule and the observability
+   spans describing the same action can be joined after the fact.  It
+   maps the OpenTelemetry Generative AI semantic conventions onto
+   Capsule fields where a mapping is well defined and states which
+   OpenTelemetry values MUST NOT enter a Capsule at all.  The extension
+   does not alter Capsule verification: a verifier that does not
+   implement it treats the block as informational.
+- **draft-srivastava-learnlog-00** (new-draft, score 4, adjacent_watchlist) [none]: [learnlog: A Verifiable Event Log Format for Learning Software](https://datatracker.ietf.org/doc/draft-srivastava-learnlog/) — This document defines learnlog, a log format for learning software.
+   A record holds typed events that describe what a learner did and what
+   other parties, human or software, did in response.  Entries are
+   chained by hash, and a producer can sign the chain.  A reader who
+   trusts the signing key can then detect changes to the entries under a
+   signed head that were made without that key.  Some changes remain
+   undetectable, and the security considerations list them.  An event
+   can be redacted, and the rest of the record still verifies.  The
+   format defines files, records, entries, events, and registries for
+   event schemas.  Event schemas for specific subject areas are out of
+   scope.
+
+## Adjacent / watchlist
+
+- **draft-acee-lsr-ospfv3-deprecate-ah-01** (new-draft, score 3, core_identity) [none]: [Deprecation of the IPsec Authentication Header (AH) for OSPFv3 Authentication](https://datatracker.ietf.org/doc/draft-acee-lsr-ospfv3-deprecate-ah/) — RFC 4552 specifies the use of the IPsec Authentication Header (AH)
+   and the Encapsulating Security Payload (ESP) to provide
+   authentication and confidentiality for OSPFv3.  This document
+   deprecates the use of AH for OSPFv3 and updates RFC 4552 accordingly.
+   Operators are encouraged to use either ESP with NULL encryption, as
+   specified in RFC 4552, or the OSPFv3 Authentication Trailer, as
+   specified in RFC 7166.
+- **draft-albanna-regext-eku-mtls-in-epp-04** (new-draft, score 3, core_identity) [regext]: [Extended Key Usage and Mutual TLS in EPP](https://datatracker.ietf.org/doc/draft-albanna-regext-eku-mtls-in-epp/) — This document describes the state of the Mutual Transport Layer
+   Security (mTLS) client authentication mechanism in the Extensible
+   Provisioning Protocol (EPP) with respect to the 15th June 2025 policy
+   change that triggered a modification in the client certificates
+   published by some Certificate Authorities (CAs).  The issue is
+   described and options are presented to address the operational impact
+   of the change.
+- **draft-bhatti-ilnp-ip6-apps-01** (new-draft, score 3, core_identity) [none]: [ILNP usage by IPv6 applications](https://datatracker.ietf.org/doc/draft-bhatti-ilnp-ip6-apps/) — The Identifier Locator Network Protocol (ILNP) for IPv6 is described
+   in Experimental RFCs 6740-6744.  ILNP uses a different architecture
+   to IPv6 but is implemented to work with IPv6.  This document
+   describes how unmodified IPv6 applications running on an ILNP-capable
+   node can make use of ILNP.  This document updates RFC6740, RFC6741,
+   RFC6748.
+- **draft-bhatti-ilnp-nonce-01** (new-draft, score 3, core_identity) [none]: [Use of the ILNP Nonce Destination Option Header](https://datatracker.ietf.org/doc/draft-bhatti-ilnp-nonce/) — The Identifier Locator Network Protocol (ILNP) for IPv6 is described
+   in Experimental RFCs 6740-6744.  ILNP packets for IPv6 are
+   distinguished from normal IPv6 packets by the presence of the Nonce
+   Destination Option Header (aka "Nonce Header"), as defined in
+   RFC6744.  This document clarifies the use of the Nonce Header for
+   ILNP.  This document updates RFC6740, RFC6741, RFC6744.
+- **draft-bhatti-ilnp-preference-01** (new-draft, score 3, core_identity) [none]: [ILNP addressing using Preference values](https://datatracker.ietf.org/doc/draft-bhatti-ilnp-preference/) — The Identifier Locator Network Protocol (ILNP) for IPv6 is described
+   in Experimental RFCs 6740-6744.  This document clarifies how
+   addressing in ILNP makes use of Preference values with Locator (L64)
+   and Node Identifier (NID) values.  This includes the way that
+   Preference values are used for forming Identifier-Locator Vector
+   (I-LV) values, and selecting I-LVs for use.  This document updates
+   RFC6740, RFC6741, RFC6742, RFC6748.
+- **draft-bhatti-ilnp-tcp-udp-checksums-01** (new-draft, score 3, core_identity) [none]: [TCP and UDP checksum calculations for ILNP](https://datatracker.ietf.org/doc/draft-bhatti-ilnp-tcp-udp-checksums/) — The Identifier Locator Network Protocol (ILNP) for IPv6 is described
+   in Experimental RFCs 6740-6744.  ILNP defines the use of an
+   Identifier-Locator Vector (I-LV) with a zero value L64 value and a
+   relevant Node Identifier (NID) value in place of an IPv6 address in
+   the pseudo-header for transport protocol checksum computations.
+   However, as TCP and UDP predate ILNP, this change causes TCP and UDP
+   checksum values to be generated for ILNP flows that are different to
+   the same flows on IPv6.  This document changes the checksum
+   computation for TCP and UDP with ILNP so that the checksum values are
+   the same for ILNP and IPv6.  This document updates the checksum
+   processing for TCP and UDP described in RFC6740 and RFC6741, and the
+   way the checksum processing should be applied for TCP and UDP in
+   RFC6748.
+- **draft-bhatti-ilnp-textual-representations-01** (new-draft, score 3, core_identity) [none]: [ILNP textual representations](https://datatracker.ietf.org/doc/draft-bhatti-ilnp-textual-representations/) — The Identifier Locator Network Protocol (ILNP) for IPv6 is described
+   in Experimental RFCs 6740-6744.  This document describes how values
+   for ILNP data-types SHOULD be represented in textual form.  These
+   data-types are: the Locator (L64), the Node Identifier (NID), and the
+   Identifier-Locator Vector (I-LV).  The notation for the textual
+   representation is defined formally.  Use-cases are provided as
+   examples of real world usage.  This document updates RFC6740,
+   RFC6741, RFC6742.
+- **draft-dong-sidrops-rpki-rtr-moa-pdu-02** (new-draft, score 3, authorization) [none]: [IPv6 Mapping Prefix PDU for the RPKI-Router Protocol](https://datatracker.ietf.org/doc/draft-dong-sidrops-rpki-rtr-moa-pdu/) — This document defines a new Protocol Data Unit (PDU) type for the
+   RPKI to Router Protocol to convey Mapping Origin Authorization (MOA)
+   information from RPKI caches to routers.  The new PDU, named the
+   "IPv6 Mapping Prefix" PDU, carries the authorization mapping between
+   one or more IPv4 prefix and their corresponding authorized IPv6
+   mapping prefix.  This extension enables routers to perform Mapping
+   Origin Validation (MOV) for IPv4-to-IPv6 address mapping
+   announcements in IPv6-only underlay networks.
+- **draft-ietf-bess-evpn-inter-domain-opt-b-00** (new-draft, score 3, adjacent_watchlist) [bess]: [EVPN Inter-Domain Option-B Solution](https://datatracker.ietf.org/doc/draft-ietf-bess-evpn-inter-domain-opt-b/) — An EVPN Inter-Domain interconnect solution is required when two or
+   more sites of the same Ethernet Virtual Private Network (EVPN) are
+   connected to different IGP domains or Autonomous Systems (AS) and
+   need to communicate.  The Inter-Domain Option-B connectivity model is
+   one of the most popular solutions for this type of EVPN connectivity.
+   While several documents address specific aspects of this interconnect
+   approach, none provide a comprehensive overview of how Inter-Domain
+   Option-B connectivity affects EVPN procedures.  This document
+   examines the behavior of EVPN procedures in an Inter-Domain Option-B
+   network and proposes solutions to the identified issues.
+- **draft-ietf-calext-jscalendarbis-22** (new-draft, score 3, adjacent_watchlist) [calext]: [JSCalendar 2.0: A JSON Representation of Calendar Data](https://datatracker.ietf.org/doc/draft-ietf-calext-jscalendarbis/) — This specification defines version "2.0" of JSCalendar, a data model
+   and JSON representation of calendar data that can be used for storage
+   and data exchange in a calendaring and scheduling environment.  This
+   document obsoletes RFC 8984, also referred to as version "1.0" in
+   this document.  The newly defined version "2.0" aims to improve
+   interoperability with existing iCalendar-based systems.  It also
+   aligns its definitions with JSContact, such as the IANA registry
+   policy, validation requirements, and versioning scheme.
+- **draft-ietf-dmm-udp-tunnel-acaas-extn-02** (new-draft, score 3, adjacent_watchlist) [dmm]: [A YANG Data Model Extension for Attachment Circuit as a Service with UDP Tunnel Support](https://datatracker.ietf.org/doc/draft-ietf-dmm-udp-tunnel-acaas-extn/) — Delivery of network services over a Layer 3 tunnel assumes that the
+   appropriate setup is provisioned over links that connect the customer
+   termination points and provider network.  The required setup to allow
+   successful data exchange over these links is referred to as an
+   attachment circuit (AC) while the underlying link for carrying
+   network services is referred to as "bearer", in this case a Layer 3
+   UDP tunnel.
+
+   This document specifies an extension for UDP tunnel as Layer 3 bearer
+   to the YANG service data model for AC.
+- **draft-ietf-ediint-rfc4130bis-05** (new-draft, score 3, core_identity) [ediint]: [AS2 Specification Modernization](https://datatracker.ietf.org/doc/draft-ietf-ediint-rfc4130bis/) — This document provides an applicability statement (RFC 2026,
+   Section 3.2) describing how to securely exchange structured business
+   data over HTTP.  Structured business data may be XML; Electronic Data
+   Interchange (EDI) in either the American National Standards Committee
+   (ANSI) X12 format or the UN Electronic Data Interchange for
+   Administration, Commerce, and Transport (UN/EDIFACT) format; or other
+   structured data formats.  The data is packaged using standard MIME
+   structures.  Authentication and data confidentiality are obtained by
+   using Cryptographic Message Syntax with S/MIME security body parts
+   (see Section 10.1).  Authenticated acknowledgements make use of
+   multipart/signed Message Disposition Notification (MDN) responses to
+   the original HTTP message.  This applicability statement is
+   informally referred to as "AS2" because it is the second
+   applicability statement, produced after "AS1" (RFC 3335).  This
+   document obsoletes RFC 4130 and stands on its own without reference
+   to AS1 or SMTP, except where required for IANA registry updates.
+
+   This document also updates IANA registries originally created by RFC
+   3335 and RFC 4130.
+- **draft-ietf-httpbis-no-vary-search-10** (new-draft, score 3, adjacent_watchlist) [httpbis]: [The No-Vary-Search HTTP Caching Extension](https://datatracker.ietf.org/doc/draft-ietf-httpbis-no-vary-search/) — This specification defines an extension to HTTP Caching, changing how
+   the URI query component impacts caching.  It introduces the "No-Vary-
+   Search" response header field, which allows origin servers to signal
+   to caches that certain parts of the query component do not
+   semantically affect the served response and can be ignored for cache
+   matching purposes.
+- **draft-ietf-httpbis-resumable-upload-13** (new-draft, score 3, adjacent_watchlist) [httpbis]: [Resumable Uploads for HTTP](https://datatracker.ietf.org/doc/draft-ietf-httpbis-resumable-upload/) — HTTP data transfers can encounter interruption due to reasons such as
+   canceled requests or dropped connections.  If the intended recipient
+   can indicate how much of the data was processed prior to
+   interruption, a sender can resume data transfer at that point instead
+   of attempting to transfer all of the data again.  HTTP range requests
+   support this concept of resumable downloads from server to client.
+   This document describes a mechanism that supports resumable uploads
+   from client to server using HTTP.
+- **draft-ietf-jmap-calendars-32** (new-draft, score 3, adjacent_watchlist) [jmap]: [JSON Meta Application Protocol (JMAP) for Calendars](https://datatracker.ietf.org/doc/draft-ietf-jmap-calendars/) — This document specifies a data model for synchronizing calendar data
+   with a server using JMAP.  Clients can use this to efficiently read,
+   write, and share calendars and events, receive push notifications for
+   changes or event reminders, and keep track of changes made by others
+   in a multi-user environment.
+- **draft-ietf-lamps-pq-composite-kem-22** (new-draft, score 3, adjacent_watchlist) [lamps]: [Composite ML-KEM for use in X.509 Public Key Infrastructure](https://datatracker.ietf.org/doc/draft-ietf-lamps-pq-composite-kem/) — This document defines combinations of US NIST ML-KEM in hybrid with
+   traditional algorithms RSA-OAEP, ECDH, X25519, and X448.  These
+   combinations are tailored to meet security best practices and
+   regulatory guidelines.  Composite ML-KEM is applicable in any
+   application that uses X.509 or PKIX data structures that accept ML-
+   KEM, but where the operator wants extra protection against breaks or
+   catastrophic bugs in ML-KEM.
+- **draft-ietf-masque-connect-ethernet-16** (new-draft, score 3, adjacent_watchlist) [masque]: [Proxying Ethernet Frames in HTTP](https://datatracker.ietf.org/doc/draft-ietf-masque-connect-ethernet/) — This document specifies how to proxy Ethernet frames in HTTP.  This
+   protocol is similar to IP proxying in HTTP, but for Layer 2 instead
+   of Layer 3.  More specifically, this document defines a protocol that
+   allows an HTTP client to create a tunnel to exchange Layer 2 Ethernet
+   frames through an HTTP server with an attached physical or virtual
+   Ethernet segment.
+- **draft-ietf-netconf-list-pagination-14** (new-draft, score 3, adjacent_watchlist) [netconf]: [List Pagination for YANG-driven Protocols](https://datatracker.ietf.org/doc/draft-ietf-netconf-list-pagination/) — In some circumstances, instances of YANG modeled "list" and "leaf-
+   list" nodes may contain numerous entries.  Retrieval of all the
+   entries can lead to inefficiencies in the server, the client, and the
+   network in between.
+
+   This document defines a model for list pagination that can be
+   implemented by YANG-driven management protocols such as NETCONF and
+   RESTCONF.  The model supports paging over optionally filtered and/or
+   sorted entries.  The solution additionally enables servers to
+   constrain query expressions on some "config false" lists or leaf-
+   lists.
+- **draft-ietf-nmop-network-incident-yang-19** (new-draft, score 3, adjacent_watchlist) [nmop]: [A YANG Data Model for Network Incident Management](https://datatracker.ietf.org/doc/draft-ietf-nmop-network-incident-yang/) — This document defines a YANG data model for the network incident
+   lifecycle management.  This YANG module provides a standard way to
+   report, diagnose, and help reduce troubleshooting tickets and resolve
+   network incidents for the sake of network service health and probable
+   root cause analysis.
+- **draft-ietf-opsawg-collected-data-manifest-16** (new-draft, score 3, adjacent_watchlist) [opsawg]: [A Data Manifest for Contextualized Telemetry Data](https://datatracker.ietf.org/doc/draft-ietf-opsawg-collected-data-manifest/) — Network platforms use Network Telemetry, such as YANG-Push (RFC
+   8641), to continuously stream information, including both counters
+   and state information.  This document describes the metadata that
+   ensure that the collected data can be interpreted correctly.  This
+   document specifies the Data Manifest, composed of two YANG data
+   models (the Platform Manifest and the non-normative Data Collection
+   Manifest).  These YANG modules are specified at the network level
+   (e.g., network controllers) to provide a model that encompasses
+   several network platforms.  The Data Manifest must be streamed and
+   stored along with the data, up to the collection and analytics
+   systems to keep the collected data fully exploitable by the data
+   scientists and relevant tools.  Additionally, this document specifies
+   an augmentation of the YANG-Push model to include the actual
+   collection period, in case it differs from the configured collection
+   period.
+- **draft-ietf-tsvwg-sctp-dtls-chunk-05** (new-draft, score 3, core_identity) [tsvwg]: [Stream Control Transmission Protocol (SCTP) DTLS Chunk](https://datatracker.ietf.org/doc/draft-ietf-tsvwg-sctp-dtls-chunk/) — This document describes a method for adding Datagram Transport Layer
+   Security (DTLS) based authentication and cryptographic protection to
+   the Stream Control Transmission Protocol (SCTP).
+
+   This SCTP extension is intended to enable communication privacy for
+   applications that use SCTP as their transport protocol and allows
+   applications to communicate in a way that is designed to prevent
+   eavesdropping and detect tampering or message forgery.  Once enabled,
+   this also applies to the SCTP payload as well as the SCTP control
+   information.
+
+   Applications using this SCTP extension can use most of the transport
+   features provided by SCTP and its other extensions.  The use of the
+   SCTP Authentication extension defined in RFC 4895 is incompatible
+   with the extension defined in this document but would not provide any
+   additional service.  This implies that the Dynamic Address
+   Reconfiguration as specified in RFC 5061 can only be used as
+   described in this document.
+
+   This document obsoletes RFC 6083 and updates RFC 5061.
+- **draft-ietf-v6ops-framework-md-ipv6only-underlay-30** (new-draft, score 3, adjacent_watchlist) [v6ops]: [Framework for Multi-domain IPv6-only Network and IPv4-as-a-Service](https://datatracker.ietf.org/doc/draft-ietf-v6ops-framework-md-ipv6only-underlay/) — This document presents a framework, from the network operators'
+   perspective, for building and operating IPv6-only core networks that
+   span multiple domains (i.e., multiple interconnected Autonomous
+   Systems).  To carry residual IPv4 traffic in such an environment, the
+   framework proposes stateless IPv4/IPv6 address mapping as the basis
+   for IPv4-as-a-Service (IPv4aaS), so that IPv4 packets are translated
+   at the network edge and forwarded across the IPv6-only core network
+   without per-flow state or IPv4/IPv6 conversion gateways on the data
+   path.  The document is intended as a network operator problem
+   statement, guidance, and requirements rather than a protocol
+   specification.  It covers the scope of applicability and trust
+   boundaries, options for IPv6 mapping prefix allocation, and
+   operational, manageability, and security considerations.
+- **draft-linker-diem-adem-core-01** (new-draft, score 3, adjacent_watchlist) [none]: [ADEM Core Specification](https://datatracker.ietf.org/doc/draft-linker-diem-adem-core/) — In times of armed conflict, the protective emblems of the red cross,
+   red crescent, and red crystal are used to mark physical assets.  This
+   enables military units to identify assets as respected and protected
+   under international humanitarian law.  This draft specifies the
+   format and trust architecture of a protective, digital emblem to
+   network-connected infrastructure.  Such emblems mark assets as
+   protected under IHL analogously to the physical emblems.
+- **draft-litzki-sovp-04** (new-draft, score 3, core_identity) [none]: [Sovereign Validation Protocol (SOVP)](https://datatracker.ietf.org/doc/draft-litzki-sovp/) — This document specifies the Sovereign Validation Protocol (SOVP), a
+   protocol for checking, before ingestion, that a signed identity
+   document was produced by the party that controls the Ed25519 key
+   published in DNS for a host.  A consumer retrieves a JSON document
+   from a well-known location on the host, canonicalizes it, and
+   verifies its signature against the key published in a DNS TXT record.
+   The protocol defines the signed scope, the retrieval and key
+   resolution rules, freshness checks, resource limits for unverified
+   input, and an optional extension that binds a document to a
+   deployment instance.  It does not establish legal identity, the
+   accuracy of content, or the configuration of the system that serves
+   the document.
+- **draft-mailschema-mail-action-protocol-00** (new-draft, score 3, core_identity) [none]: [Mail Action Protocol (MAP)](https://datatracker.ietf.org/doc/draft-mailschema-mail-action-protocol/) — Mail Action Protocol (MAP) describes actions offered by email, such
+   as approval to publish an article.  A type contract defines each
+   decision and its effects.  A trusted service binding connects that
+   decision to an existing service operation.  Before acting, a client
+   reads the current proposal and applies the user's policy.  The
+   service checks permission and the exact terms when it records the
+   decision.  MAP uses Structured Email's MIME and JSON-LD
+   representation.  Core is independent of the interface used to call
+   the service.  This document specifies an HTTP binding, Registry
+   discovery rules and an experimental capability binding for a limited
+   set of actions without a service account connection.  It defines no
+   general action endpoint or replacement authentication system.
+- **draft-mittal-est-coap-no-cert-00** (new-draft, score 3, core_identity) [none]: [EST-coaps Enrollment Using Device-Unique Symmetric Keys for Field Devices without Initial Certificates](https://datatracker.ietf.org/doc/draft-mittal-est-coap-no-cert/) — This document specifies a profile for Enrollment over Secure
+   Transport using secure CoAP, where the EST-coaps client is a field
+   device that does not possess an initial device certificate,
+   manufacturer certificate, or other certificates usable for DTLS
+   client authentication.  Instead, the device is authenticated during
+   the DTLS handshake using a device-unique symmetric key or a pre-
+   shared key derived from that device-unique key.
+
+   This profile is intended for already registered and operational
+   devices that do not possess a certificate suitable for EST-coaps
+   client authentication but do possess a device-unique symmetric key
+   that can be used for initial authentication during certificate
+   enrollment.  The mechanism preserves EST certificate enrollment
+   semantics while replacing the initial certificate-based DTLS client
+   authentication requirement with PSK-based DTLS authentication.
+   [RFC9148] defines EST over secure CoAP and requires client
+   authentication for EST-coaps functions, while [RFC7030] permits
+   certificate-less TLS authentication scenarios for EST when suitable
+   shared credentials are available.
+- **draft-porfiri-tsvwg-sctp-dtls-handshake-02** (new-draft, score 3, core_identity) [none]: [Transport Layer Security (TLS) based Key Management of the Stream Control Transmission Protocol (SCTP) DTLS Chunk](https://datatracker.ietf.org/doc/draft-porfiri-tsvwg-sctp-dtls-handshake/) — This document defines how Transport Layer Security (TLS) 1.3 is used
+   as a key management method for the SCTP DTLS Chunk mechanism.  It
+   specifies how a TLS handshake establishes the initial security
+   context for an SCTP association and how subsequent TLS handshakes
+   provide key updates and re-authentication.  The goal is to enable
+   authenticated and confidential communication over SCTP using the DTLS
+   Chunk, leveraging standardized TLS 1.3 features for key management
+   and rekeying.
+- **draft-prabhu-nmrg-prompt-schema-llm-01** (new-draft, score 3, adjacent_watchlist) [none]: [Framework for Normalizing Multi-Vendor Network Inputs for LLM-Assisted Network Management](https://datatracker.ietf.org/doc/draft-prabhu-nmrg-prompt-schema-llm/) — Large Language Models (LLMs) are increasingly used to assist network
+   management tasks such as troubleshooting, intent translation, and
+   automation.  Network operations, however, rely on data from many
+   vendors and sources: CLI output, configuration snippets, telemetry,
+   alarms, and vendor-specific APIs.  These inputs differ in format,
+   structure, and semantics, which makes it difficult to present a
+   consistent interface to an LLM.  This document describes a framework
+   for standardizing such multi-vendor inputs for LLM-assisted network
+   management.  Incoming messages from multi-vendor network elements are
+   first handled by an Input Classifier, which determines the nature of
+   each input and assigns it to one of three categories: performance,
+   configuration, or response, using a hybrid approach (rule-based
+   classification first, with escalation to a Small Language Model (SLM)
+   when rules are insufficient).  The classified input is then passed to
+   the corresponding Structurer among the Performance Structurer,
+   Configuration Structurer, and Response Structurer, each of which
+   produces a normalized, structured representation (typically with SLM
+   assistance and optional confidence scoring).  That structured output
+   is fed to a Prompt Schema Generator, which creates a structured,
+   vendor-agnostic schema and supplies schema-aligned prompts to the
+   central LLM.  This document specifies the architecture and component
+   roles for use in design and implementation.  It does not define a
+   wire protocol; it is published for informational purposes.
+- **draft-reddy-ipsecme-ikev2-mtc-landmarks-00** (new-draft, score 3, adjacent_watchlist) [none]: [Merkle Tree Certificates in the Internet Key Exchange Protocol Version 2 (IKEv2)](https://datatracker.ietf.org/doc/draft-reddy-ipsecme-ikev2-mtc-landmarks/) — This document specifies the use of Merkle Tree Certificates (MTCs) in
+   the Internet Key Exchange Protocol Version 2 (IKEv2).  An IKE peer
+   sends an MTC in place of a directly-signed end-entity certificate and
+   its chain of Certification Authority (CA) certificates.  The MTC
+   carries an inclusion proof in place of CA signatures, which reduces
+   the size of the IKE_AUTH exchange, in particular with post-quantum
+   signature algorithms such as ML-DSA and SLH-DSA.  This document
+   defines a Certificate Encoding for the Certificate Request payload
+   that carries trust anchor identifiers.  An IKE peer uses these
+   identifiers to indicate the MTC CAs and landmarks it trusts.
+- **draft-sweet-settle-requirements-00** (new-draft, score 3, adjacent_watchlist) [none]: [SEcure access To Tls Local rEsources (SETTLE) Problem Statement and Requirements](https://datatracker.ietf.org/doc/draft-sweet-settle-requirements/) — This document defines the problem statement, common terminology,
+   security models, and technical requirements for identifying,
+   validating, and establishing secure connections with local network
+   devices.  It outlines the challenges of extending the Web's Public
+   Key Infrastructure (PKI) to local, offline, or "limited domain"
+   environments.  The document specifies requirements for privacy-
+   preserving discovery, generating and distributing local trust
+   anchors, and establishing mutually authenticated secure contexts
+   without relying on global certificate authorities or problematic
+   Trust On First Use (TOFU) mechanisms.
+- **draft-watts-research-artifact-provenance-00** (new-draft, score 3, trust_infrastructure) [none]: [Research Artifact Provenance and Corrigible Scientific State](https://datatracker.ietf.org/doc/draft-watts-research-artifact-provenance/) — This document describes a protocol-neutral pattern for content-
+   addressed research artifacts, append-only evidence history, explicit
+   epistemic classes, and corrigible active scientific state.  It
+   separates byte integrity from numerical correctness, empirical
+   adequacy, mechanism identification, and release authority.
+
+Archive Status
+
+   This RFCXML source is an archive working draft and is not represented
+   as submitted, adopted, or endorsed by the IETF.
+- **draft-watts-research-intelligence-archive-00** (new-draft, score 3, trust_infrastructure) [none]: [Evidence-Bounded Research Intelligence Archives](https://datatracker.ietf.org/doc/draft-watts-research-intelligence-archive/) — This unsubmitted working draft defines an evidence-bounded archive
+   profile for scientific and technical claims, sources, evidence tiers,
+   falsifiers, tests, provenance, publication state, and integrity
+   manifests.  The profile is designed to prevent archival or mechanical
+   integrity from being misread as empirical validity, novelty, peer
+   review, standards approval, or publication acceptance.  This file is
+   an archival RFCXML working draft and has no IETF standing unless
+   separately submitted.
+- **draft-watts-unison-state-preservation-00** (new-draft, score 3, trust_infrastructure) [none]: [State-Preserving Exchange of Evaluation Evidence](https://datatracker.ietf.org/doc/draft-watts-unison-state-preservation/) — This unsubmitted working draft describes state-preservation semantics
+   derived from UNISON-StateBench.  It separates value, epistemic
+   status, provenance, and authority; defines a non-collapse rule for
+   operational and epistemic transitions; and describes representation,
+   contradiction, missing-evidence, authority, principal-isolation,
+   tool-state, context-distance, and controlled-mutation evaluation
+   families.  This file is an archival RFCXML working draft and is not
+   an IETF submission.
+- **draft-wu-idr-flowspec-yang-cfg-03** (new-draft, score 3, adjacent_watchlist) [idr]: [A YANG Data Model for Flow Specification](https://datatracker.ietf.org/doc/draft-wu-idr-flowspec-yang-cfg/) — This document defines a YANG data model for Flow Specification
+   implementations.  The data model includes configuration data and
+   state data.
+- **draft-zehavi-oauth-audience-bound-token-exchange-00** (new-draft, score 3, authorization) [none]: [OAuth 2.0 Audience-Bound Token Exchange](https://datatracker.ietf.org/doc/draft-zehavi-oauth-audience-bound-token-exchange/) — In deployments where resource servers are invoked using access tokens
+   with a restricted audience, resource servers that need to call
+   downstream services must first exchange received tokens so their
+   audience is appropriate for the downstream service.
+- **draft-calabria-bmwg-ai-fabric-inference-bench-05** (new-draft, score 2, adjacent_watchlist) [none]: [Benchmarking Methodology for AI Inference Serving Network Fabrics](https://datatracker.ietf.org/doc/draft-calabria-bmwg-ai-fabric-inference-bench/) — This document defines benchmarking terminology, methodologies, and
+   Key Performance Indicators (KPIs) for evaluating Ethernet-based AI
+   inference serving network fabrics.  As Large Language Model (LLM)
+   inference deployments scale to disaggregated prefill/decode
+   architectures spanning hundreds or thousands of accelerators (GPUs/
+   XPUs), the interconnect fabric determines Time to First Token (TTFT),
+   Inter-Token Latency (ITL), and aggregate throughput in tokens per
+   second (TPS).  This document establishes vendor-independent,
+   reproducible test procedures for benchmarking fabric-level
+   performance under realistic AI inference workloads.
+
+   Coverage includes RDMA-based KV cache transfer between disaggregated
+   prefill and decode workers, Mixture-of-Experts (MoE) expert
+   parallelism AllToAll communication, request routing and load
+   balancing for inference serving, congestion management under bursty
+   inference traffic patterns, and scale/soak testing.  The methodology
+   enables direct comparison across NIC transport stacks (RoCEv2 and
+   UET) and fabric architectures.
+
+   This document is a companion to the AI training fabric benchmarking
+   methodology, which addresses training workloads.
+- **draft-calabria-bmwg-ai-fabric-terminology-05** (new-draft, score 2, ignored_after_review) [none]: [Benchmarking Terminology for AI Network Fabrics](https://datatracker.ietf.org/doc/draft-calabria-bmwg-ai-fabric-terminology/) — This document defines benchmarking terminology for evaluating
+   Ethernet-based network fabrics used in distributed Artificial
+   Intelligence (AI) training and inference workloads.  It consolidates
+   and extends terms from "Benchmarking Terminology for Network
+   Interconnect Devices" (RFC 1242) and "Data Center Benchmarking
+   Terminology" (RFC 8238).  Definitions cover collective communication
+   primitives, RDMA transport mechanisms (RoCEv2 and Ultra Ethernet
+   Transport), congestion control behaviors, AI-specific Key Performance
+   Indicators (KPIs), and fabric topology concepts.
+
+   This document is a companion to the AI training and inference fabric
+   benchmarking methodology documents.  Those documents are intended to
+   be read together with the terminology defined here.  Where
+   definitions herein overlap with the foundational benchmarking
+   terminology in RFC 1242 or RFC 8238, this document provides AI fabric
+   context extensions and refinements; the foundational definitions in
+   those RFCs remain authoritative for general network benchmarking.
+- **draft-dogru-cedulon-decision-profile-04** (new-draft, score 2, ignored_after_review) [none]: [Cedulon Decision Profile: Reconciling an Agent's Decisions Against Its Effects](https://datatracker.ietf.org/doc/draft-dogru-cedulon-decision-profile/) — The Cedulon core document reconciles an issuer's signed Spend
+   Receipts against an authenticated extract of a payment rail and
+   reports, over a declared population, that no settlement lacks a
+   receipt and no settled receipt is absent from the rail.  Money is the
+   special case that document implements.  This document defines a
+   second population on the same reconciler.  A Decision Record is
+   signed by the party that decided whether an agent may act; an Effect
+   Extract is an authenticated list of the effects that actually
+   occurred on a channel.  An allow must be matched by exactly one
+   effect whose content hash the record named; a refusal must be matched
+   by none.  The Decision Record claim set, the Effect Extract shape,
+   the points at which the reconciliation departs from the spend rules,
+   the finding codes, and one media type are defined.  This revision
+   lets a deployment sign checkpoints under a separate key inside the
+   decider root, states that single-row extracts are receipts rather
+   than windows and what a deployment that signs them must state, and
+   records a second implementation and two outside runs of its test
+   vectors.  The text is provisional; the companion implementation
+   carrying this profile is published.
+- **draft-ietf-deleg-12** (new-draft, score 2, ignored_after_review) [deleg]: [Extensible Delegation for DNS](https://datatracker.ietf.org/doc/draft-ietf-deleg/) — This document specifies a new extensible method for the delegation of
+   authority for a domain in the Domain Name System (DNS) using DELEG
+   and DELEGPARAM records.
+
+   A delegation in the DNS enables efficient and distributed management
+   of the DNS namespace.  The traditional DNS delegation is based on NS
+   records which contain only hostnames of servers and no other
+   parameters.  In classic DNS, both parent and child zones contain
+   copies of NS delegation records, which can potentially be out of sync
+   and confusing.  The new delegation records are extensible, can be
+   secured with DNSSEC, and eliminate the problem of having two sources
+   of truth for delegation information.
+- **draft-ietf-dnsop-delext-12** (new-draft, score 2, ignored_after_review) [dnsop]: [DNS Protocol Modifications for Delegation Extensions](https://datatracker.ietf.org/doc/draft-ietf-dnsop-delext/) — The Domain Name System (DNS) protocol permits Delegation Signer (DS)
+   records at delegation points.  This document specifies modifications
+   to the DNS protocol to permit a range of Resource Record types at
+   delegation points.  These modifications are designed to maintain
+   compatibility with existing DNS resolution mechanisms and provide a
+   secure method for processing these records at delegation points.
+
+   This document updates RFCs 1034, 4035, 6672, 6840, 6895 and 9824.
+- **draft-ietf-mailmaint-pacc-04** (new-draft, score 2, ignored_after_review) [mailmaint]: [Automatic Configuration of Email, Calendar, and Contact Server Settings](https://datatracker.ietf.org/doc/draft-ietf-mailmaint-pacc/) — This document specifies an automatic configuration mechanism for
+   email, calendar, and contact user agent applications.  Domain owners
+   publish standardized configuration information that user agent
+   applications retrieve and use to simplify server setup procedures.
+- **draft-janbjer-dewp-00** (new-draft, score 2, ignored_after_review) [none]: [Deterministic Evidence & Witness Protocol (DEWP) Specification](https://datatracker.ietf.org/doc/draft-janbjer-dewp/) — This document specifies the Deterministic Evidence and Witness
+   Protocol (DEWP), a format for tamper-evident audit commitments and
+   offline evidence verification.  It defines canonical event preimages,
+   domain-separated hashing, two-tier Merkle inclusion proofs, per-
+   tenant sequence checks, checkpoint continuity, and independently
+   verifiable anchor evidence.  Verifiers report content, commitment,
+   embedded-signature, and anchor verification separately.  Completeness
+   checks cover committed events within the evaluated range; they cannot
+   prove that an event was never withheld before commitment or that a
+   committed description accurately records a real-world action.  The
+   specification also defines a streaming format that the reference
+   implementations do not yet implement.
+- **draft-morrison-live-reference-resolution-01** (new-draft, score 2, ignored_after_review) [none]: [Live Reference Resolution for Autonomous Agent Beliefs](https://datatracker.ietf.org/doc/draft-morrison-live-reference-resolution/) — A recurring class of autonomous-agent failure arises when an agent
+   acts on a belief read from a cached, derived, or proxy copy that has
+   silently diverged from the authority the belief claims to represent.
+   This document describes a reference-resolution discipline for the
+   working beliefs an agent reasons and acts from.  Each belief is held
+   as a reference to a single named lowest authority and is resolved
+   live at the point of use, with verification.  When the authority is
+   unobservable or the resolved value is stale, the belief takes an
+   explicit uncertainty state rather than a prior cached value; that
+   state propagates to any belief derived from it, and an uncertain
+   belief feeding a costly or irreversible act blocks or escalates
+   rather than proceeding.  Every resolution chain terminates in a
+   single self-authorising root.  The document is Informational.  It
+   records a discipline and a vocabulary; it does not define a wire
+   protocol.
+- **draft-nault-email-ai-handling-00** (new-draft, score 2, ignored_after_review) [none]: [Handling Email AI-Processing Preferences](https://datatracker.ietf.org/doc/draft-nault-email-ai-handling/) — This document proposes an experimental receiver handling profile for
+   the companion Email AI-Processing Preference Signal.  It requires
+   evaluation before optional AI access, independent checks for each
+   applicable use, and a protective default when a preference is absent.
+   It addresses confirmation, mixed-source content, derived records, and
+   usable ordinary communication when optional processing is declined.
+   Requirements apply to systems claiming this profile, not to all
+   Internet mail recipients; the profile does not determine legal
+   consent.
+- **draft-song-cain-header-01** (new-draft, score 2, ignored_after_review) [none]: [Network Header Compression for Converged AI Network](https://datatracker.ietf.org/doc/draft-song-cain-header/) — We envision the scale-up, scale-out, and scale-across networks for AI
+   computing would eventually converged.  The draft describes a scheme
+   for L3 packet header compression in converged AI networks where IPv6
+   are assumed to be the L3 protocol, and a unified fabric supports all
+   kinds of traffic.  The header size can be reduced to 8 octets for
+   packets transferred with a single super-node, representing 80%
+   overhead saving.  The document discusses the motivation,
+   requirements, benefits, and feasibility in addition to the header
+   format proposal.
+- **draft-templin-6man-mla-34** (new-draft, score 2, ignored_after_review) [none]: [IPv6 Addresses for Ad Hoc Networks](https://datatracker.ietf.org/doc/draft-templin-6man-mla/) — Ad Hoc networks present an IPv6 addressing challenge due to the
+   undetermined neighborhood properties of their interfaces.  IPv6 nodes
+   must assign locally-unique and topology-independent IPv6 addresses
+   when topology-oriented IPv6 address delegation services are either
+   absent or only intermittently available.  This document introduces a
+   new IPv6 address type (termed the "Multilink Local Address (MLA)")
+   that nodes can autonomously assign to interfaces to support Ad Hoc
+   network operations.
+- **draft-zhangb-cats-csma-implementation-01** (new-draft, score 2, ignored_after_review) [none]: [CATS Service Metric Agent (C-SMA) Functional Implementation](https://datatracker.ietf.org/doc/draft-zhangb-cats-csma-implementation/) — The Computing-Aware Traffic Steering (CATS) framework defines the
+   CATS Service Metric Agent (C-SMA) as the functional entity
+   responsible for collecting service capabilities and status, and
+   reporting them to CATS Path Selectors (C-PSes).  While the framework
+   and the CATS metric documents define the components and the metrics,
+   the concrete observable behavior of the C-SMA - in particular, how it
+   validates and sanitizes the metrics it collects, how it manages soft-
+   state for stale or failing Service Contact Instances (SCIs), and how
+   it synchronizes with the C-PS - remains underspecified.
+
+   This document fills that gap.  It specifies the functional behavior
+   of the C-SMA in terms of observable behavior and reporting semantics:
+   how the C-SMA collects metric reports from SCIs (as specified in
+   [I-D.zhangb-cats-sci-implementation]); how it validates and sanitizes
+   these reports to prevent erroneous or malicious data from influencing
+   traffic steering; how it manages a local metric cache with soft-state
+   aging; how it enforces local policies and update control policies;
+   and how it synchronizes with the C-PS, including recovery and
+   reconciliation.  A decomposition of the C-SMA into internal
+   functional components is provided as illustrative implementation
+   guidance, not as a mandated software architecture.
+
+   This document complements [RFC10053],
+   [I-D.ietf-cats-metric-definition-13],
+   [I-D.zhangb-cats-service-metrics-op], and
+   [I-D.zhangb-cats-sci-implementation] by providing the operational
+   execution layer for the C-SMA within the unified CATS architecture.
+- **draft-dikshit-netmod-comparability-scope-extension-01** (new-draft, score 1, authorization) [none]: [A YANG Extension for Declaring the Comparability Scope of Operational State](https://datatracker.ietf.org/doc/draft-dikshit-netmod-comparability-scope-extension/) — Several YANG modules currently in progress across multiple IETF
+   working groups define counters, gauges, and other measured values
+   that are exported from a network element and compared, summed, or
+   averaged by a remote collector, either against the same node's
+   history or against values from a different node. YANG (RFC 7950)
+   has no first-class, machine-checkable way to state the domain
+   within which two occurrences of such a value are comparable, so
+   this determination is currently made, inconsistently or not at
+   all, in prose. This document defines a YANG extension statement,
+   "csc:comparability-scope", a four-value scope lattice, and a
+   compatibility rule that lets a schema-aware tool statically detect
+   an illegal aggregation across incomparable scopes, without waiting
+   for it to happen at a collector.
+
+## Ignored after review
+
+- **draft-alivar-6man-icmp-error-srv6-vpn-00** (new-draft, score 0, ignored_after_review) [none]: [ICMP Error Handling for VPNs in SRv6 Networks](https://datatracker.ietf.org/doc/draft-alivar-6man-icmp-error-srv6-vpn/) — The document specifies procedures for handling ICMP error messages in
+   SRv6-based Virtual Private Network (VPN).  It describes three methods
+   to improve the ICMP Error Handling for SRv6-VPNs.
+- **draft-denis-uricrypt-05** (new-draft, score 0, ignored_after_review) [none]: [Prefix-Preserving Encryption for URIs](https://datatracker.ietf.org/doc/draft-denis-uricrypt/) — This document specifies URICrypt, a deterministic, prefix-preserving
+   encryption scheme for Uniform Resource Identifiers (URIs).  URICrypt
+   encrypts URI paths while preserving their hierarchical structure,
+   enabling systems that rely on URI prefix relationships to continue
+   functioning with encrypted URIs.  The scheme provides authenticated
+   encryption for each URI path component, preventing tampering,
+   reordering, or mixing of encrypted segments.
+- **draft-frindell-moq-subscription-flow-control-00** (new-draft, score 0, ignored_after_review) [none]: [Subscription Flow Control Extension for Media over QUIC Transport](https://datatracker.ietf.org/doc/draft-frindell-moq-subscription-flow-control/) — This document defines an extension to Media over QUIC Transport
+   (MOQT) that lets a subscriber limit the number of subgroup streams
+   and the total bytes a publisher may send for an individual
+   subscription.  It defines a Setup Option to negotiate the extension
+   and set initial limits, message parameters for advertising these
+   limits, messages for granting credit and signaling flow control
+   state, and a session error code.
+- **draft-frindell-moq-timestamp-00** (new-draft, score 0, ignored_after_review) [none]: [Timestamp Properties for MOQT](https://datatracker.ietf.org/doc/draft-frindell-moq-timestamp/) — This document defines a set of MOQT Properties for carrying per-
+   Object timestamps efficiently.  The encoded timestamp is intended for
+   use in MOQT, but can be referenced for application specific purposes.
+- **draft-gallagher-openpgp-grease-02** (new-draft, score 0, ignored_after_review) [none]: [GREASE Code Points in OpenPGP](https://datatracker.ietf.org/doc/draft-gallagher-openpgp-grease/) — This document reserves entries in various OpenPGP registries for use
+   in interoperability testing, by analogy with GREASE in TLS.
+- **draft-gallagher-openpgp-messages-01** (new-draft, score 0, ignored_after_review) [none]: [OpenPGP Message Grammar](https://datatracker.ietf.org/doc/draft-gallagher-openpgp-messages/) — This document specifies several updates and clarifications to the
+   grammar and semantics of OpenPGP messages.
+- **draft-gallagher-openpgp-padding-00** (new-draft, score 0, ignored_after_review) [none]: [Padding in OpenPGP](https://datatracker.ietf.org/doc/draft-gallagher-openpgp-padding/) — This document provides updated guidance around the generation of
+   padding in OpenPGP data streams.  It does not specify any new OpenPGP
+   wire formats, but does propose some higher-level best practices.
+- **draft-gerke-publication-process-reform-11** (new-draft, score 0, ignored_after_review) [none]: [Publication Process Reform to prevent misuse of AUTH48 or equivalent states](https://datatracker.ietf.org/doc/draft-gerke-publication-process-reform/) — This document updates the AUTH48 or equivalent process by introducing
+   deterministic state-integrity constraints within the IETF Datatracker
+   architecture.  It establishes automated validation milestones and
+   explicit access controls to prevent late technical modifications
+   after the Working Group Last Call, thereby safeguarding the Rough
+   Consensus.
+
+   The deterministic state-integrity constraints and automated
+   milestones defined herein apply programmatically across the core
+   processing streams already defined or established in the future.
+
+   This document updates RFC 6359 and RFC 7841.
+- **draft-gondwana-email-header-maintenance-03** (new-draft, score 0, ignored_after_review) [none]: [Maintenance of the IANA Message Header Field Registries](https://datatracker.ietf.org/doc/draft-gondwana-email-header-maintenance/) — The IANA "Message Headers" registries record, for each registered
+   header field, the protocol it belongs to, its status, whether it is a
+   trace field, and the documents that specify it.  Many documents have
+   added entries over more than two decades, and the metadata in the
+   registries is less complete than the metadata those documents
+   supplied.  RFC 4021, which performed the largest single bulk
+   registration, gave IANA an explicit status and an explicit
+   specification document for each of the roughly ninety fields it
+   registered.  Neither was recorded.  Those entries carry a blank
+   status and cite RFC 4021 itself in place of the specification.  This
+   document updates RFC 4021 by directing IANA to record the values its
+   registration templates supplied.  The "Trace" column, added to both
+   registries by the revision of RFC 5322, was deliberately left empty
+   for existing entries so that it could be filled in later.
+
+   This document reviews the definition of each registered header field
+   and every subsequent update to it, and gives IANA a single set of
+   instructions for completing and correcting each entry.  Each
+   recommended change, and each decision to leave a non-obvious entry
+   unchanged, is justified from the instructions or the clear intent of
+   the documents that defined or modified the field.
+- **draft-hoffman-pq-dnssec-considerations-02** (new-draft, score 0, ignored_after_review) [none]: [Considerations for Selecting Post-Quantum Algorithms for DNSSEC](https://datatracker.ietf.org/doc/draft-hoffman-pq-dnssec-considerations/) — This draft lists many of the considerations that the DNS community
+   needs to balance when it is deciding which post-quantum algorithms to
+   standardize for DNSSEC.
+
+   This draft is definitely not meant to become an RFC.
+- **draft-ietf-6man-loopback-01** (new-draft, score 0, ignored_after_review) [6man]: [The IPv6 Loopback Address Prefix](https://datatracker.ietf.org/doc/draft-ietf-6man-loopback/) — This document updates the IP Version 6 Address Architecture to expand
+   the size of the IPv6 loopback space from a single address to a /48
+   prefix, formally defined as Node-Local Unicast space.
+
+   This change allows for a much larger number of loopback addresses and
+   internal virtual networks within an IPv6 host, which can be used for
+   inter-process communication, local virtualization, container
+   networking, and diagnostics.
+
+   This document updates RFC 4291 to define the prefix and its
+   functional semantics, and updates RFC 4007 to specify how the prefix
+   is integrated into the scoped address architecture.
+
+   It also updates the IANA IPv6 Address registry, the IPv6 Special-
+   Purpose Address registry, and the Locally-Served DNS Zone Registry.
+- **draft-ietf-6man-rfc8504-bis-04** (new-draft, score 0, ignored_after_review) [6man]: [IPv6 Node Requirements](https://datatracker.ietf.org/doc/draft-ietf-6man-rfc8504-bis/) — This document defines requirements for IPv6 nodes.  It is expected
+   that IPv6 will be deployed in a wide range of devices and situations.
+   Specifying the requirements for IPv6 nodes allows IPv6 to function
+   well and interoperate in a large number of situations and
+   deployments.
+
+   This document obsoletes RFC 8504, and in turn RFC 6434 and its
+   predecessor, RFC 4294.
+- **draft-ietf-anima-rfc8366bis-37** (new-draft, score 0, ignored_after_review) [anima]: [A Voucher Artifact for Onboarding Protocols](https://datatracker.ietf.org/doc/draft-ietf-anima-rfc8366bis/) — This document defines a strategy to securely assign a candidate
+   device (Pledge) to an Owner using a digital artifact signed, directly
+   or indirectly, by the Pledge's manufacturer.  This artifact is known
+   as a "Voucher".
+
+   This document defines an artifact format as a YANG-defined JSON or
+   CBOR document that has been signed using a variety of cryptographic
+   systems.
+
+   The Voucher Artifact is normally generated by the Pledge's
+   manufacturer which is represented by the Manufacturer Authorized
+   Signing Authority (MASA).
+
+   This document obsoletes RFC8366: it includes a number of desired
+   extensions into the YANG module.  The Voucher Request YANG module
+   defined in RFC8995 is also updated and now included in this document,
+   as well as other YANG extensions needed for variants of RFC8995.
+- **draft-ietf-bess-evpn-mvpn-seamless-interop-12** (new-draft, score 0, ignored_after_review) [bess]: [Seamless Multicast Interoperability between EVPN and MVPN PEs](https://datatracker.ietf.org/doc/draft-ietf-bess-evpn-mvpn-seamless-interop/) — Ethernet Virtual Private Network (EVPN) solution is becoming
+   pervasive for Network Virtualization Overlay (NVO) services in data
+   center (DC), Enterprise networks as well as in service provider (SP)
+   networks.
+
+   As service providers transform their networks in their Central
+   Offices (COs) towards the next generation data center with Software
+   Defined Networking (SDN) based fabric and Network Function
+   Virtualization (NFV), they want to be able to maintain their offered
+   services including Multicast VPN (MVPN) service between their
+   existing network and their new Service Provider Data Center (SPDC)
+   network seamlessly without the use of gateway devices.  They want to
+   have such seamless interoperability between their new SPDCs and their
+   existing networks for a) reducing cost, b) having optimum forwarding,
+   and c) reducing provisioning.  This document describes a unified
+   solution based on RFCs 6513 & 6514 for seamless interoperability of
+   Multicast VPN between EVPN and MVPN PEs.  Furthermore, it describes
+   how the proposed solution can be used as a routed multicast solution
+   in data centers with only EVPN PEs.
+- **draft-ietf-bmwg-sr-bench-meth-10** (new-draft, score 0, ignored_after_review) [bmwg]: [Benchmarking Methodology for Segment Routing (SR) Forwarding](https://datatracker.ietf.org/doc/draft-ietf-bmwg-sr-bench-meth/) — This document defines a methodology for benchmarking Segment Routing
+   (SR) forwarding performance for Segment Routing over IPv6 (SRv6) and
+   MPLS (SR-MPLS).
+- **draft-ietf-dconn-domainconnect-04** (new-draft, score 0, ignored_after_review) [dconn]: [Domain Connect Protocol - DNS provisioning between Services and DNS Providers](https://datatracker.ietf.org/doc/draft-ietf-dconn-domainconnect/) — This document provides specification of the Domain Connect Protocol
+   that was built to support DNS configuration provisioning between
+   Service Providers (hosting, social, email, hardware, etc.) and DNS
+   Providers.
+- **draft-ietf-idr-bgp4-rfc4271bis-02** (new-draft, score 0, ignored_after_review) [idr]: [A Border Gateway Protocol 4 (BGP-4)](https://datatracker.ietf.org/doc/draft-ietf-idr-bgp4-rfc4271bis/) — This document discusses the Border Gateway Protocol (BGP), which is
+   an inter-Autonomous System routing protocol.
+
+   The primary function of a BGP-speaking system is to exchange network
+   reachability information with other BGP systems.  This network
+   reachability information includes information on the list of
+   Autonomous Systems (ASes) that reachability information traverses.
+   This information is sufficient for constructing a graph of AS
+   connectivity for this reachability from which routing loops may be
+   pruned, and, at the AS level, some policy decisions may be enforced.
+
+   BGP-4 provides a set of mechanisms for supporting Classless Inter-
+   Domain Routing (CIDR).  These mechanisms include support for
+   advertising a set of destinations as an IP prefix, and eliminating
+   the concept of network "class" within BGP.  BGP-4 also introduces
+   mechanisms that allow aggregation of routes, including aggregation of
+   AS paths.
+
+   This document obsoletes RFC 4271.
+- **draft-ietf-intarea-extended-icmp-nodeid-07** (new-draft, score 0, ignored_after_review) [intarea]: [ICMP Message Extension for Originating Node Identification](https://datatracker.ietf.org/doc/draft-ietf-intarea-extended-icmp-nodeid/) — RFC5837 describes a mechanism for Extending ICMP for Interface and
+   Next-Hop Identification, which allows providing additional
+   information in an ICMP error that helps identify interfaces
+   participating in the path.  This is especially useful in environments
+   where a given interface may not have a unique IP address to respond
+   to, e.g., a traceroute.
+
+   This document introduces a similar ICMP extension for Node
+   Identification.  It allows providing a unique IP address and/or a
+   textual name for the node, in the case where each node may not have a
+   unique IP address (e.g., a deployment in which all interfaces have
+   IPv6 addresses and all next-hops are IPv6 next-hops, even for IPv4
+   routes).
+- **draft-ietf-ippm-on-path-telemetry-yang-07** (new-draft, score 0, ignored_after_review) [ippm]: [On-Path Telemetry YANG Data Models](https://datatracker.ietf.org/doc/draft-ietf-ippm-on-path-telemetry-yang/) — This document defines two YANG data models for monitoring On-Path
+   network performance information to be published in YANG
+   notifications.  The Alternate-Marking Method and In-situ Operations,
+   Administration, and Maintenance (IOAM) are the On-Path hybrid
+   measurement methods considered in this document.
+- **draft-ietf-ippm-stamp-ext-hdr-16** (new-draft, score 0, ignored_after_review) [ippm]: [Simple Two-Way Active Measurement Protocol (STAMP) Extensions for Reflecting STAMP Packet IP Headers](https://datatracker.ietf.org/doc/draft-ietf-ippm-stamp-ext-hdr/) — The Simple Two-Way Active Measurement Protocol (STAMP) and its
+   optional extensions can be used for Edge-to-Edge (E2E) active
+   measurements.  In Situ Operations, Administration, and Maintenance
+   (IOAM) data fields can be used for recording and collecting Hop-by-
+   Hop (HBH) and E2E operational and telemetry information.  This
+   document extends STAMP to reflect IPv4/IPv6 headers as well as IPv6
+   extension headers for HBH and E2E active measurements, for example,
+   using the IOAM data fields.
+- **draft-ietf-lake-edhoc-impl-cons-08** (new-draft, score 0, ignored_after_review) [lake]: [Implementation Considerations for the Lightweight Authenticated Key Exchange (LAKE) Protocol](https://datatracker.ietf.org/doc/draft-ietf-lake-edhoc-impl-cons/) — This document provides considerations for guiding the implementation
+   of the Lightweight Authenticated Key Exchange (LAKE) protocol.
+
+Discussion Venues
+
+   This note is to be removed before publishing as an RFC.
+
+   Discussion of this document takes place on the Lightweight
+   Authenticated Key Exchange Working Group mailing list
+   (lake@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/lake/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/lake-wg/edhoc-impl-cons.
+- **draft-ietf-lisp-map-server-reliable-transport-09** (new-draft, score 0, ignored_after_review) [lisp]: [LISP Map Server Reliable Transport](https://datatracker.ietf.org/doc/draft-ietf-lisp-map-server-reliable-transport/) — The communication between LISP ETRs and Map-Servers is based on
+   unreliable UDP message exchange coupled with periodic message
+   transmission in order to maintain soft state.  The drawback of
+   periodic messaging is the constant load imposed on both the ETR and
+   the Map-Server.  New LISP use cases increase the amount of state that
+   needs to be communicated and challenge the scalability of the system
+   when using the UDP exchange.  This document introduces the use of a
+   reliable transport for ETR to Map-Server communications in order to
+   eliminate the periodic messaging overhead, while providing
+   reliability, flow-control and endpoint liveness detection.
+- **draft-ietf-lisp-nat-traversal-03** (new-draft, score 0, ignored_after_review) [lisp]: [NAT traversal for LISP](https://datatracker.ietf.org/doc/draft-ietf-lisp-nat-traversal/) — This document describes a mechanism for IPv4 NAT traversal for LISP
+   tunnel routers (xTR) and LISP Mobile Nodes (LISP-MN) behind a Network
+   Address Translator (NAT) device.  A LISP device both detects the NAT
+   and initializes its state.  Forwarding to the LISP device through a
+   NAT is enabled by the LISP Re-encapsulating Tunnel Router (RTR)
+   network element, which acts as an anchor point in the data plane,
+   forwarding traffic from unmodified LISP devices through the NAT.
+- **draft-ietf-lisp-rfc6831bis-11** (new-draft, score 0, ignored_after_review) [lisp]: [The Locator/ID Separation Protocol (LISP) for Multicast Environments](https://datatracker.ietf.org/doc/draft-ietf-lisp-rfc6831bis/) — This document specifies the design for inter-domain multicast
+   overlays using the Locator/ID Separation Protocol (LISP) architecture
+   and protocols.  The document specifies how LISP multicast overlays
+   operate over multicast and unicast underlays.  The mechanisms in this
+   specification indicate how a signal-based approach using the PIM
+   protocol can be used to program LISP encapsulators with a replication
+   list in a locator-set, where the replication list can be a mix of
+   multicast and unicast locators.  This document when approved
+   obsoletes RFC6831
+- **draft-ietf-mailmaint-aprf-00** (new-draft, score 0, ignored_after_review) [mailmaint]: [Aggregate Performance Reporting](https://datatracker.ietf.org/doc/draft-ietf-mailmaint-aprf/) — Definition of an aggregate performance report format for email
+   messaging, the means to discover target destinations, and a specified
+   delivery method.
+- **draft-ietf-netconf-distributed-notif-23** (new-draft, score 0, ignored_after_review) [netconf]: [Subscription to Notifications in a Distributed Architecture](https://datatracker.ietf.org/doc/draft-ietf-netconf-distributed-notif/) — This document describes extensions to the YANG notifications
+   subscription to allow metrics being published directly from
+   processors on line cards to target receivers, while subscription is
+   still maintained at the route processor in a distributed forwarding
+   system of a network node.
+- **draft-ietf-netconf-list-pagination-nc-13** (new-draft, score 0, ignored_after_review) [netconf]: [NETCONF Extensions to Support List Pagination](https://datatracker.ietf.org/doc/draft-ietf-netconf-list-pagination-nc/) — This document defines a mapping of the list pagination mechanism
+   defined in [I-D.ietf-netconf-list-pagination] to NETCONF [RFC6241].
+
+   This document updates [RFC6241], to augment the <get> and <get-
+   config> "rpc" statements, and [RFC8526], to augment the <get-data>
+   "rpc" statement, to define input parameters necessary for list
+   pagination.
+- **draft-ietf-netconf-list-pagination-rc-12** (new-draft, score 0, ignored_after_review) [netconf]: [RESTCONF Extensions to Support List Pagination](https://datatracker.ietf.org/doc/draft-ietf-netconf-list-pagination-rc/) — This document defines a mapping of the list pagination mechanism
+   defined in [I-D.ietf-netconf-list-pagination] to RESTCONF [RFC8040].
+
+   This document updates RFC 8040, to declare "list" and "leaf-list" as
+   valid resource targets for the RESTCONF GET operation, to define GET
+   query parameters necessary for list pagination, and to define a
+   media-type for XML-based lists.
+- **draft-ietf-netconf-yang-notifications-versioning-17** (new-draft, score 0, ignored_after_review) [netconf]: [Support of Versioning in YANG Notifications Subscriptions](https://datatracker.ietf.org/doc/draft-ietf-netconf-yang-notifications-versioning/) — This document defines a YANG module which extends the YANG-Push
+   Subscription mechanism to enforce that particular revisions or
+   semantic versions are used when configuring or establishing a
+   Subscription.  It also extends the YANG-Push Subscription state
+   change Notifications to include additional context about the YANG
+   schema associated with the Subscription.
+- **draft-ietf-netmod-yang-semver-29** (new-draft, score 0, ignored_after_review) [netmod]: [YANG Semantic Versioning](https://datatracker.ietf.org/doc/draft-ietf-netmod-yang-semver/) — This document specifies a YANG extension along with guidelines for
+   applying an extended set of semantic versioning rules to revisions of
+   YANG artifacts (e.g., modules and packages).  Additionally, this
+   document defines a YANG extension for controlling module imports
+   based on these modified semantic versioning rules.
+
+   This document updates RFCs 7950, 9907, and 8525.
+- **draft-ietf-nvo3-rfc7348bis-11** (new-draft, score 0, ignored_after_review) [nvo3]: [Virtual eXtensible Local Area Network (VXLAN): A Framework for Overlaying Virtualized Layer 2 Networks over Layer 3 Networks](https://datatracker.ietf.org/doc/draft-ietf-nvo3-rfc7348bis/) — This document specifies Virtual eXtensible Local Area Network
+   (VXLAN), which is used to address the need for overlay networks
+   within virtualized data centers accommodating multiple tenants.  The
+   scheme and the related protocols can be used in networks for cloud
+   service providers and enterprise data centers.  This document
+   obsoletes RFC 7348, which documented the deployed VXLAN protocol for
+   the benefit of the Internet community, and moves the VXLAN
+   specification to the IETF document stream, allowing for the creation
+   of extensions to VXLAN that require additions to the VXLAN header and
+   their registration with IANA.  The format and processing described
+   here are fully compatible with those in RFC 7348.
+- **draft-ietf-opsawg-rfc5706bis-09** (new-draft, score 0, ignored_after_review) [opsawg]: [Guidelines for Considering Operations and Management in IETF Specifications](https://datatracker.ietf.org/doc/draft-ietf-opsawg-rfc5706bis/) — New Protocols and Protocol Extensions are best designed with due
+   consideration of the functionality needed to operate and manage them.
+   Retrofitting operations and management considerations is suboptimal.
+   The purpose of this document is to provide guidance to authors and
+   reviewers on what operational and management aspects should be
+   addressed when writing documents in the IETF Stream that document a
+   specification for New Protocols or Protocol Extensions or describe
+   their use.
+
+   This document obsoletes RFC 5706, replacing it completely and
+   updating it with new operational and management techniques and
+   mechanisms.  It also updates RFC 2360 to obsolete mandatory MIB
+   creation.  Finally, it introduces a requirement to include an
+   "Operational Considerations" section in new RFCs in the IETF Stream
+   that define New Protocols or Protocol Extensions or describe their
+   use (including relevant YANG Models), while providing an escape
+   clause if no new considerations are identified.
+- **draft-ietf-pce-entropy-label-position-08** (new-draft, score 0, ignored_after_review) [pce]: [Path Computation Element Communication Protocol (PCEP) Extension for SR-MPLS Entropy Label Positions](https://datatracker.ietf.org/doc/draft-ietf-pce-entropy-label-position/) — The Entropy label (EL) can be used in the SR-MPLS data plane to
+   improve load-balancing and multiple Entropy Label Indicator (ELI)/EL
+   pairs may be inserted in the SR-MPLS label stack as specified in
+   RFC8662.
+
+   This document defines a set of extensions for Path Computation
+   Element Communication Protocol (PCEP) to indicate where in the label
+   stack the ELI/EL pairs should be inserted in SR-MPLS network - the
+   Entropy Label Positions (ELP).
+- **draft-ietf-pim-ipv6-zeroconf-assignment-13** (new-draft, score 0, ignored_after_review) [pim]: [Zero-Configuration Assignment of IPv6 Multicast Addresses Using mDNS](https://datatracker.ietf.org/doc/draft-ietf-pim-ipv6-zeroconf-assignment/) — This document describes a zero-configuration protocol for dynamically
+   assigning IPv6 multicast addresses that are unique at the link-layer.
+   Applications randomly assign multicast group IDs from a specified
+   range and prevent collisions by using Multicast DNS (mDNS) to publish
+   resource records under a new "eth-addr.arpa" domain.  This protocol
+   satisfies all of the criteria listed in RFC 10019.
+- **draft-ietf-pquip-pqc-hsm-constrained-07** (new-draft, score 0, ignored_after_review) [pquip]: [Adapting Constrained Devices for Post-Quantum Cryptography](https://datatracker.ietf.org/doc/draft-ietf-pquip-pqc-hsm-constrained/) — This document provides guidance on integrating Post-Quantum
+   Cryptography (PQC) into resource-constrained devices, such as IoT
+   nodes and dedicated key-storage hardware.  These systems often
+   operate with strict limitations on processing power, RAM, and flash
+   memory, and may even be battery-powered.  The document emphasizes the
+   role of hardware security as the basis for secure operations,
+   supporting features such as seed-based key generation to minimize
+   persistent storage, efficient handling of ephemeral keys, and the
+   offloading of cryptographic tasks in low-resource environments.  It
+   also explores the implications of PQC on firmware update mechanisms
+   in such constrained systems.
+- **draft-ietf-regext-rdap-jscontact-27** (new-draft, score 0, ignored_after_review) [regext]: [Using JSContact in Registration Data Access Protocol (RDAP) JSON Responses](https://datatracker.ietf.org/doc/draft-ietf-regext-rdap-jscontact/) — This document describes an RDAP extension which represents entity
+   contact information in JSON responses using JSContact.
+- **draft-ietf-rtgwg-atn-bgp-34** (new-draft, score 0, ignored_after_review) [rtgwg]: [A Simple BGP-based Mobile Routing System for the Aeronautical Telecommunications Network](https://datatracker.ietf.org/doc/draft-ietf-rtgwg-atn-bgp/) — The International Civil Aviation Organization (ICAO) is investigating
+   mobile routing solutions for a worldwide Aeronautical
+   Telecommunications Network with Internet Protocol Services (ATN/IPS).
+   The ATN/IPS will eventually augment existing communication services
+   with an IP-based service supporting pervasive Air Traffic Management
+   (ATM) for Air Traffic Controllers (ATC), Airline Operations
+   Controllers (AOC), and all commercial aircraft worldwide.  This
+   informational document describes a simple and extensible mobile
+   routing service based on the industry-standard Border Gateway
+   Protocol (BGP) and Domain Name System (DNS) to address the ATN/IPS
+   requirements.
+- **draft-ietf-spring-srv6-security-17** (new-draft, score 0, ignored_after_review) [spring]: [Segment Routing IPv6 Security Considerations](https://datatracker.ietf.org/doc/draft-ietf-spring-srv6-security/) — SRv6 is a traffic engineering, encapsulation and steering mechanism
+   utilizing IPv6 addresses to identify segments in a pre-defined
+   policy.  This document discusses security considerations in SRv6
+   networks, including the potential threats and the possible mitigation
+   methods.  The document does not define any new security protocols or
+   extensions to existing protocols.
+- **draft-ietf-spring-stamp-srpm-mpls-11** (new-draft, score 0, ignored_after_review) [spring]: [Performance Measurement Using Simple Two-Way Active Measurement Protocol (STAMP) for Segment Routing over the MPLS Data Plane](https://datatracker.ietf.org/doc/draft-ietf-spring-stamp-srpm-mpls/) — Segment Routing (SR) can be used to steer packets through a network
+   employing source routing.  SR can be applied to both MPLS (SR-MPLS)
+   and IPv6 (SRv6) data planes.  This document describes the procedures
+   for performance measurement in SR-MPLS networks using the Simple Two-
+   Way Active Measurement Protocol (STAMP), as specified in RFC 8762,
+   along with its optional extensions specified in RFC 8972 and the SR-
+   specific extensions specified in RFC 9503.  These procedures measure
+   SR-MPLS paths (including Segment Lists of SR-MPLS Policies, SR-MPLS
+   IGP best paths, and SR-MPLS IGP Flexible Algorithm (Flex-Algo)
+   paths), as well as Layer-3 and Layer-2 services carried over those
+   paths.
+- **draft-ietf-spring-stamp-srpm-srv6-08** (new-draft, score 0, ignored_after_review) [spring]: [Performance Measurement Using Simple Two-Way Active Measurement Protocol (STAMP) for Segment Routing over the IPv6 (SRv6) Data Plane](https://datatracker.ietf.org/doc/draft-ietf-spring-stamp-srpm-srv6/) — Segment Routing (SR) can be used to steer packets through a network
+   employing source routing.  SR can be applied to both MPLS (SR-MPLS)
+   and IPv6 (SRv6) data planes.  This document describes the procedures
+   for performance measurement in SRv6 networks using the Simple Two-Way
+   Active Measurement Protocol (STAMP), as specified in RFC 8762, along
+   with its optional extensions specified in RFC 8972 and the SR-
+   specific extensions specified in RFC 9503.  These procedures measure
+   links and SRv6 paths (including Segment Lists of SRv6 Policies, SRv6
+   IGP best paths, and SRv6 IGP Flexible Algorithm (Flex-Algo) paths),
+   as well as Layer-3 and Layer-2 services carried over those paths.
+- **draft-ietf-teas-actn-pm-telemetry-autonomics-19** (new-draft, score 0, ignored_after_review) [teas]: [YANG models for Virtual Network (VN)/TE Performance Monitoring Telemetry and Scaling Intent Autonomics](https://datatracker.ietf.org/doc/draft-ietf-teas-actn-pm-telemetry-autonomics/) — This document provides YANG data models that describe the performance
+   monitoring parameters and scaling intent mechanisms for Traffic
+   Engineering (TE) tunnels and Virtual Networks (VNs).
+
+   The models presented in this document allow customers to subscribe to
+   and monitor the key performance data of the TE-tunnel or the VN.  The
+   models also provide customers with the ability to program autonomic
+   scaling intent mechanisms on the level of TE-tunnel as well as VN.
+- **draft-ietf-v6ops-ipv6-app-testing-05** (new-draft, score 0, ignored_after_review) [v6ops]: [Testing Applications' IPv6 Support](https://datatracker.ietf.org/doc/draft-ietf-v6ops-ipv6-app-testing/) — This document provides guidance for application developers and
+   software as a service providers on how to approach IPv6 testing in
+   Dual-stack (IPv4+IPv6), and IPv6-only scenarios, including "IPv6-
+   only-strict" scenarios without any connectivity towards any relevant
+   IPv4 endpoint.  It discusses common misconceptions about the degree
+   to which operating systems and libraries can abstract IPv6 issues
+   away and explains common regressions to avoid when deploying IPv6
+   support.
+- **draft-ietf-v6ops-ipv6-only-04** (new-draft, score 0, ignored_after_review) [v6ops]: [IPv6-Only and IPv6-Mostly Terminology Definitions](https://datatracker.ietf.org/doc/draft-ietf-v6ops-ipv6-only/) — This document defines the terminology regarding the usage of
+   expressions such as "IPv6-Only" and "IPv6-Mostly", in order to avoid
+   confusions when using them in IETF and other documents.  The goal is
+   that a reference to "IPv6-Only" describes the actual functionality
+   being used in a given scope, not the installed protocol support.
+- **draft-jennings-moq-uri-00** (new-draft, score 0, ignored_after_review) [none]: [MOQT URI and Discovery](https://datatracker.ietf.org/doc/draft-jennings-moq-uri/) — This document defines the moqt URI scheme, URI resolution mechanisms,
+   and discovery methods for the Media over QUIC Transport (MOQT)
+   protocol.  It specifies the URI syntax, fragment identifiers,
+   dereferencing procedures, normalization rules, and X.509 certificate
+   matching for moqt URIs.  It also defines DNS-based resolution using
+   SVCB and SRV records, as well as local network discovery via mDNS and
+   DNS-SD.
+- **draft-kafara-walled-private-network-00** (new-draft, score 0, ignored_after_review) [none]: [Walled Private Network (WPN) Service Definition](https://datatracker.ietf.org/doc/draft-kafara-walled-private-network/) — This document specifies Walled Private Network (WPN) as a technology-
+   neutral profile for a private IP network or network service.  A
+   conforming WPN has an explicitly defined address space, explicit
+   membership, end-to-end preservation of member addresses without
+   Network Address Translation between members, and protocol-transparent
+   IP connectivity among authorized members.  A WPN does not provide
+   general-purpose Internet egress as part of the WPN service.  The
+   public Internet or another shared network may nevertheless be used as
+   an underlay.  Networks located behind individual members are outside
+   the base WPN service and may be interconnected by mechanisms
+   configured independently by those members.  The purpose of this
+   specification is to assign one unambiguous term to this complete set
+   of service properties.  It does not define a new tunneling, routing,
+   or cryptographic protocol, and use of a VPN or tunnel is not required
+   for WPN conformance.
+- **draft-knodel-nomcom-gender-representation-06** (new-draft, score 0, ignored_after_review) [none]: [Gender Representation in the IETF Nominating Committees](https://datatracker.ietf.org/doc/draft-knodel-nomcom-gender-representation/) — This document extends the existing limit on nomcom representation by
+   organization ([RFC8713], Section 4.17) so that not all voting members
+   of the IETF Nominating Committee (nomcom) belong to the same gender.
+   It guarantees up to five voting seats to volunteers who opt into a
+   self-declared pool, and changes the selection only in years when a
+   plain random draw would seat fewer.
+- **draft-kompella-teas-mpte-04** (new-draft, score 0, ignored_after_review) [none]: [Multipath Traffic Engineering](https://datatracker.ietf.org/doc/draft-kompella-teas-mpte/) — Shortest path routing offers an easy-to-understand, easy-to-implement
+   method of establishing loop-free connectivity in a network, but
+   offers few other features.  Equal-cost multipath (ECMP), a simple
+   extension, uses multiple equal-cost paths between any two points in a
+   network: at any node in a path (really, Directed Acyclic Graph),
+   traffic can be (typically equally) load-balanced among the next hops.
+   ECMP is easy to add on to shortest path routing, and offers a few
+   more features, such as resiliency and load distribution, but the
+   feature set is still quite limited.
+
+   Traffic Engineering (TE), on the other hand, offers a very rich
+   toolkit for managing traffic flows and the paths they take in a
+   network.  A TE network can have link attributes such as bandwidth,
+   colors, risk groups and alternate metrics.  A TE path can use these
+   attributes to include or avoid certain links, increase path
+   diversity, manage bandwidth reservations, improve service experience,
+   and offer protection paths.  However, TE typically doesn't offer
+   multipathing as the tunnels used to implement TE usually take a
+   single path.
+
+   This memo proposes multipath traffic-engineering (MPTE), combining
+   the best of ECMP and TE.  The multipathing proposed here need not be
+   strictly equal-cost, allowing for some "slack" to admit more paths.
+   The load balancing at each hop is optimally weighted to each next hop
+   rather than always being equally weighted.  Moreover, traffic can
+   enter and leave an MPTE construct via multiple ingresses and
+   egresses.  The proposal includes several choices of control and data
+   planes.
+- **draft-koo-dtn-traceroute-eb-02** (new-draft, score 0, ignored_after_review) [none]: [Traceroute Extension Block for Bundle Protocol Version 7](https://datatracker.ietf.org/doc/draft-koo-dtn-traceroute-eb/) — This document defines a Traceroute Extension Block (TREB) for Bundle
+   Protocol Version 7 (BPv7).  Each participating node along a bundle's
+   path appends a hop-record containing its Node ID, the node it
+   received the bundle from, the next hop it selected, the time of the
+   recorded event, and link characteristics.  The same block, copied
+   into bundle status reports, returns traceroute data to the source.
+   The mechanism is opt-in and intended for designated diagnostic
+   bundles on scheduled, bandwidth-constrained paths.  Each forwarding
+   report returns one hop-record, and the delivery report returns the
+   full recorded path and also records its own return path, giving a
+   round-trip trace.  Status report generation remains governed by RFC
+   9171.
+- **draft-lin-idr-bgpls-te-policy-pm-10** (new-draft, score 0, ignored_after_review) [idr]: [BGP-LS Advertisement of SR Policy Performance Metric](https://datatracker.ietf.org/doc/draft-lin-idr-bgpls-te-policy-pm/) — This document describes a way to advertise the performance metrics
+   for Traffic Engineering (TE) Policy using BGP Link State (BGP-LS).
+- **draft-linker-diem-adem-dns-01** (new-draft, score 0, ignored_after_review) [none]: [ADEM - Distribution and Discovery over DNS](https://datatracker.ietf.org/doc/draft-linker-diem-adem-dns/) — TODO Abstract
+- **draft-liu-idr-flowspec-ifit-05** (new-draft, score 0, ignored_after_review) [none]: [BGP Flow Specification Extensions to Enable In-situ Flow Information Telemetry (IFIT)](https://datatracker.ietf.org/doc/draft-liu-idr-flowspec-ifit/) — BGP Flowspec mechanism propogates both traffic Flow Specifications
+   and Traffic Filtering Actions by making use of the Border Gateway
+   Protocol Network Layer Reachability Information (BGP NLRI) and the
+   BGP Extended Community encoding formats.  In order to address the
+   automatic deployment of IPv4 unicast and VPNv4 unicast on-path flow
+   telemetry as well as IPv6 families, this document specifies a new BGP
+   Extended Community named IFIT Action Specific Extended Community to
+   distribute In-situ Flow Information Telemetry (IFIT) actions.
+- **draft-ma-v6ops-5g-ipv6only-05** (new-draft, score 0, ignored_after_review) [v6ops]: [Considerations of IPv6-only Deployment in 5G Mobile Networks](https://datatracker.ietf.org/doc/draft-ma-v6ops-5g-ipv6only/) — This document describes a practical guide of deploying 464XLAT based
+   IPv6-only technology on user plane in 3GPP 5G networks.  It also
+   covers key 5G concepts and architectures, configuration methods and
+   operational challenges.
+- **draft-martin-retry-over-ipv6-05** (new-draft, score 0, ignored_after_review) [none]: [HTTP Signaling of Planned IPv4 Unavailability](https://datatracker.ietf.org/doc/draft-martin-retry-over-ipv6/) — As operators transition services to IPv6-only, planned IPv4 outages
+   help identify remaining dependencies before permanent decommission.
+   Such outages must be measurable, reversible, and understandable to
+   end users.  This document defines HTTP signaling for an intentional,
+   often time-bounded IPv4 outage: the existing 503 Service Unavailable
+   status code together with the mandatory Retry-Over-IPv6 response
+   header field (and optional related fields) that instruct aware
+   clients to retry over IPv6 after closing the IPv4 connection, and
+   allow clients to confirm successful IPv6 recovery via an optional
+   correlation token so operators can distinguish soft failures from
+   hard failures in centralized logs.  Machine-readable response bodies
+   MAY use Problem Details (RFC 9457) with a registered problem type
+   URI.  The mechanism supports staged enterprise rollouts, internal
+   HTTP services, and permanent IPv6-only migration; coordinated public
+   events (for example, 6/6 drills) remain possible with advance notice.
+   The primary intended deployment is operator-controlled environments
+   where provider and users share operational responsibility.  Legacy
+   clients that do not implement this specification treat the response
+   as ordinary service unavailability and MAY use the response body for
+   human-readable guidance.
+- **draft-pignataro-icmp-enviro-info-04** (new-draft, score 0, ignored_after_review) [none]: [ICMP Extensions for Environmental Information](https://datatracker.ietf.org/doc/draft-pignataro-icmp-enviro-info/) — This document defines a data structure that can be appended to
+   selected ICMP messages.  The ICMP extension defined herein can be
+   used to gain visibility into environmental information on the
+   internet by providing per-hop (i.e., per topological network node)
+   power metrics and other present or future metrics around
+   environmental information.  This will contribute to achieving an
+   objective mentioned in the report of the IAB E-Impact workshop.
+
+   The techniques presented are useful not only in a transactional
+   setting (e.g., a user-issued traceroute or a ping request), but also
+   in a scheduled automated setting where they may be run periodically
+   in a mesh across an administrative domain to map out environmental
+   information.
+- **draft-preussmattsson-tls-hqckem-00** (new-draft, score 0, ignored_after_review) [none]: [HQC-KEM Key Agreement for TLS 1.3](https://datatracker.ietf.org/doc/draft-preussmattsson-tls-hqckem/) — This document defines nine quantum-resistant TLS 1.3 key exchange
+   algorithms based on HQC-KEM, the code-based KEM selected by NIST for
+   standardization in forthcoming FIPS 207.  Three use HQC-KEM
+   standalone, two combine it with X25519 or X448 in PQ/T hybrids, two
+   combine it with ML-KEM in PQ/PQ hybrids, and two combine it with ML-
+   KEM and X25519 or X448 in PQ/PQ/T hybrids.  Because HQC-KEM relies on
+   hardness assumptions and constructions different from those
+   underlying lattice-based ML-KEM, these algorithms provide algorithmic
+   diversity that can mitigate the impact of future cryptanalytic
+   advances or implementation weaknesses in lattice-based cryptography.
+   The algorithms are intended for TLS 1.3, DTLS 1.3, and QUIC, and the
+   hybrid algorithms follow the general hybrid key exchange construction
+   defined for TLS 1.3.
+- **draft-preussmattsson-tls-mlkem1024-x448-01** (new-draft, score 0, ignored_after_review) [none]: [Post-Quantum Hybrid ML-KEM-1024/X448 Key Agreement for TLS 1.3](https://datatracker.ietf.org/doc/draft-preussmattsson-tls-mlkem1024-x448/) — This document defines a post-quantum/traditional hybrid key exchange
+   algorithm for TLS 1.3 that combines ML-KEM-1024 with X448:
+   MLKEM1024X448.  The algorithm provides a hybrid key exchange option
+   targeting a higher security level than X25519MLKEM768, matching the
+   security level of AES-256 and ChaCha20.  A large security margin can
+   protect against future cryptanalytic advances, misuse, and
+   implementation errors.  Compared with P-curves offering a similar
+   security level, X448 is significantly faster and provides greater
+   implementation robustness.  A FIPS-validated implementation of
+   MLKEM1024X448 ensures that the ML-KEM-1024 component is FIPS-
+   validated.  The algorithm defined in this document is intended for
+   use with TLS 1.3, DTLS 1.3, and QUIC and follows the general hybrid
+   key exchange construction defined for TLS 1.3.
+- **draft-prz-lsr-ash-packets-07** (new-draft, score 0, ignored_after_review) [none]: [IS-IS Aggregated SNP Hash Packets](https://datatracker.ietf.org/doc/draft-prz-lsr-ash-packets/) — The document presents an optional new type of database
+   synchronization packet called an Aggregated SNP Hash (ASH).  When
+   feasible, it compresses traditional SNP exchanges into a dynamic
+   Merkle tree-like structure, which speeds up synchronization of large
+   databases and adjacency numbers while reducing the load from regular
+   CSNP exchanges during normal operation.  Just like CSNPs and PSNPs,
+   ASH packets come in two flavors, called Complete ASH (CASH) and
+   Partial ASH (PASH).
+- **draft-przygienda-lsr-fast-flooding-rtx-indication-00** (new-draft, score 0, ignored_after_review) [none]: [Retransmission Indication for IS-IS Fast Flooding](https://datatracker.ietf.org/doc/draft-przygienda-lsr-fast-flooding-rtx-indication/) — [RFC9681] defines a Flooding Parameters TLV.  Among other things, it
+   lets an IS-IS node advertise two values to a neighbor.  The Receive
+   Window (RWIN) bounds the number of unacknowledged Link State PDUs
+   (LSPs) the neighbor may have outstanding.  The LSPs-per-PSNP (LPP)
+   threshold triggers immediate acknowledgment.  Together they form a
+   credit-based flow-control window and an acknowledgment cadence.
+   These are the parts of [RFC9681] that are most important, most
+   useful, and most likely to be implemented at scale.  The sender-side
+   congestion-control algorithms in that document are described only as
+   optional, local choices.  No single algorithm is mandatory.
+
+   A credit-based window alone does not signal congestion.  As long as
+   acknowledgments keep freeing credit, a sender may keep refilling the
+   window up to RWIN.  It does so even while it is actively
+   retransmitting LSPs on that adjacency.  Without an explicit,
+   mandatory-to-implement reaction to observed retransmission, fast
+   flooding at scale can degenerate into sustained retransmission storms
+   that serve only to keep the window full.
+
+   This document specifies a local backoff.  A node SHOULD reduce the
+   effective outstanding-LSP ceiling it uses against a neighbor's
+   advertised RWIN by a meaningful fraction.  The trigger is a count of
+   LSP retransmissions generated toward that neighbor within a trailing
+   time window exceeding a threshold.  This backoff applies
+   unconditionally.  It does not depend on whether the condition is
+   signaled to the neighbor, or understood by it.
+
+   This document also defines a lightweight Retransmission (RTX)
+   indication.  It is a new flag in the existing Flags sub-TLV of the
+   Flooding Parameters TLV.  A node advertises it to a neighbor while it
+   is retransmitting LSPs toward that neighbor.  The flag reports only
+   the advertising node's own retransmissions, that is, its own
+   congestion.  A node never sets it in reaction to a neighbor's flag.
+   The flag lets the neighbor adjust its own advertised RWIN in turn.
+   The adjacency then converges toward a stable operating point at the
+   highest speed it can sustain.  Neither side needs prior knowledge of
+   the other's characteristics or of the link.
+
+   This document further clarifies how concurrent versions of the same
+   LSP fragment are counted against RWIN, LPP, and the retransmission
+   threshold.  [RFC9681] leaves that case undefined, and it arises
+   routinely at fast flooding rates.
+- **draft-rsalz-4086bis-01** (new-draft, score 0, ignored_after_review) [none]: [On Random Numbers](https://datatracker.ietf.org/doc/draft-rsalz-4086bis/) — Things have changed a great deal in the two decades since RFC 4086,
+   "Randomness Requirements for Security," was published.  Notably,
+   facilities to generate high-quality random numbers are widely
+   available on most common computing platforms.
+
+   While RFC 4086 provides much information to those implementing such a
+   facility, this document takes a different approach, encouraging
+   implementors to use facilities already available to them.
+- **draft-seemann-quic-nat-traversal-03** (new-draft, score 0, ignored_after_review) [none]: [Using QUIC to traverse NATs](https://datatracker.ietf.org/doc/draft-seemann-quic-nat-traversal/) — This document specifies a QUIC extension for traversing Network
+   Address Translators (NATs).  Endpoints use an existing proxied QUIC
+   connection to coordinate path validation attempts that create the NAT
+   bindings needed for a direct path and test its connectivity.
+   Application data can be exchanged over the proxied path while NAT
+   traversal is in progress.  Once a suitable direct path has been
+   validated, the connection can migrate to it.
+- **draft-sharma-moq-end-to-end-delivery-timeout-00** (new-draft, score 0, ignored_after_review) [none]: [End-to-End Delivery Timeouts for MOQT](https://datatracker.ietf.org/doc/draft-sharma-moq-end-to-end-delivery-timeout/) — This document defines an end-to-end Object delivery timeout for Media
+   over QUIC Transport (MOQT).  It uses Object timestamps to include
+   delay accumulated across a chain of relays instead of restarting the
+   timeout at each hop.
+- **draft-skoglund-epp-registry-lock-01** (new-draft, score 0, ignored_after_review) [none]: [Registry Lock Extension for the Extensible Provisioning Protocol (EPP)](https://datatracker.ietf.org/doc/draft-skoglund-epp-registry-lock/) — This document describes an Extensible Provisioning Protocol (EPP)
+   extension for setting and managing a registry lock on a domain
+   object.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-skoglund-epp-registry-lock/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/EricIO/draft-regext-epp-registry-lock.
+- **draft-soumplis-nmop-kpi-semantics-00** (new-draft, score 0, ignored_after_review) [none]: [Operational KPI Semantics for Closed-Loop Edge-Cloud Services](https://datatracker.ietf.org/doc/draft-soumplis-nmop-kpi-semantics/) — Closed-loop management of IP-connected edge-cloud services depends on
+   measurements that retain their meaning across collectors, processing
+   pipelines, and administrative domains.  A metric name and numeric
+   value are insufficient to determine whether a measurement can be
+   compared, combined, or used at a particular decision time.  This
+   document proposes a compact operational profile connecting KPI
+   definitions to observation scope, statistical populations, time
+   windows, freshness, and data-quality evidence.  It supplies
+   calculation conventions for five KPI families, a consumer eligibility
+   procedure, and worked examples.  The profile is intended to
+   complement existing telemetry and metric-definition mechanisms.  It
+   introduces no transport protocol, YANG module, or IANA registration.
+- **draft-tishkin-hmtp-00** (new-draft, score 0, ignored_after_review) [none]: [HTTP Mail Transfer Protocol](https://datatracker.ietf.org/doc/draft-tishkin-hmtp/) — This document specifies the HTTP Mail Transfer Protocol (HMTP), a
+   protocol for the submission and transfer of Internet mail over HTTPS.
+   HMTP covers both the submission of messages by clients to their mail
+   service and the transfer of messages between mail servers.  Each
+   message is carried unmodified in the existing Internet Message Format
+   inside a JSON envelope that holds the information needed for
+   delivery.  Large messages and attachments can be transferred by
+   reference, with their integrity protected by cryptographic hashes.
+   Requests are authenticated by signatures bound to the sending domain,
+   using keys published with the DomainKeys Identified Mail (DKIM) key
+   publication mechanism, which allows receivers to identify senders
+   independently of their IP addresses.  Servers discover HMTP endpoints
+   through DNS.  To allow incremental deployment alongside existing mail
+   infrastructure, a server can optionally fall back to the Simple Mail
+   Transfer Protocol (SMTP) when a peer does not support HMTP.
+- **draft-watts-hagth-framework-00** (new-draft, score 0, ignored_after_review) [none]: [Human-Accelerated Geophysical Threshold Framework](https://datatracker.ietf.org/doc/draft-watts-hagth-framework/) — This document defines an informational research framework for
+   describing anthropogenic perturbations that alter the timing,
+   probability, coupling, or consequence of threshold transitions in
+   geophysical systems without requiring anthropogenic dominance of the
+   system's primary energy source.
+- **draft-westerbaan-tls-keyshare-recommendations-03** (new-draft, score 0, ignored_after_review) [none]: [Updated Recommendations for TLS Key Shares](https://datatracker.ietf.org/doc/draft-westerbaan-tls-keyshare-recommendations/) — This document updates the TLS Supported Groups registry (previously
+   EC Named Curve Registry) in the light of the future arrival of
+   cryptographically relevant quantum computers: it removes the
+   Recommended status from non-post-quantum key shares.
+
+   [[ NOTE We use key share in the title and here as it's more accurate
+   than "group" and perhaps more well known in the context TLS than key
+   agreement or key exchange. ]]
+- **draft-wkumari-not-a-draft-26** (new-draft, score 0, ignored_after_review) [none]: [Just because it's an Internet-Draft doesn't mean anything... at all...](https://datatracker.ietf.org/doc/draft-wkumari-not-a-draft/) — Anyone can publish an Internet Draft (ID).  This doesn't mean that
+   the "IETF thinks" or that "the IETF is planning..." or anything
+   similar.
+- **draft-wu-idr-flowspec-dip-community-filter-04** (new-draft, score 0, ignored_after_review) [none]: [Destination-IP-Community Filter for BGP Flow Specification](https://datatracker.ietf.org/doc/draft-wu-idr-flowspec-dip-community-filter/) — The BGP Flow Specification (BGP-FS) mechanism propagates both traffic
+   Flow Specifications and Traffic Filtering Actions using the BGP NLRI
+   and Extended Community encoding formats.  This document specifies a
+   new BGP-FS component type to support community-level filtering.  The
+   match condition evaluates the BGP Community attribute associated with
+   the destination IP address encoded in the Flowspec NLRI.  This
+   mechanism is intended for deployment within a single administrative
+   domain.
+- **draft-xiao-ippm-ioam-trace-extensions-04** (new-draft, score 0, ignored_after_review) [none]: [Extensions to IOAM Trace Option for Carrying Fixed-Size Data](https://datatracker.ietf.org/doc/draft-xiao-ippm-ioam-trace-extensions/) — In situ Operations, Administration, and Maintenance (IOAM) Trace-
+   Option data defined in RFC 9197 is a variable-length data, the length
+   of this kind of data varies with the number of transited IOAM-capable
+   nodes and the selection of data fields processed by each IOAM-capable
+   node.  This document extends the IOAM Trace Option to carry a fixed-
+   size data, the length of this kind of data is fixed once the
+   selection of data fields processed by each IOAM-capable node is
+   determined, and doesn't vary with the number of transited IOAM-
+   capable nodes.
+- **draft-xiao-v6ops-eds-02** (new-draft, score 0, ignored_after_review) [none]: [Enhanced Dual Stack: Connectivity-Informed IPv6/IPv4 Selection](https://datatracker.ietf.org/doc/draft-xiao-v6ops-eds/) — This document describes Enhanced Dual Stack (EDS), a framework
+   intended to reduce the operational risk and upfront workload of
+   introducing IPv6 into an existing IPv4 network.  EDS consists of two
+   complementary mechanisms.  First, connectivity-informed destination
+   selection updates Rule 6 of RFC 6724 Section 6 from "Prefer higher
+   precedence" to "Prefer higher precedence unless recently failed", so
+   that recently failed IPv6 connectivity is not repeatedly preferred
+   over IPv4.  Second, operational diagnostics provide information that
+   helps network administrators understand why IPv6 was not used and
+   identify problems that can be corrected over time.  With these
+   mechanisms, IPv6 deployment can move from extensive upfront
+   validation toward practical upfront validation followed by gradual
+   operational improvement.  This simpler IPv6 introduction approach can
+   enable enterprises that do not have much IPv6 expertise and do not
+   need a large number of IP addresses provided by IPv6 to try IPv6.
+- **draft-yuki-ossification-cases-00** (new-draft, score 0, ignored_after_review) [none]: [Cases of Protocol Ossification on the Internet](https://datatracker.ietf.org/doc/draft-yuki-ossification-cases/) — This document catalogues cases of protocol ossification.  Protocol
+   ossification is a phenomenon in which a new protocol, version, or
+   extension cannot traverse an existing Internet path; such problems
+   have been discovered and reported during protocol standardization and
+   deployment.
+
+   This document summarizes the reported observations and sources for
+   those cases, together with case-specific responses.
+
+## Errors / fetch failures
+
+_None._
